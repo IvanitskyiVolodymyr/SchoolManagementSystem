@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[CommentsAttachments] (
-    [CommentAttachementId] INT            NOT NULL,
+    [CommentAttachementId] INT IDENTITY NOT NULL,
     [FileUrl]              NVARCHAR (255) NOT NULL,
     [TaskCommentId]        INT            NOT NULL,
     CONSTRAINT [PK_CommentAttachment] PRIMARY KEY CLUSTERED ([CommentAttachementId] ASC),

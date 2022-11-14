@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[Parents] (
-    [ParentId] INT NOT NULL,
+    [ParentId] INT IDENTITY NOT NULL,
     [UserId]   INT NOT NULL,
     CONSTRAINT [PK_Parent] PRIMARY KEY CLUSTERED ([ParentId] ASC),
     CONSTRAINT [FK_Parent_User] FOREIGN KEY ([UserId]) REFERENCES [school].[Users] ([UserId])

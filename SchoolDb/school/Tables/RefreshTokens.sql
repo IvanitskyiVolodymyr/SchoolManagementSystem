@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[RefreshTokens] (
-    [RehreshTokenId] INT           NOT NULL,
+    [RehreshTokenId] INT IDENTITY NOT NULL,
     [Token]          NVARCHAR (60) NOT NULL,
     [UserId]         INT           NOT NULL,
     [Expires]        DATETIME      NOT NULL,

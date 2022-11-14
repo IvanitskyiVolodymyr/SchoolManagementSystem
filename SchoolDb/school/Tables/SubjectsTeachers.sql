@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[SubjectsTeachers] (
-    [SubjectTeacherId] INT NOT NULL,
+    [SubjectTeacherId] INT IDENTITY NOT NULL,
     [SubjectId]        INT NOT NULL,
     [TeacherId]        INT NOT NULL,
     CONSTRAINT [PK_SubjectTeacher] PRIMARY KEY CLUSTERED ([SubjectTeacherId] ASC),

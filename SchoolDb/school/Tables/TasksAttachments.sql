@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[TasksAttachments] (
-    [TaskAttachmentId] INT            NOT NULL,
+    [TaskAttachmentId] INT IDENTITY NOT NULL,
     [FIleUrl]          NVARCHAR (255) NOT NULL,
     [TaskId]           INT            NOT NULL,
     CONSTRAINT [PK_TaskAttachment] PRIMARY KEY CLUSTERED ([TaskAttachmentId] ASC),
