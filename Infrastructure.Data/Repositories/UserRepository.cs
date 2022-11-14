@@ -33,7 +33,6 @@ namespace Infrastructure.Data.Repositories
             _db.SaveData("dbo.spUser_Insert",
                 new
                 {
-                    user.UserId,
                     user.FirstName,
                     user.RoleId,
                     user.MiddleName,

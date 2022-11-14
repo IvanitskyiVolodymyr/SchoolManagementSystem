@@ -1,5 +1,4 @@
 ﻿CREATE PROCEDURE [dbo].[spUser_Insert]
-	@UserId INT,
     @FirstName NVARCHAR (20),
     @RoleId INT,
     @MiddleName NVARCHAR (20),
@@ -15,7 +14,7 @@
 AS
 BEGIN
     INSERT INTO school.Users
-    (UserId,
+    (
     FirstName,
     RoleId,
     MiddleName,
@@ -29,8 +28,7 @@ BEGIN
     JoinDate,
     AvatarUrl)
     VALUES
-    (@UserId,
-    @FirstName,
+    (@FirstName,
     @RoleId,
     @MiddleName,
     @LastName,
