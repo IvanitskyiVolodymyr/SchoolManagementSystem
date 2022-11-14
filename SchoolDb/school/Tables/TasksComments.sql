@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[TasksComments] (
-    [TaskCommentId] INT            NOT NULL,
+    [TaskCommentId] INT IDENTITY NOT NULL,
     [TaskId]        INT            NOT NULL,
     [Comment]       NVARCHAR (255) NOT NULL,
     CONSTRAINT [PK_TaskComment] PRIMARY KEY CLUSTERED ([TaskCommentId] ASC),

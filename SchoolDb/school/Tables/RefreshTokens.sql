@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [school].[RefreshTokens] (
-    [RehreshTokenId] INT           NOT NULL,
+    [RefreshTokenId] INT IDENTITY NOT NULL,
     [Token]          NVARCHAR (60) NOT NULL,
     [UserId]         INT           NOT NULL,
     [Expires]        DATETIME      NOT NULL,
-    CONSTRAINT [PK_RefreshToken] PRIMARY KEY CLUSTERED ([RehreshTokenId] ASC),
+    CONSTRAINT [PK_RefreshToken] PRIMARY KEY CLUSTERED ([RefreshTokenId] ASC),
     CONSTRAINT [FK_RefreshToken_User] FOREIGN KEY ([UserId]) REFERENCES [school].[Users] ([UserId])
 );
 

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[Attendances] (
-    [AttendanceId] INT NOT NULL,
+    [AttendanceId] INT IDENTITY NOT NULL,
     [ScheduleId]   INT NOT NULL,
     [StudentId]    INT NOT NULL,
     [Status]       BIT NOT NULL,

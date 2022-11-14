@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[StudentsParents] (
-    [StudentParentId] INT NOT NULL,
+    [StudentParentId] INT IDENTITY NOT NULL,
     [StudentId]       INT NOT NULL,
     [ParentId]        INT NOT NULL,
     CONSTRAINT [PK_3] PRIMARY KEY CLUSTERED ([StudentParentId] ASC),

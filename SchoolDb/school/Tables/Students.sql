@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [school].[Students] (
-    [StudentId]   INT NOT NULL,
+    [StudentId]   INT IDENTITY NOT NULL,
     [UserId]      INT NOT NULL,
     [ClassId]     INT NOT NULL,
-    [StudentCode] INT NOT NULL,
+    [StudentCode] INT NULL,
     CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED ([StudentId] ASC),
     CONSTRAINT [FK_Student_Class] FOREIGN KEY ([ClassId]) REFERENCES [school].[Classes] ([ClassId]),
     CONSTRAINT [FK_Student_User] FOREIGN KEY ([UserId]) REFERENCES [school].[Users] ([UserId])

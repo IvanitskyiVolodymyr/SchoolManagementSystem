@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="0afebde1-9f44-4706-bde3-e7f01471bbdf" ChangeDateTime="11/14/2022 12:56:11">
+    <Property Name="ElementName" Value="[school].[TasksAttachments].[FIleUrl]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[school].[TasksAttachments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FileUrl]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ca47e606-65fc-4057-ae94-5281cca2f840" ChangeDateTime="11/14/2022 12:57:15">
+    <Property Name="ElementName" Value="[school].[RefreshTokens].[RehreshTokenId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[school].[RefreshTokens]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RefreshTokenId]" />
+  </Operation>
+</Operations>

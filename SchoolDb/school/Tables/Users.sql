@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [school].[Users] (
-    [UserId]       INT            NOT NULL,
+    [UserId]       INT     IDENTITY       NOT NULL,
     [FirstName]    NVARCHAR (20)  NOT NULL,
     [RoleId]       INT            NOT NULL,
     [MiddleName]   NVARCHAR (20)  NOT NULL,
@@ -10,8 +10,8 @@
     [Address]      NVARCHAR (100) NOT NULL,
     [PasswordSalt] NVARCHAR (100) NOT NULL,
     [BirthDate]    DATE           NOT NULL,
-    [JoinDate]     DATE           NOT NULL,
-    [AvatarUrl]    NVARCHAR (255) NOT NULL,
+    [JoinDate]     DATE           NOT NULL, 
+    [AvatarUrl]    NVARCHAR (255) NULL,
     CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([UserId] ASC),
     CONSTRAINT [FK_User_Role] FOREIGN KEY ([RoleId]) REFERENCES [school].[Roles] ([RoleId])
 );
