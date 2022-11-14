@@ -87,6 +87,7 @@
     <Build Include="school\StoredProcedures\spUser_Update.sql" />
     <Build Include="school\StoredProcedures\spUser_GetById.sql" />
     <Build Include="school\StoredProcedures\spUser_Delete.sql" />
+    <Build Include="school\StoredProcedures\spUser_GetAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
