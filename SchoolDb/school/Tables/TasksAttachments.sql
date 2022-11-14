@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [school].[TasksAttachments] (
     [TaskAttachmentId] INT IDENTITY NOT NULL,
-    [FIleUrl]          NVARCHAR (255) NOT NULL,
+    [FileUrl]          NVARCHAR (255) NOT NULL,
     [TaskId]           INT            NOT NULL,
     CONSTRAINT [PK_TaskAttachment] PRIMARY KEY CLUSTERED ([TaskAttachmentId] ASC),
     CONSTRAINT [FK_TaskAttachment_Task] FOREIGN KEY ([TaskId]) REFERENCES [school].[Tasks] ([TaskId])

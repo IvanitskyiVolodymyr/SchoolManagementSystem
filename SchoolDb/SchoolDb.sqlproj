@@ -92,4 +92,7 @@
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SchoolDb.refactorlog" />
+  </ItemGroup>
 </Project>
