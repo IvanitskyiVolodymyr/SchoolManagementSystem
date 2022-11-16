@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spUser_GetByEmail]
-	@Email int
+	@Email NVARCHAR(50)
 AS
 BEGIN
 	SELECT * FROM school.Users
