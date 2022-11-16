@@ -26,17 +26,18 @@ namespace Infrastructure.Data.DataAccess
                 commandType: CommandType.StoredProcedure);
         }
 
-        public async Task SaveData<T>(
+        public async Task<int> SaveData<T>(
             string storedProcedure,
             T parameters,
             string connectionName = "SchoolManagementSystem")
         {
             using IDbConnection dbConnection = new SqlConnection(_configuration.GetConnectionString(connectionName));
 
-            await dbConnection.ExecuteAsync(
+            return await dbConnection.ExecuteScalarAsync<int>(
                 storedProcedure,
                 parameters,
                 commandType: CommandType.StoredProcedure);
+
         }
     }
 }

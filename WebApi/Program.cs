@@ -1,4 +1,6 @@
-using Domain.Core.Models;
+using Application.Interfaces;
+using Application.Services;
+using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data.DataAccess;
 using Infrastructure.Data.Repositories;
@@ -13,6 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<ITokenService, JwtService>();
 
 var app = builder.Build();
 
