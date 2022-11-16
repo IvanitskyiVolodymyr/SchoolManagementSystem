@@ -12,7 +12,7 @@
     [BirthDate]    DATE           NOT NULL,
     [JoinDate]     DATE           NOT NULL, 
     [AvatarUrl]    NVARCHAR (255) NULL,
-    [PasswordHash] NVARCHAR(100) NOT NULL, 
+    [PasswordHash] NVARCHAR(100) NOT NULL DEFAULT '', 
     CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([UserId] ASC),
     CONSTRAINT [FK_User_Role] FOREIGN KEY ([RoleId]) REFERENCES [school].[Roles] ([RoleId])
 );
