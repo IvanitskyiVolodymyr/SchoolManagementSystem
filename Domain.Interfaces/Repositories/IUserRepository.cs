@@ -1,4 +1,4 @@
-﻿using Domain.Core.Models;
+﻿using Domain.Core.Entities;
 
 namespace Domain.Interfaces.Repositories
 {
@@ -6,8 +6,9 @@ namespace Domain.Interfaces.Repositories
     {
         Task DeleteUser(int id);
         Task<User?> GetUserById(int id);
+        Task<User?> GetUserByEmail(string email);
         Task<IEnumerable<User>> GetUsers();
-        Task InsertUser(User user);
-        Task UpdateUser(User user);
+        Task<int> InsertUser(User user);
+        Task<int> UpdateUser(User user);
     }
 }

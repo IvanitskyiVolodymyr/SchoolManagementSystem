@@ -1,4 +1,4 @@
-﻿using Domain.Core.Models;
+﻿using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data.DataAccess;
 
@@ -29,8 +29,9 @@ namespace Infrastructure.Data.Repositories
             return results.FirstOrDefault();
         }
 
-        public Task InsertUser(User user) =>
-            _db.SaveData("dbo.spUser_Insert",
+        public async Task<int> InsertUser(User user)
+        {
+            return await _db.SaveData("dbo.spUser_Insert",
                 new
                 {
                     user.FirstName,
@@ -42,15 +43,28 @@ namespace Infrastructure.Data.Repositories
                     user.Email,
                     user.Address,
                     user.PasswordSalt,
+                    user.PasswordHash,
                     user.BirthDate,
                     user.JoinDate,
                     user.AvatarUrl
                 });
+        }
 
-        public Task UpdateUser(User user) =>
-            _db.SaveData("dbo.spUser_Update", user);
+        public async Task<int> UpdateUser(User user)
+        {
+            return await _db.SaveData("dbo.spUser_Update", user);
+        }
 
-        public Task DeleteUser(int id) =>
-            _db.SaveData("dbo.spUser_Delete", new { UserId = id });
+        public async Task DeleteUser(int id) =>
+            await _db.SaveData("dbo.spUser_Delete", new { UserId = id });
+
+        public async Task<User?> GetUserByEmail(string email)
+        {
+            var results = await _db.LoadData<User, dynamic>(
+                "dbo.spUser_GetByEmail",
+                new { Email = email });
+
+            return results.FirstOrDefault();
+        }
     }
 }

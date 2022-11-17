@@ -9,6 +9,7 @@
     @Email NVARCHAR (20),
     @Address NVARCHAR (100),
     @PasswordSalt NVARCHAR (100),
+    @PasswordHash NVARCHAR (100),
     @BirthDate DATE,
     @JoinDate DATE,
     @AvatarUrl NVARCHAR (255)
@@ -25,6 +26,7 @@ BEGIN
     Email = @Email,
     Address = @Address,
     PasswordSalt = @PasswordSalt,
+    PasswordHash = @PasswordHash,
     BirthDate = @BirthDate,
     JoinDate = @JoinDate,
     AvatarUrl = @AvatarUrl

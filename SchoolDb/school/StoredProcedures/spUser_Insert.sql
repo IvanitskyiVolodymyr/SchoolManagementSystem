@@ -8,6 +8,7 @@
     @Email NVARCHAR (20),
     @Address NVARCHAR (100),
     @PasswordSalt NVARCHAR (100),
+    @PasswordHash NVARCHAR (100),
     @BirthDate DATE,
     @JoinDate DATE,
     @AvatarUrl NVARCHAR (255)
@@ -24,9 +25,11 @@ BEGIN
     Email,
     Address,
     PasswordSalt,
+    PasswordHash,
     BirthDate,
     JoinDate,
     AvatarUrl)
+    OUTPUT INSERTED.UserId
     VALUES
     (@FirstName,
     @RoleId,
@@ -37,6 +40,7 @@ BEGIN
     @Email,
     @Address,
     @PasswordSalt,
+    @PasswordHash,
     @BirthDate,
     @JoinDate,
     @AvatarUrl);
