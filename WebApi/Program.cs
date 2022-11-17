@@ -1,9 +1,9 @@
 using Application.Interfaces;
 using Application.Services;
-using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data.DataAccess;
 using Infrastructure.Data.Repositories;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +18,14 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<ITokenService, JwtService>();
+
+//auto config
+var mapperConfig = new MapperConfiguration(cfg => {
+    cfg.AddMaps(System.Reflection.Assembly.GetAssembly(typeof(Application.Application)));
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using Application.Auth.Dtos;
 using Application.Interfaces;
+using AutoMapper;
 using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 
@@ -11,12 +12,14 @@ namespace Application.Services
         private readonly IPasswordHasher _passwordHasher;
         private readonly string _passwordHashPepper;
         private readonly int _passwordHashCountOfIterations;
-        public AuthService(IPasswordHasher passwordHasher, IUserRepository userRepository)
+        private readonly IMapper _mapper;
+        public AuthService(IPasswordHasher passwordHasher, IUserRepository userRepository, IMapper mapper)
         {
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
             _passwordHashPepper = "secretText";
             _passwordHashCountOfIterations = 4;
+            _mapper = mapper;
         }
         public async Task<UserDto> Login(LoginDto userDto)
         {
@@ -38,40 +41,13 @@ namespace Application.Services
                 throw new Exception("Username or password did not match.");
             }
 
-            //Add mapper
-            return new UserDto()
-            {
-                UserId = userEntity.UserId,
-                FirstName = userEntity.FirstName,
-                MiddleName = userEntity.MiddleName,
-                LastName = userEntity.LastName,
-                Address = userEntity.Address,
-                Gender = userEntity.Gender,
-                JoinDate = userEntity.JoinDate,
-                BirthDate = userEntity.BirthDate,
-                Email = userEntity.Email,
-                PhoneNumber = userEntity.PhoneNumber,
-                RoleId = userEntity.RoleId,
-                AvatarUrl = userEntity.AvatarUrl
-            };
+            return _mapper.Map<UserDto>(userEntity);
         }
 
         public async Task<UserDto> Register(RegisterDto userDto)
         {
-            //Add maper
-            User user = new User()
-            {
-                FirstName = userDto.FirstName,
-                MiddleName = userDto.MiddleName,
-                LastName = userDto.LastName,
-                Email = userDto.Email,
-                Address = userDto.Address,
-                PhoneNumber = userDto.PhoneNumber,
-                BirthDate = userDto.BirthDate,
-                JoinDate = userDto.JoinDate,
-                Gender = userDto.Gender,
-                RoleId = userDto.RoleId
-            };
+            User user = _mapper.Map<User>(userDto);
+
             user.PasswordSalt = _passwordHasher.GenerateSalt();
             user.PasswordHash = _passwordHasher.CalculateHash(userDto.Password,
                                                               user.PasswordSalt,
@@ -82,22 +58,7 @@ namespace Application.Services
 
             var userEntity = await _userRepository.GetUserById(id);
 
-            //Add mapper
-            return new UserDto()
-            {
-                UserId = userEntity.UserId,
-                FirstName = userEntity.FirstName,
-                MiddleName = userEntity.MiddleName,
-                LastName = userEntity.LastName,
-                Address = userEntity.Address,
-                Gender = userEntity.Gender,
-                JoinDate = userEntity.JoinDate,
-                BirthDate = userEntity.BirthDate,
-                Email = userEntity.Email,
-                PhoneNumber = userEntity.PhoneNumber,
-                RoleId = userEntity.RoleId,
-                AvatarUrl = userEntity.AvatarUrl
-            };
+            return _mapper.Map<UserDto>(userEntity);
         }
     }
 }
