@@ -3,6 +3,7 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace Application.Services
 {
@@ -13,15 +14,21 @@ namespace Application.Services
         private readonly string _passwordHashPepper;
         private readonly int _passwordHashCountOfIterations;
         private readonly IMapper _mapper;
-        public AuthService(IPasswordHasher passwordHasher, IUserRepository userRepository, IMapper mapper)
+        private readonly ITokenService _tokenService;
+        public AuthService(IPasswordHasher passwordHasher,
+                           IUserRepository userRepository,
+                           IMapper mapper,
+                           IConfiguration configuration,
+                           ITokenService tokenService)
         {
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
-            _passwordHashPepper = "secretText";
-            _passwordHashCountOfIterations = 4;
+            _passwordHashPepper = configuration.GetSection("PasswordConfig")["hashPepper"];
+            _passwordHashCountOfIterations = Convert.ToInt32(configuration.GetSection("PasswordConfig")["countOfIterations"]);
             _mapper = mapper;
+            _tokenService = tokenService;
         }
-        public async Task<UserDto> Login(LoginDto userDto)
+        public async Task<AuthUserDto> Login(LoginDto userDto)
         {
             var userEntity = await _userRepository.GetUserByEmail(userDto.Email);
 
@@ -41,7 +48,11 @@ namespace Application.Services
                 throw new Exception("Username or password did not match.");
             }
 
-            return _mapper.Map<UserDto>(userEntity);
+            return new AuthUserDto
+            {
+                User = _mapper.Map<UserDto>(userEntity),
+                AccessToken = await _tokenService.GenerateJsonWebToken(userEntity)
+            };
         }
 
         public async Task<UserDto> Register(RegisterDto userDto)
