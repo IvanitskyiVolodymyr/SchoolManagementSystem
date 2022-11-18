@@ -1,5 +1,6 @@
-﻿using Domain.Core.Models;
+﻿using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -15,11 +16,12 @@ namespace WebApi.Controllers
             _userRepository = userRepository;
         }
 
+        [Authorize]
         [HttpGet("GetUserById")]
-        public async Task<User> UserInfo(int userId)
+        public async Task<ActionResult<User>> UserInfo(int userId)
         {
             var user = await _userRepository.GetUserById(userId);
-            return user;
+            return Ok(user);
         }
 
         [HttpPost("CreateUser")]
