@@ -1,4 +1,5 @@
 ﻿using Application.Auth.Dtos;
+using Application.Auth.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Core.Entities;
@@ -13,20 +14,25 @@ namespace Application.Services
         private readonly IPasswordHasher _passwordHasher;
         private readonly string _passwordHashPepper;
         private readonly int _passwordHashCountOfIterations;
+        private readonly int _refreshTokenExpirationInDays;
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
         public AuthService(IPasswordHasher passwordHasher,
                            IUserRepository userRepository,
                            IMapper mapper,
                            IConfiguration configuration,
-                           ITokenService tokenService)
+                           ITokenService tokenService,
+                           IRefreshTokenRepository refreshTokenRepository)
         {
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
             _passwordHashPepper = configuration.GetSection("PasswordConfig")["hashPepper"];
             _passwordHashCountOfIterations = Convert.ToInt32(configuration.GetSection("PasswordConfig")["countOfIterations"]);
+            _refreshTokenExpirationInDays = Convert.ToInt32(configuration.GetSection("JwtConfig")["refreshTokenExpiresInDays"]);
             _mapper = mapper;
             _tokenService = tokenService;
+            _refreshTokenRepository = refreshTokenRepository;
         }
         public async Task<AuthUserDto> Login(LoginDto userDto)
         {
@@ -48,11 +54,7 @@ namespace Application.Services
                 throw new Exception("Username or password did not match.");
             }
 
-            return new AuthUserDto
-            {
-                User = _mapper.Map<UserDto>(userEntity),
-                AccessToken = await _tokenService.GenerateJsonWebToken(userEntity)
-            };
+            return await CreateAuthUser(userEntity);
         }
 
         public async Task<UserDto> Register(RegisterDto userDto)
@@ -70,6 +72,75 @@ namespace Application.Services
             var userEntity = await _userRepository.GetUserById(id);
 
             return _mapper.Map<UserDto>(userEntity);
+        }
+
+        public async Task<AuthUserDto> RefreshToken(TokenModel token)
+        {
+            int userId = _tokenService.GetUserIdFromToken(token.AccessToken);
+
+            var user = await _userRepository.GetUserById(userId);
+
+            if(user is null)
+            {
+                //Create custom exception
+                throw new Exception("User not found");
+            }
+
+            var refreshToken = await _refreshTokenRepository.GetRefreshToken(token.RefreshToken);
+
+            if(refreshToken is null)
+            {
+                throw new InvalidRefreshTokenException();
+            }
+
+            if(DateTime.UtcNow >= refreshToken.Expires)
+            {
+                await _refreshTokenRepository.DeleteRefreshToken(refreshToken.RefreshTokenId);
+
+                throw new ExpiredRefreshTokenException();
+            }
+
+            return await CreateAuthUser(user);
+        }
+
+        public async Task RevokeRefreshToken(string token)
+        {
+            var refreshToken = await _refreshTokenRepository.GetRefreshToken(token);
+
+            if (refreshToken is null)
+            {
+                throw new InvalidRefreshTokenException();
+            }
+
+            await _refreshTokenRepository.DeleteRefreshToken(refreshToken.RefreshTokenId);
+        }
+
+        private async Task<AuthUserDto> CreateAuthUser(User user)
+        {
+            return new AuthUserDto
+            {
+                User = _mapper.Map<UserDto>(user),
+                Tokens = await GenerateTokens(user)
+            };
+        }
+
+        private async Task<TokenModel> GenerateTokens(User user)
+        {
+            string refreshToken = _tokenService.GenerateRefreshToken();
+
+            await _refreshTokenRepository.InsertRefreshToken(
+                new RefreshToken
+                {
+                    Token = refreshToken,
+                    UserId = user.UserId,
+                    Expires = DateTime.UtcNow.AddDays(_refreshTokenExpirationInDays)
+                });
+
+            return new TokenModel
+            {
+                AccessToken = await _tokenService.GenerateJsonWebToken(user),
+                RefreshToken = refreshToken
+            };
         }
     }
 }

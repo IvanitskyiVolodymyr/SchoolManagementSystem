@@ -62,6 +62,7 @@
     <Folder Include="school\Tables\" />
     <Folder Include="Security\" />
     <Folder Include="school\StoredProcedures" />
+    <Folder Include="school\StoredProcedures\RefreshToken" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -89,6 +90,9 @@
     <Build Include="school\StoredProcedures\spUser_Delete.sql" />
     <Build Include="school\StoredProcedures\spUser_GetAll.sql" />
     <Build Include="school\StoredProcedures\spUser_GetByEmail.sql" />
+    <Build Include="school\StoredProcedures\RefreshToken\spRefreshToken_Insert.sql" />
+    <Build Include="school\StoredProcedures\RefreshToken\spRefreshToken_Delete.sql" />
+    <Build Include="school\StoredProcedures\RefreshToken\spRefreshToken_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

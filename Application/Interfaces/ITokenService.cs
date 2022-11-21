@@ -1,10 +1,13 @@
-﻿using Domain.Core.Entities;
+﻿using Application.Auth.Dtos;
+using Domain.Core.Entities;
 
 namespace Application.Interfaces
 {
     public interface ITokenService
     {
         Task<string> GenerateJsonWebToken(User user);
-        Task<string> GenerateRefreshToken(string accessToken);
+        string GenerateRefreshToken();
+
+        int GetUserIdFromToken(string accessToken);
     }
 }
