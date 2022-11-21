@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [school].[RefreshTokens] (
     [RefreshTokenId] INT IDENTITY NOT NULL,
-    [Token]          NVARCHAR (60) NOT NULL,
+    [Token]          NVARCHAR (100) NOT NULL,
     [UserId]         INT           NOT NULL,
     [Expires]        DATETIME      NOT NULL,
     CONSTRAINT [PK_RefreshToken] PRIMARY KEY CLUSTERED ([RefreshTokenId] ASC),

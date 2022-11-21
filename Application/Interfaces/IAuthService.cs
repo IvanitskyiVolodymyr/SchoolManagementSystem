@@ -6,5 +6,7 @@ namespace Application.Interfaces
     {
         public Task<UserDto> Register(RegisterDto user);
         public Task<AuthUserDto> Login(LoginDto user);
+        public Task<AuthUserDto> RefreshToken(TokenModel token);
+        public Task RevokeRefreshToken(string refreshToken);
     }
 }

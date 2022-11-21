@@ -1,14 +1,12 @@
 using Application;
-using Domain.Interfaces.Repositories;
-using Infrastructure.Data.DataAccess;
-using Infrastructure.Data.Repositories;
+using Infrastructure.Data;
 using WebApi.Extentions;
 using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<ISqlDataAccess, SqlDataAccess>();
+builder.Services.RegisterInfrastructureServices();
 
 //Register ApplicationServices
 builder.Services.RegisterApplicationServices();
@@ -17,10 +15,9 @@ builder.Services.RegisterApplicationServices();
 builder.Services.ConfigureMapping();
 
 //Register Repositories
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.RegisterRepositories();
 
 //Register JWT
-//builder.Services.AddAuthentication();
 builder.Services.ConfigureJwt(builder.Configuration);
 
 builder.Services.AddControllers();

@@ -22,9 +22,22 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto user)
+        public async Task<ActionResult<AuthUserDto>> Login([FromBody] LoginDto user)
         {
             return Ok(await _authService.Login(user));
+        }
+
+        [HttpPost("refresh")]
+        public async Task<ActionResult<AuthUserDto>> Refresh([FromBody] TokenModel token)
+        {
+            return Ok(await _authService.RefreshToken(token));
+        }
+
+        [HttpPost("revoke-refresh-token")]
+        public async Task<IActionResult> RevokeRefreshToken([FromBody] string refreshToken)
+        {
+            await _authService.RevokeRefreshToken(refreshToken);
+            return Ok();
         }
     }
 }
