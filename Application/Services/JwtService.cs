@@ -43,34 +43,34 @@ namespace Application.Services
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                //new Claim(JwtRegisteredClaimNames.Iat, DateTime.UTCNow.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email)
-                //new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Role, user.RoleId.ToString())
             };
 
-            //Add Roles to claims
-            /*var roles = "";
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, "role"));
-            }*/
             return claims;
         }
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var jwtSettings = _configuration.GetSection("JwtConfig");
-            var tokenOptions = new JwtSecurityToken
-            (
-            issuer: jwtSettings["validIssuer"],
-            audience: jwtSettings["validAudience"],
-            claims: claims,
-            notBefore: DateTime.UtcNow,
-            expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSettings["expiresInMinutes"])),
-            signingCredentials: signingCredentials
-            );
-            return tokenOptions;
+
+            var accessTokenDescriptor = new SecurityTokenDescriptor
+            {
+                IssuedAt = DateTime.UtcNow,
+                NotBefore = DateTime.UtcNow,
+                Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSettings["expiresInMinutes"])),
+                Subject = new ClaimsIdentity(claims),
+                Issuer = jwtSettings["validIssuer"],
+                Audience = jwtSettings["validAudience"],
+                SigningCredentials = signingCredentials
+            };
+
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtTokenHandler.CreateJwtSecurityToken(accessTokenDescriptor);
+
+            return jwtToken;
         }
     }
 }

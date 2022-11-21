@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [school].[Users] (
     [UserId]       INT     IDENTITY       NOT NULL,
     [FirstName]    NVARCHAR (20)  NOT NULL,
-    [RoleId]       INT            NOT NULL,
+    [RoleId]       INT            NULL,
     [MiddleName]   NVARCHAR (20)  NOT NULL,
     [LastName]     NVARCHAR (20)  NOT NULL,
     [Gender]       NVARCHAR (1)   NOT NULL,
