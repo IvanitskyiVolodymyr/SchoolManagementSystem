@@ -1,4 +1,4 @@
-﻿namespace Application.Auth.Exceptions
+﻿namespace Common.Exceptions
 {
     public class ExceptionInfo
     {

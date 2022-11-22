@@ -1,8 +1,8 @@
 ﻿using Application.Auth.Dtos;
-using Application.Auth.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
 using Common.Dtos.Users;
+using Common.Exceptions.Auth;
 using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;

@@ -1,5 +1,5 @@
-﻿using Application.Auth.Exceptions;
-using Application.Interfaces;
+﻿using Application.Interfaces;
+using Common.Exceptions.Auth;
 using Domain.Core.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
