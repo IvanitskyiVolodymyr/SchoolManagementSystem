@@ -16,12 +16,6 @@ namespace WebApi.Controllers
             _authService = authService;
         }
 
-        [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto user)
-        {
-            return Ok(await _authService.Register(user));
-        }
-
         [HttpPost("login")]
         public async Task<ActionResult<AuthUserDto>> Login([FromBody] LoginDto user)
         {

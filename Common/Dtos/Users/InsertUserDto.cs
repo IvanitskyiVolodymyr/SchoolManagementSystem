@@ -14,5 +14,6 @@
         public DateTime BirthDate { get; set; }
         public DateTime JoinDate { get; set; }
         public string AvatarUrl { get; set; }
+        public int RoleId { get; set; }
     }
 }

@@ -10,7 +10,8 @@
     @PasswordHash NVARCHAR (100),
     @BirthDate DATE,
     @JoinDate DATE,
-    @AvatarUrl NVARCHAR (255)
+    @AvatarUrl NVARCHAR (255),
+    @RoleId INT
 AS
 BEGIN
     INSERT INTO school.Users
@@ -26,7 +27,8 @@ BEGIN
     PasswordHash,
     BirthDate,
     JoinDate,
-    AvatarUrl)
+    AvatarUrl,
+    RoleId)
     OUTPUT INSERTED.UserId
     VALUES
     (@FirstName,
@@ -40,5 +42,6 @@ BEGIN
     @PasswordHash,
     @BirthDate,
     @JoinDate,
-    @AvatarUrl);
+    @AvatarUrl,
+    @RoleId);
 END

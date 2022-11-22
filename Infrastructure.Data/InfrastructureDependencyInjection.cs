@@ -16,6 +16,9 @@ namespace Infrastructure.Data
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<IParentRepository, ParentRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<ITeacherRepository, TeacherRepository>();
         }
     }
 }

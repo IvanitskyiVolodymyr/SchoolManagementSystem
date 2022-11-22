@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [school].[Students] (
     [StudentId]   INT IDENTITY NOT NULL,
     [UserId]      INT NOT NULL,
-    [ClassId]     INT NOT NULL,
+    [ClassId]     INT NULL,
     [StudentCode] INT NULL,
     CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED ([StudentId] ASC),
     CONSTRAINT [FK_Student_Class] FOREIGN KEY ([ClassId]) REFERENCES [school].[Classes] ([ClassId]),

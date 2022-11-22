@@ -63,6 +63,9 @@
     <Folder Include="Security\" />
     <Folder Include="school\StoredProcedures" />
     <Folder Include="school\StoredProcedures\RefreshToken" />
+    <Folder Include="school\StoredProcedures\Parent" />
+    <Folder Include="school\StoredProcedures\Teacher" />
+    <Folder Include="school\StoredProcedures\Student" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -93,6 +96,9 @@
     <Build Include="school\StoredProcedures\RefreshToken\spRefreshToken_Insert.sql" />
     <Build Include="school\StoredProcedures\RefreshToken\spRefreshToken_Delete.sql" />
     <Build Include="school\StoredProcedures\RefreshToken\spRefreshToken_Get.sql" />
+    <Build Include="school\StoredProcedures\Parent\spParent_Insert.sql" />
+    <Build Include="school\StoredProcedures\Teacher\spTeacher_Insert.sql" />
+    <Build Include="school\StoredProcedures\Student\spStudent_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
