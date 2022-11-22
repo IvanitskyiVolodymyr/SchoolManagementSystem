@@ -21,10 +21,10 @@ namespace Application.Services
             _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         }
 
-        public async Task<string> GenerateJsonWebToken(User user)
+        public  string GenerateJsonWebToken(User user)
         {
             var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims(user);
+            var claims = GetClaims(user);
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }

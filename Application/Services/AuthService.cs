@@ -68,7 +68,7 @@ namespace Application.Services
                                                               _passwordHashPepper,
                                                               _passwordHashCountOfIterations);
 
-            var id = await _userRepository.InsertUser(user);
+            var id = await _userRepository.InsertUser(_mapper.Map<InsertUserDto>(user));
 
             var userEntity = await _userRepository.GetUserById(id);
 
@@ -139,7 +139,7 @@ namespace Application.Services
 
             return new TokenModel
             {
-                AccessToken = await _tokenService.GenerateJsonWebToken(user),
+                AccessToken = _tokenService.GenerateJsonWebToken(user),
                 RefreshToken = refreshToken
             };
         }
