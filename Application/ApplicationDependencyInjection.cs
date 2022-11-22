@@ -89,6 +89,7 @@ namespace Application
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<ITokenService, JwtService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }
