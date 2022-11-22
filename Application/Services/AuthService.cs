@@ -1,6 +1,6 @@
-﻿using Application.Auth.Dtos;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using AutoMapper;
+using Common.Dtos.Auth;
 using Common.Dtos.Users;
 using Common.Exceptions.Auth;
 using Domain.Core.Entities;

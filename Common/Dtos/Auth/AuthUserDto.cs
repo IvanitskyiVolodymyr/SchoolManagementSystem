@@ -1,6 +1,6 @@
 ﻿using Common.Dtos.Users;
 
-namespace Application.Auth.Dtos
+namespace Common.Dtos.Auth
 {
     public class AuthUserDto
     {
