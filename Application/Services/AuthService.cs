@@ -2,6 +2,7 @@
 using AutoMapper;
 using Common.Dtos.Auth;
 using Common.Dtos.Users;
+using Common.Exceptions;
 using Common.Exceptions.Auth;
 using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
@@ -41,8 +42,7 @@ namespace Application.Services
 
             if (userEntity is null)
             {
-                //Create custom exception
-                throw new Exception("Invalid user data");
+                throw new NotFoundException(typeof(User), "Email", userDto.Email);
             }
 
             var passwordHash = _passwordHasher.CalculateHash(userDto.Password,
@@ -51,8 +51,7 @@ namespace Application.Services
                                                               _passwordHashCountOfIterations);
             if (passwordHash != userEntity.PasswordHash)
             {
-                //Create custom exception
-                throw new Exception("Username or password did not match.");
+                throw new InvalidUserPasswordException();
             }
 
             return await CreateAuthUser(userEntity);
@@ -83,8 +82,7 @@ namespace Application.Services
 
             if(user is null)
             {
-                //Create custom exception
-                throw new Exception("User not found");
+                throw new NotFoundException(typeof(User), "Id", userId.ToString());
             }
 
             var refreshToken = await _refreshTokenRepository.GetRefreshToken(token.RefreshToken);

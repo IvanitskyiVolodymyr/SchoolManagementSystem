@@ -1,6 +1,6 @@
-﻿using Application.Auth.Dtos;
-using Application.Interfaces;
-using Application.Users.Dtos;
+﻿using Application.Interfaces;
+using Common.Dtos.Auth;
+using Common.Dtos.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
