@@ -45,7 +45,7 @@ namespace Application.Services
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
-        private async Task<List<Claim>> GetClaims(User user)
+        private List<Claim> GetClaims(User user)
         {
             var claims = new List<Claim>
             {
