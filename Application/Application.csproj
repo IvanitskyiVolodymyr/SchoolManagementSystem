@@ -15,11 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application.Interfaces\Application.Interfaces.csproj" />
+    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Domain.Interfaces\Domain.Interfaces.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Users\Exceptions\" />
   </ItemGroup>
 
 </Project>

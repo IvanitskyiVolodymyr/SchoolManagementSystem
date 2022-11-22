@@ -1,5 +1,5 @@
 ﻿using Application.Auth.Dtos;
-using Application.Users.Dtos;
+using Common.Dtos.Users;
 
 namespace Application.Interfaces
 {

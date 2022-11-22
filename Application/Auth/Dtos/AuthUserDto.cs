@@ -1,4 +1,4 @@
-﻿using Application.Users.Dtos;
+﻿using Common.Dtos.Users;
 
 namespace Application.Auth.Dtos
 {

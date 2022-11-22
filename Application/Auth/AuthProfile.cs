@@ -1,6 +1,6 @@
 ﻿using Application.Auth.Dtos;
-using Application.Users.Dtos;
 using AutoMapper;
+using Common.Dtos.Users;
 using Domain.Core.Entities;
 
 namespace Application.Auth

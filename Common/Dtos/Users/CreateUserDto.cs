@@ -1,8 +1,7 @@
-﻿namespace Application.Users.Dtos
+﻿namespace Common.Dtos.Users
 {
-    public class UserDto
+    public class CreateUserDto
     {
-        public int UserId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -13,7 +12,5 @@
         public DateTime BirthDate { get; set; }
         public DateTime JoinDate { get; set; }
         public string AvatarUrl { get; set; }
-
-        public int RoleId { get; set; }
     }
 }
