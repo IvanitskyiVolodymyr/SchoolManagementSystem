@@ -1,6 +1,7 @@
 ﻿using Application.Auth.Dtos;
 using Application.Auth.Exceptions;
 using Application.Interfaces;
+using Application.Users.Dtos;
 using AutoMapper;
 using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;

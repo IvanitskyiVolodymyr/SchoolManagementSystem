@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Domain.Interfaces\Domain.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Exceptions\" />
+  </ItemGroup>
+
 </Project>
