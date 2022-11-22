@@ -6,7 +6,8 @@ using System.Text;
 using AutoMapper;
 using Application.Interfaces;
 using Application.Services;
-using Application.Auth.Exceptions;
+using Common.Exceptions;
+using Common.Exceptions.Auth;
 
 namespace Application
 {
@@ -88,6 +89,7 @@ namespace Application
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<ITokenService, JwtService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

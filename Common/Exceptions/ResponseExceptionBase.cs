@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 
-namespace Application.Auth.Exceptions
+namespace Common.Exceptions
 {
     public class ResponseExceptionBase : Exception
     {

@@ -1,4 +1,5 @@
-﻿using Domain.Core.Entities;
+﻿using Common.Dtos.Users;
+using Domain.Core.Entities;
 
 namespace Domain.Interfaces.Repositories
 {
@@ -8,7 +9,7 @@ namespace Domain.Interfaces.Repositories
         Task<User?> GetUserById(int id);
         Task<User?> GetUserByEmail(string email);
         Task<IEnumerable<User>> GetUsers();
-        Task<int> InsertUser(User user);
+        Task<int> InsertUser(InsertUserDto user);
         Task<int> UpdateUser(User user);
     }
 }

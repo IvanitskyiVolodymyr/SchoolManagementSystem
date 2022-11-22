@@ -1,5 +1,6 @@
-﻿using Application.Auth.Dtos;
-using Application.Interfaces;
+﻿using Application.Interfaces;
+using Common.Dtos.Auth;
+using Common.Dtos.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -13,12 +14,6 @@ namespace WebApi.Controllers
         public AuthController(IAuthService authService)
         {
             _authService = authService;
-        }
-
-        [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto user)
-        {
-            return Ok(await _authService.Register(user));
         }
 
         [HttpPost("login")]

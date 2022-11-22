@@ -1,4 +1,4 @@
-﻿using Application.Auth.Exceptions;
+﻿using Common.Exceptions;
 using System.Net;
 
 namespace WebApi.Middleware

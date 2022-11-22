@@ -1,4 +1,5 @@
-﻿using Domain.Core.Entities;
+﻿using Common.Dtos.Users;
+using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data.DataAccess;
 
@@ -29,25 +30,9 @@ namespace Infrastructure.Data.Repositories
             return results.FirstOrDefault();
         }
 
-        public async Task<int> InsertUser(User user)
+        public async Task<int> InsertUser(InsertUserDto user)
         {
-            return await _db.SaveData("dbo.spUser_Insert",
-                new
-                {
-                    user.FirstName,
-                    user.RoleId,
-                    user.MiddleName,
-                    user.LastName,
-                    user.Gender,
-                    user.PhoneNumber,
-                    user.Email,
-                    user.Address,
-                    user.PasswordSalt,
-                    user.PasswordHash,
-                    user.BirthDate,
-                    user.JoinDate,
-                    user.AvatarUrl
-                });
+            return await _db.SaveData("dbo.spUser_Insert", user);
         }
 
         public async Task<int> UpdateUser(User user)

@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spUser_Insert]
     @FirstName NVARCHAR (20),
-    @RoleId INT,
     @MiddleName NVARCHAR (20),
     @LastName NVARCHAR (20),
     @Gender NVARCHAR (1),
@@ -11,13 +10,13 @@
     @PasswordHash NVARCHAR (100),
     @BirthDate DATE,
     @JoinDate DATE,
-    @AvatarUrl NVARCHAR (255)
+    @AvatarUrl NVARCHAR (255),
+    @RoleId INT
 AS
 BEGIN
     INSERT INTO school.Users
     (
     FirstName,
-    RoleId,
     MiddleName,
     LastName,
     Gender,
@@ -28,11 +27,11 @@ BEGIN
     PasswordHash,
     BirthDate,
     JoinDate,
-    AvatarUrl)
+    AvatarUrl,
+    RoleId)
     OUTPUT INSERTED.UserId
     VALUES
     (@FirstName,
-    @RoleId,
     @MiddleName,
     @LastName,
     @Gender,
@@ -43,5 +42,6 @@ BEGIN
     @PasswordHash,
     @BirthDate,
     @JoinDate,
-    @AvatarUrl);
+    @AvatarUrl,
+    @RoleId);
 END

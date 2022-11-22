@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Application.Auth.Exceptions
+namespace Common.Exceptions.Auth
 {
     public class ExpiredAccessTokenException : ResponseExceptionBase
     {

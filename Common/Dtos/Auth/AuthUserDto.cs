@@ -1,4 +1,6 @@
-﻿namespace Application.Auth.Dtos
+﻿using Common.Dtos.Users;
+
+namespace Common.Dtos.Auth
 {
     public class AuthUserDto
     {

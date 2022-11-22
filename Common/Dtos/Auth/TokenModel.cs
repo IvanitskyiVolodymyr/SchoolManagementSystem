@@ -1,4 +1,4 @@
-﻿namespace Application.Auth.Dtos
+﻿namespace Common.Dtos.Auth
 {
     public class TokenModel
     {

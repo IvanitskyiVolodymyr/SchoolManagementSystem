@@ -1,15 +1,14 @@
-﻿using Application.Auth.Dtos;
-using AutoMapper;
+﻿using AutoMapper;
+using Common.Dtos.Auth;
+using Common.Dtos.Users;
 using Domain.Core.Entities;
 
-namespace Application.Auth
+namespace Application.MapperProfiles
 {
     public class AuthProfile : Profile
     {
         public AuthProfile()
         {
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
             CreateMap<RegisterDto, User>();
         }
     }

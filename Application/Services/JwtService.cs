@@ -1,5 +1,5 @@
-﻿using Application.Auth.Exceptions;
-using Application.Interfaces;
+﻿using Application.Interfaces;
+using Common.Exceptions.Auth;
 using Domain.Core.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,10 +21,10 @@ namespace Application.Services
             _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         }
 
-        public async Task<string> GenerateJsonWebToken(User user)
+        public  string GenerateJsonWebToken(User user)
         {
             var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims(user);
+            var claims = GetClaims(user);
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
@@ -45,7 +45,7 @@ namespace Application.Services
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
-        private async Task<List<Claim>> GetClaims(User user)
+        private List<Claim> GetClaims(User user)
         {
             var claims = new List<Claim>
             {

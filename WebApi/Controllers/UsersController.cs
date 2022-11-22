@@ -1,45 +1,59 @@
-﻿using Domain.Core.Entities;
-using Domain.Interfaces.Repositories;
+﻿using Application.Interfaces;
+using Common.Dtos.Users;
+using Domain.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
-        [Authorize]
         [HttpGet("GetUserById")]
-        public async Task<ActionResult<User>> UserInfo(int userId)
+        public async Task<ActionResult<UserDto>> GetUserById(int userId)
         {
-            var user = await _userRepository.GetUserById(userId);
+            var user = await _userService.GetUserById(userId);
             return Ok(user);
         }
 
-        [HttpPost("CreateUser")]
-        public async Task CreateUser([FromBody] User user) 
+        [HttpGet("GetUserByEmail")]
+        public async Task<ActionResult<UserDto>> GetUserByEmail(string email)
         {
-            await _userRepository.InsertUser(user);
+            var user = await _userService.GetUserByEmail(email);
+            return Ok(user);
         }
 
         [HttpPut("UpdateUser")]
         public async Task UpdateUser([FromBody] User user)
         {
-            await _userRepository.UpdateUser(user);
+            await _userService.UpdateUser(user);
         }
 
-        [HttpDelete("DeleteUser")]
-        public async Task DeleteUser(int userId)
+        [HttpPost("CreateStudent")]
+        public async Task<ActionResult<UserDto>> CreateStudent([FromBody] CreateStudentDto student)
         {
-            await _userRepository.DeleteUser(userId);
+            return Ok(await _userService.CreateStudent(student));
+        }
+
+        [HttpPost("CreateParent")]
+        public async Task<ActionResult<UserDto>> CreateParent([FromBody] CreateParentDto parent)
+        {
+            return Ok(await _userService.CreateParent(parent));
+        }
+
+        [HttpPost("CreateTeacher")]
+        public async Task<ActionResult<UserDto>> CreateTeacher([FromBody] CreateTeacherDto teacher)
+        {
+            return Ok(await _userService.CreateTeacher(teacher));
         }
     }
 }
