@@ -70,6 +70,7 @@
     <Folder Include="school\StoredProcedures\Class" />
     <Folder Include="school\StoredProcedures\Subject" />
     <Folder Include="school\StoredProcedures\ClassSubject" />
+    <Folder Include="school\StoredProcedures\SubjectTeacher" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -108,6 +109,7 @@
     <Build Include="school\StoredProcedures\Subject\spSubject_Insert.sql" />
     <Build Include="school\StoredProcedures\Subject\spSubject_GetAll.sql" />
     <Build Include="school\StoredProcedures\ClassSubject\spClassSubject_Insert.sql" />
+    <Build Include="school\StoredProcedures\SubjectTeacher\spSubjectTeacher_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
