@@ -91,6 +91,7 @@ namespace Application
             services.AddScoped<ITokenService, JwtService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IClassService, ClassService>();
+            services.AddScoped<ISubjectService, SubjectService>();
         }
     }
 }

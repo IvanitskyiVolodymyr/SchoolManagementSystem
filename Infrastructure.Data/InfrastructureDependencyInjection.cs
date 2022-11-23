@@ -20,6 +20,7 @@ namespace Infrastructure.Data
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<IClassRepository, ClassRepository>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
         }
     }
 }
