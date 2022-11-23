@@ -76,7 +76,7 @@ namespace Application.Services
             return registeredUser;
         }
 
-        public async Task<UserDto> CreateParent(CreateParentDto parent)
+        public async Task<ResponseParentDto> CreateParentWithChildrenIds(CreateParentDto parent)
         {
             var registerDto = _mapper.Map<RegisterDto>(parent);
             registerDto.RoleId = (int)Role.Parent;
@@ -85,9 +85,19 @@ namespace Application.Services
             var insertedParent = _mapper.Map<InsertParentDto>(parent);
             insertedParent.UserId = registeredUser.UserId;
 
-            await _parentRepository.CreateParent(insertedParent);
+            var parentId = await _parentRepository.CreateParent(insertedParent);
 
-            return registeredUser;
+            foreach(var studentId in parent.StudentIds)
+            {
+                await _parentRepository.CreateParentStudent(parentId, studentId);
+            }
+
+            return new ResponseParentDto
+            {
+                User = registeredUser,
+                ParentId = parentId,
+                StudentIds = parent.StudentIds
+            };
         }
 
         public async Task<UserDto> CreateTeacher(CreateTeacherDto teacher)

@@ -2,6 +2,6 @@
 {
     public class CreateParentDto : CreateUserDto
     {
-
+        public List<int> StudentIds { get; set; }
     }
 }

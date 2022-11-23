@@ -44,10 +44,10 @@ namespace WebApi.Controllers
             return Ok(await _userService.CreateStudent(student));
         }
 
-        [HttpPost("CreateParent")]
-        public async Task<ActionResult<UserDto>> CreateParent([FromBody] CreateParentDto parent)
+        [HttpPost("CreateParentWithChildrenIds")]
+        public async Task<ActionResult<ResponseParentDto>> CreateParentWithChildrenIds([FromBody] CreateParentDto parent)
         {
-            return Ok(await _userService.CreateParent(parent));
+            return Ok(await _userService.CreateParentWithChildrenIds(parent));
         }
 
         [HttpPost("CreateTeacher")]

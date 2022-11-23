@@ -17,5 +17,10 @@ namespace Infrastructure.Data.Repositories
         {
             return await _db.SaveData("spParent_Insert", parentDto);
         }
+
+        public async Task<int> CreateParentStudent(int parentId, int studentId)
+        {
+            return await _db.SaveData("spParentStudent_Insert", new { ParentId = parentId, StudentId = studentId});
+        }
     }
 }
