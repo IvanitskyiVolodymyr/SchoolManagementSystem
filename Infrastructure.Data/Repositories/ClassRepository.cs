@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Repositories
             return await _db.SaveData("spClass_Insert", classDto);
         }
 
-        public async Task<List<int>> InsertClasses(List<InsertClassDto> classes)
+        public async Task<IEnumerable<int>> InsertClasses(IEnumerable<InsertClassDto> classes)
         {
             List<int> ids = new List<int>();
             foreach(var classDto in classes)

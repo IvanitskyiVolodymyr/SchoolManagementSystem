@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Common.Dtos.Class;
+using Common.Dtos.ClassSubject;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -25,6 +26,18 @@ namespace WebApi.Controllers
         public async Task<ActionResult<List<int>>> CreateClasses([FromBody] List<InsertClassDto> classesDto)
         {
             return Ok(await _classService.CreateClasses(classesDto));
+        }
+
+        [HttpPost("AddSubjectToCLass")]
+        public async Task<ActionResult<int>> AddSubjectToClass([FromBody] InsertClassSubjectDto classSubjectDto)
+        {
+            return Ok(await _classService.AddSubjectToClass(classSubjectDto));
+        }
+
+        [HttpPost("AddSubjectsToCLass")]
+        public async Task<ActionResult<List<int>>> AddSubjectsToClass([FromBody] List<InsertClassSubjectDto> classSubjects)
+        {
+            return Ok(await _classService.AddSubjectsToClass(classSubjects));
         }
     }
 }
