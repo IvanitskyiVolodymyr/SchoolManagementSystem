@@ -5,5 +5,6 @@ namespace Domain.Interfaces.Repositories
     public interface IParentRepository
     {
         Task<int> CreateParent(InsertParentDto parentDto);
+        Task<int> CreateParentStudent(int parentId, int studentId);
     }
 }

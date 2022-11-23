@@ -66,6 +66,7 @@
     <Folder Include="school\StoredProcedures\Parent" />
     <Folder Include="school\StoredProcedures\Teacher" />
     <Folder Include="school\StoredProcedures\Student" />
+    <Folder Include="school\StoredProcedures\ParentStudent" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -99,6 +100,7 @@
     <Build Include="school\StoredProcedures\Parent\spParent_Insert.sql" />
     <Build Include="school\StoredProcedures\Teacher\spTeacher_Insert.sql" />
     <Build Include="school\StoredProcedures\Student\spStudent_Insert.sql" />
+    <Build Include="school\StoredProcedures\ParentStudent\spParentStudent_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
