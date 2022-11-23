@@ -22,6 +22,7 @@ namespace Infrastructure.Data
             services.AddScoped<IClassRepository, ClassRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<IClassSubjectRepository, ClassSubjectRepository>();
+            services.AddScoped<ISubjectTeacherRepository, SubjectTeacherRepository>();
         }
     }
 }
