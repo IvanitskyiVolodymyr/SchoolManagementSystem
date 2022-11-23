@@ -16,9 +16,15 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateClass")]
-        public async Task<ActionResult<int>> CreateStudent([FromBody] InsertClassDto classDto)
+        public async Task<ActionResult<int>> CreateClass([FromBody] InsertClassDto classDto)
         {
             return Ok(await _classService.CreateClass(classDto));
+        }
+
+        [HttpPost("CreateClasses")]
+        public async Task<ActionResult<List<int>>> CreateClasses([FromBody] List<InsertClassDto> classesDto)
+        {
+            return Ok(await _classService.CreateClasses(classesDto));
         }
     }
 }

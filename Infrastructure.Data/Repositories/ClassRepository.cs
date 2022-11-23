@@ -17,5 +17,15 @@ namespace Infrastructure.Data.Repositories
         {
             return await _db.SaveData("spClass_Insert", classDto);
         }
+
+        public async Task<List<int>> InsertClasses(List<InsertClassDto> classes)
+        {
+            List<int> ids = new List<int>();
+            foreach(var classDto in classes)
+            {
+                ids.Add(await _db.SaveData("spClass_Insert", classDto));
+            }
+            return ids;
+        }
     }
 }

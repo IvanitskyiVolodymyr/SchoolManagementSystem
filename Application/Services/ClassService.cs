@@ -17,5 +17,10 @@ namespace Application.Services
         {
             return await _classRepository.InsertClass(classDto);
         }
+
+        public async Task<List<int>> CreateClasses(List<InsertClassDto> classesDto)
+        {
+            return await _classRepository.InsertClasses(classesDto);
+        }
     }
 }
