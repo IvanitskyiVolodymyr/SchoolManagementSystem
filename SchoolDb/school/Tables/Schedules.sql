@@ -3,8 +3,7 @@
     [StartTime]                 DATETIME       NOT NULL,
     [ClassSubjectId]            INT            NOT NULL,
     [EndTime]                   DATETIME       NOT NULL,
-    [Place]                     NVARCHAR (200) NOT NULL,
-    [TeacherMethodicalPlanning] NVARCHAR (255) NOT NULL,
+    [Place]                     NVARCHAR (200) NULL,
     CONSTRAINT [PK_Schedule] PRIMARY KEY CLUSTERED ([ScheduleId] ASC),
     CONSTRAINT [FK_Schedule_ClassSubject] FOREIGN KEY ([ClassSubjectId]) REFERENCES [school].[ClassesSubjects] ([ClassSubjectId])
 );
