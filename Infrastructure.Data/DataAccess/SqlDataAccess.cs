@@ -47,7 +47,7 @@ namespace Infrastructure.Data.DataAccess
             await connection.ExecuteAsync(sqlQuery);
         }
 
-        public async Task InserteRange<T>(IList<T> range, string sqlHeader, Func<T, string> selector, string connectionName = "SchoolManagementSystem")
+        public async Task InsertRange<T>(IList<T> range, string sqlHeader, Func<T, string> selector, string connectionName = "SchoolManagementSystem")
         {
             var sqls = GetSqlsInBatches(range, sqlHeader, selector);
 
