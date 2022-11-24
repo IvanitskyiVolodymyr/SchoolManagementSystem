@@ -44,7 +44,7 @@ namespace Infrastructure.Data.Repositories
             var sqlHeader = "INSERT INTO [school].[Schedules] (StartTime, ClassSubjectId, EndTime, Place) VALUES ";
             var sqlValues = "('{0}', {1}, '{2}', '{3}')";
 
-            await _db.InsertScheduleRange<InsertScheduleDto>(scheduleRange, sqlHeader, (s) => string.Format(sqlValues, s.StartTime, s.ClassSubjectId, s.EndTime, s.Place));
+            await _db.InserteRange<InsertScheduleDto>(scheduleRange, sqlHeader, (s) => string.Format(sqlValues, s.StartTime, s.ClassSubjectId, s.EndTime, s.Place));
         }
 
         public async Task<int> UpdateSchedule(Schedule schedule)

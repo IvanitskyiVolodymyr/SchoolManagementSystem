@@ -47,9 +47,9 @@ namespace Infrastructure.Data.DataAccess
             await connection.ExecuteAsync(sqlQuery);
         }
 
-        public async Task InsertScheduleRange<T>(IList<T> scheduleRange, string sqlHeader, Func<T, string> selector, string connectionName = "SchoolManagementSystem")
+        public async Task InserteRange<T>(IList<T> range, string sqlHeader, Func<T, string> selector, string connectionName = "SchoolManagementSystem")
         {
-            var sqls = GetSqlsInBatches(scheduleRange, sqlHeader, selector);
+            var sqls = GetSqlsInBatches(range, sqlHeader, selector);
 
             using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionName));
 
@@ -58,16 +58,16 @@ namespace Infrastructure.Data.DataAccess
                 await connection.ExecuteAsync(sqlQuery);
             }
         }
-        private IList<string> GetSqlsInBatches<T>(IList<T> scheduleRange, string sqlHeader, Func<T,string> selector)
+        private IList<string> GetSqlsInBatches<T>(IList<T> range, string sqlHeader, Func<T,string> selector)
         {
             const int maxCountOfInsertPerRequest = 10;
 
             var sqlsToExecute = new List<string>();
-            var numberOfBatches = (int)Math.Ceiling((double)scheduleRange.Count / maxCountOfInsertPerRequest);
+            var numberOfBatches = (int)Math.Ceiling((double)range.Count / maxCountOfInsertPerRequest);
 
             for (int i = 0; i < numberOfBatches; i++)
             {
-                var currentScheduleRange = scheduleRange.Skip(i * maxCountOfInsertPerRequest).Take(maxCountOfInsertPerRequest);
+                var currentScheduleRange = range.Skip(i * maxCountOfInsertPerRequest).Take(maxCountOfInsertPerRequest);
                 var valuesToInsert = currentScheduleRange.Select(selector);
                 sqlsToExecute.Add(sqlHeader + string.Join(',', valuesToInsert));
             }
