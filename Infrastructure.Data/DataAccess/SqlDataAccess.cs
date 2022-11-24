@@ -39,5 +39,40 @@ namespace Infrastructure.Data.DataAccess
                 commandType: CommandType.StoredProcedure);
 
         }
+
+        public async Task ExecuteSqlQueryAsync(string sqlQuery, string connectionName = "SchoolManagementSystem")
+        {
+            using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionName));
+           
+            await connection.ExecuteAsync(sqlQuery);
+        }
+
+        public async Task InsertScheduleRange<T>(IList<T> scheduleRange, string sqlHeader, Func<T, string> selector, string connectionName = "SchoolManagementSystem")
+        {
+            var sqls = GetSqlsInBatches(scheduleRange, sqlHeader, selector);
+
+            using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionName));
+
+            foreach (var sqlQuery in sqls)
+            {
+                await connection.ExecuteAsync(sqlQuery);
+            }
+        }
+        private IList<string> GetSqlsInBatches<T>(IList<T> scheduleRange, string sqlHeader, Func<T,string> selector)
+        {
+            const int maxCountOfInsertPerRequest = 10;
+
+            var sqlsToExecute = new List<string>();
+            var numberOfBatches = (int)Math.Ceiling((double)scheduleRange.Count / maxCountOfInsertPerRequest);
+
+            for (int i = 0; i < numberOfBatches; i++)
+            {
+                var currentScheduleRange = scheduleRange.Skip(i * maxCountOfInsertPerRequest).Take(maxCountOfInsertPerRequest);
+                var valuesToInsert = currentScheduleRange.Select(selector);
+                sqlsToExecute.Add(sqlHeader + string.Join(',', valuesToInsert));
+            }
+
+            return sqlsToExecute;
+        }
     }
 }
