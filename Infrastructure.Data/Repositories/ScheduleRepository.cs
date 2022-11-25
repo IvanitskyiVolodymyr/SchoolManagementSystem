@@ -14,6 +14,18 @@ namespace Infrastructure.Data.Repositories
             _db = db;
         }
 
+        public async Task<bool> CheckIsTimeFrameFree(DateTime startDateTime, DateTime endDateTime, int classSubjectId)
+        {
+            var result = await _db.SaveData("spSchedule_CheckIsPeriodForClassSubjectFree", 
+                new 
+                {
+                    startDateTime = startDateTime,
+                    endDateTime = endDateTime,
+                    classSubjectId = classSubjectId
+                });
+            return Convert.ToBoolean(result);
+        }
+
         public async Task<IEnumerable<Schedule>> GetScheduleForStudentByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId)
         {
             return await _db.LoadData<Schedule, dynamic>("spSchedule_GetForStudentByPeriod", new
