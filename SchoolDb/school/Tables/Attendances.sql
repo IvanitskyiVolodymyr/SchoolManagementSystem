@@ -2,7 +2,7 @@
     [AttendanceId] INT IDENTITY NOT NULL,
     [ScheduleId]   INT NOT NULL,
     [StudentId]    INT NOT NULL,
-    [Status]       BIT NOT NULL,
+    [Status]       INT NULL,
     CONSTRAINT [PK_Attendance] PRIMARY KEY CLUSTERED ([AttendanceId] ASC),
     CONSTRAINT [FK_Attendance_Schedule] FOREIGN KEY ([ScheduleId]) REFERENCES [school].[Schedules] ([ScheduleId]),
     CONSTRAINT [FK_Attendance_Student] FOREIGN KEY ([StudentId]) REFERENCES [school].[Students] ([StudentId])

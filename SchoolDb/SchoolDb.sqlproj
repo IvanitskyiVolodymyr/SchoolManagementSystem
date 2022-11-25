@@ -72,6 +72,7 @@
     <Folder Include="school\StoredProcedures\ClassSubject" />
     <Folder Include="school\StoredProcedures\SubjectTeacher" />
     <Folder Include="school\StoredProcedures\Schedule" />
+    <Folder Include="school\StoredProcedures\Attendance" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -113,8 +114,11 @@
     <Build Include="school\StoredProcedures\SubjectTeacher\spSubjectTeacher_Insert.sql" />
     <Build Include="school\StoredProcedures\Schedule\spSchedule_Insert.sql" />
     <Build Include="school\StoredProcedures\Schedule\spSchedule_Update.sql" />
-    <Build Include="school\StoredProcedures\Schedule\spSchedule_GetForClassByPeriod.sql" />
+    <Build Include="school\StoredProcedures\Schedule\spSchedule_GetForStudentByPeriod.sql" />
     <Build Include="school\StoredProcedures\Schedule\spSchedule_GetForTeacherByPeriod.sql" />
+    <Build Include="school\StoredProcedures\Attendance\spAttendance_Update.sql" />
+    <Build Include="school\StoredProcedures\Attendance\spAttendance_GetForClassSubjectByPeriod.sql" />
+    <Build Include="school\StoredProcedures\Attendance\spAttendance_GetForStudentByPeriod.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

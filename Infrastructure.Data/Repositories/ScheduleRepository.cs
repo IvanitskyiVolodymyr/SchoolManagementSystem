@@ -14,13 +14,13 @@ namespace Infrastructure.Data.Repositories
             _db = db;
         }
 
-        public async Task<IEnumerable<Schedule>> GetScheduleForClassByPeriod(DateTime startDateTime, DateTime endDateTime, int classId)
+        public async Task<IEnumerable<Schedule>> GetScheduleForStudentByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId)
         {
-            return await _db.LoadData<Schedule, dynamic>("spSchedule_GetForClassByPeriod", new
+            return await _db.LoadData<Schedule, dynamic>("spSchedule_GetForStudentByPeriod", new
             {
                 StartDateTime = startDateTime,
                 EndDateTime = endDateTime,
-                ClassId = classId
+                StudentId = studentId
             });
         }
 
