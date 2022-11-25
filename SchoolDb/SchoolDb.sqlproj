@@ -119,6 +119,7 @@
     <Build Include="school\StoredProcedures\Attendance\spAttendance_Update.sql" />
     <Build Include="school\StoredProcedures\Attendance\spAttendance_GetForClassSubjectByPeriod.sql" />
     <Build Include="school\StoredProcedures\Attendance\spAttendance_GetForStudentByPeriod.sql" />
+    <Build Include="school\StoredProcedures\Schedule\spSchedule_CheckIsPeriodForClassSubjectFree.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

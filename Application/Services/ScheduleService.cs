@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Common.Dtos.Attendance;
 using Common.Dtos.Schedule;
+using Common.Exceptions.Schedule;
 using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 
@@ -66,7 +67,13 @@ namespace Application.Services
 
         public async Task<int> InsertSchedule(InsertScheduleDto scheduleDto)
         {
-            //check time
+            bool isTimeFrameFree = await _scheduleRepository.CheckIsTimeFrameFree(scheduleDto.StartTime, scheduleDto.EndTime, scheduleDto.ClassSubjectId);
+
+            if (!isTimeFrameFree)
+            {
+                throw new UsedTimeFrameException();
+            }
+
             return await _scheduleRepository.InsertSchedule(scheduleDto);
         }
 
