@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Common.Dtos.Attendance;
 using Common.Dtos.Schedule;
 using Domain.Core.Entities;
 using Microsoft.AspNetCore.Http;
@@ -36,16 +37,40 @@ namespace WebApi.Controllers
             return Ok(await _scheduleService.UpdateSchedule(schedule));
         }
 
-        [HttpGet("GetScheduleForClassByPeriod")]
-        public async Task<ActionResult<IEnumerable<Schedule>>> GetScheduleForClassByPeriod(DateTime startTime, DateTime endTime, int classId)
+        [HttpGet("GetScheduleForStudentByPeriod")]
+        public async Task<ActionResult<IEnumerable<Schedule>>> GetScheduleForStudentByPeriod(DateTime startTime, DateTime endTime, int studentId)
         {
-            return Ok(await _scheduleService.GetScheduleForClassByPeriod(startTime, endTime, classId));
+            return Ok(await _scheduleService.GetScheduleForStudentByPeriod(startTime, endTime, studentId));
         }
 
         [HttpGet("GetScheduleForTeacherByPeriod")]
         public async Task<ActionResult<IEnumerable<Schedule>>> GetScheduleForTeacherByPeriod(DateTime startTime, DateTime endTime, int teacherId)
         {
             return Ok(await _scheduleService.GetScheduleForTeacherByPeriod(startTime, endTime, teacherId));
+        }
+
+        [HttpPost("InsertAttendances")]
+        public async Task<ActionResult<int>> InsertAttendances(IList<InsertAttendanceDto> attendances)
+        {
+            return Ok(await _scheduleService.InsertAttendances(attendances));
+        }
+
+        [HttpGet("GetScheduleForStudentWithAttendancesByPeriod")]
+        public async Task<ActionResult<IEnumerable<ScheduleAttendanceDto>>> GetScheduleForStudentWithAttendancesByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId)
+        {
+            return Ok(await _scheduleService.GetScheduleForStudentWithAttendancesByPeriod(startDateTime, endDateTime, studentId));
+        }
+
+        [HttpGet("GetAttendancesForClassSubjectByPeriod")]
+        public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendancesForClassSubjectByPeriod(DateTime startDateTime, DateTime endDateTime, int classSubjectId)
+        {
+            return Ok(await _scheduleService.GetAttendancesForClassSubjectByPeriod(startDateTime, endDateTime, classSubjectId));
+        }
+
+        [HttpPut("UpdateAttendance")]
+        public async Task<ActionResult<int>> UpdateAttendance(InsertAttendanceDto attendance)
+        {
+            return Ok(await _scheduleService.UpdateAttendance(attendance));
         }
     }
 }

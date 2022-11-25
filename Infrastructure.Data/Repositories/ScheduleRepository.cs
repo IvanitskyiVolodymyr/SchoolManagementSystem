@@ -14,13 +14,13 @@ namespace Infrastructure.Data.Repositories
             _db = db;
         }
 
-        public async Task<IEnumerable<Schedule>> GetScheduleForClassByPeriod(DateTime startDateTime, DateTime endDateTime, int classId)
+        public async Task<IEnumerable<Schedule>> GetScheduleForStudentByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId)
         {
-            return await _db.LoadData<Schedule, dynamic>("spSchedule_GetForClassByPeriod", new
+            return await _db.LoadData<Schedule, dynamic>("spSchedule_GetForStudentByPeriod", new
             {
                 StartDateTime = startDateTime,
                 EndDateTime = endDateTime,
-                ClassId = classId
+                StudentId = studentId
             });
         }
 
@@ -44,7 +44,7 @@ namespace Infrastructure.Data.Repositories
             var sqlHeader = "INSERT INTO [school].[Schedules] (StartTime, ClassSubjectId, EndTime, Place) VALUES ";
             var sqlValues = "('{0}', {1}, '{2}', '{3}')";
 
-            await _db.InsertScheduleRange<InsertScheduleDto>(scheduleRange, sqlHeader, (s) => string.Format(sqlValues, s.StartTime, s.ClassSubjectId, s.EndTime, s.Place));
+            await _db.InsertRange<InsertScheduleDto>(scheduleRange, sqlHeader, (s) => string.Format(sqlValues, s.StartTime, s.ClassSubjectId, s.EndTime, s.Place));
         }
 
         public async Task<int> UpdateSchedule(Schedule schedule)
