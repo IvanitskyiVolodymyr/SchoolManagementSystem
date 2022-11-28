@@ -51,11 +51,30 @@ namespace Infrastructure.Data.DataAccess
         {
             var sqls = GetSqlsInBatches(range, sqlHeader, selector);
 
-            using IDbConnection connection = new SqlConnection(_configuration.GetConnectionString(connectionName));
-
-            foreach (var sqlQuery in sqls)
+            using var connection = new SqlConnection(_configuration.GetConnectionString(connectionName));
+            await connection.OpenAsync();
+            var transaction = connection.BeginTransaction();
+            try
             {
-                await connection.ExecuteAsync(sqlQuery);
+                foreach (var sqlQuery in sqls)
+                {
+                    await connection.ExecuteAsync(sqlQuery, new { }, transaction, commandType: CommandType.Text);
+                }
+
+                await transaction.CommitAsync();
+            }
+            catch(Exception e)
+            {
+                try
+                {
+                    await transaction.RollbackAsync();
+                }
+                catch(Exception inner)
+                {
+                    throw new Exception("Sql Rollback exception. " + inner.Message);
+                }
+
+                throw new Exception(e.Message);
             }
         }
         private IList<string> GetSqlsInBatches<T>(IList<T> range, string sqlHeader, Func<T,string> selector)
