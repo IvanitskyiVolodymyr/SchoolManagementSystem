@@ -15,6 +15,6 @@ namespace Application.Interfaces
         Task<List<int>> InsertAttendances(IList<InsertAttendanceDto> attendances, int scheduleId);
         Task<IEnumerable<ScheduleAttendanceDto>> GetScheduleForStudentWithAttendancesByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId);
         Task<IEnumerable<Attendance>> GetAttendancesForClassSubjectByPeriod(DateTime startDateTime, DateTime endDateTime, int classSubjectId);
-        Task<int> UpdateAttendance(InsertAttendanceDto attendance);
+        Task<int> UpdateAttendance(UpdateAttendanceDto attendance);
     }
 }

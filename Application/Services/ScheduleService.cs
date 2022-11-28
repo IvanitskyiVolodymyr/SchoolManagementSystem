@@ -79,7 +79,7 @@ namespace Application.Services
             await _scheduleRepository.InsertScheduleRange(scheduleRange);
         }
 
-        public async Task<int> UpdateAttendance(InsertAttendanceDto attendance)
+        public async Task<int> UpdateAttendance(UpdateAttendanceDto attendance)
         {
             return await _attendanceRepository.UpdateAttendance(attendance);
         }

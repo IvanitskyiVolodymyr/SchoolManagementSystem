@@ -48,7 +48,10 @@ namespace Infrastructure.Data.Repositories
             {
                 foreach (var attendance in attendances)
                 {
-                    outputIds.Add(await connection.ExecuteAsync("spAttendance_Insert",attendance, transaction, commandType: System.Data.CommandType.StoredProcedure));
+                    outputIds.Add(await connection.ExecuteAsync("spAttendance_Insert",
+                                                                new { ScheduleId = scheduleId, StudentId = attendance.StudentId, Status = attendance.Status },
+                                                                transaction,
+                                                                commandType: System.Data.CommandType.StoredProcedure));
                 }
                 await connection.ExecuteAsync("spSchedule_UpdateAttendanceCheck",
                                               new { ScheduleId = scheduleId, IsAttendanceChecked = true },
@@ -65,7 +68,7 @@ namespace Infrastructure.Data.Repositories
             return outputIds;
         }
 
-        public async Task<int> UpdateAttendance(InsertAttendanceDto attendance)
+        public async Task<int> UpdateAttendance(UpdateAttendanceDto attendance)
         {
             await _dataHelper.SaveData("spAttendance_Update", attendance);
             return 1;

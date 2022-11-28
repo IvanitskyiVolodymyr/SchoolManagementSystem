@@ -68,7 +68,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateAttendance")]
-        public async Task<ActionResult<int>> UpdateAttendance(InsertAttendanceDto attendance)
+        public async Task<ActionResult<int>> UpdateAttendance(UpdateAttendanceDto attendance)
         {
             return Ok(await _scheduleService.UpdateAttendance(attendance));
         }
