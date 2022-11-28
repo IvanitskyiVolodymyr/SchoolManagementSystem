@@ -93,6 +93,7 @@ namespace Application
             services.AddScoped<IClassService, ClassService>();
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<ITaskService, TaskService>();
         }
     }
 }

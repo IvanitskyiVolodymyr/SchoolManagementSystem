@@ -73,6 +73,8 @@
     <Folder Include="school\StoredProcedures\SubjectTeacher" />
     <Folder Include="school\StoredProcedures\Schedule" />
     <Folder Include="school\StoredProcedures\Attendance" />
+    <Folder Include="school\StoredProcedures\Tasks" />
+    <Folder Include="school\StoredProcedures\StudentTask" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -122,6 +124,13 @@
     <Build Include="school\StoredProcedures\Schedule\spSchedule_CheckIsPeriodForClassSubjectFree.sql" />
     <Build Include="school\StoredProcedures\Attendance\spAttendance_Insert.sql" />
     <Build Include="school\StoredProcedures\Schedule\spSchedule_UpdateAttendanceCheck.sql" />
+    <Build Include="school\Tables\StudentsTasks.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_Insert.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_Update.sql" />
+    <Build Include="school\StoredProcedures\StudentTask\spStudentTask_Insert.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetByStudentId.sql" />
+    <Build Include="school\StoredProcedures\StudentTask\spStudentTask_Update.sql" />
+    <Build Include="school\StoredProcedures\Student\spUser_GetAllByScheduleId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
