@@ -74,5 +74,10 @@ namespace Infrastructure.Data.DataAccess
 
             return sqlsToExecute;
         }
+
+        public string GetConnectionString(string connectionName = "SchoolManagementSystem")
+        {
+            return _configuration.GetConnectionString(connectionName);
+        }
     }
 }

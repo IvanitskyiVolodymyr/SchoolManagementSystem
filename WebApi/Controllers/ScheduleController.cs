@@ -50,9 +50,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("InsertAttendances")]
-        public async Task<ActionResult<int>> InsertAttendances(IList<InsertAttendanceDto> attendances)
+        public async Task<ActionResult<List<int>>> InsertAttendances(IList<InsertAttendanceDto> attendances, int scheduleId)
         {
-            return Ok(await _scheduleService.InsertAttendances(attendances));
+            return Ok(await _scheduleService.InsertAttendances(attendances, scheduleId));
         }
 
         [HttpGet("GetScheduleForStudentWithAttendancesByPeriod")]
