@@ -6,5 +6,6 @@
         Task<int> SaveData<T>(string storedProcedure, T parameters, string connectionName = "SchoolManagementSystem");
         Task ExecuteSqlQueryAsync(string sqlQuery, string connectionName = "SchoolManagementSystem");
         Task InsertRange<T>(IList<T> range, string sqlHeader, Func<T, string> selector, string connectionName = "SchoolManagementSystem");
+        string GetConnectionString(string connectionName = "SchoolManagementSystem"); 
     }
 }

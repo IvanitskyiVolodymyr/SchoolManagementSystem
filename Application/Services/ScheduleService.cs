@@ -57,12 +57,9 @@ namespace Application.Services
             return await _scheduleRepository.GetScheduleForTeacherByPeriod(startTime, endTime, teacherId);
         }
 
-        public async Task<int> InsertAttendances(IList<InsertAttendanceDto> attendances)
+        public async Task<List<int>> InsertAttendances(IList<InsertAttendanceDto> attendances, int scheduleId)
         {
-            //Add to schedule collumn like IsAttendancesCheck (false by default)
-            //After checking attendances change IsAttendancesCheck to true
-            //Implement it inside one transaction
-            return await _attendanceRepository.InsertAttendances(attendances);
+            return await _attendanceRepository.InsertAttendances(attendances, scheduleId);
         }
 
         public async Task<int> InsertSchedule(InsertScheduleDto scheduleDto)
@@ -82,7 +79,7 @@ namespace Application.Services
             await _scheduleRepository.InsertScheduleRange(scheduleRange);
         }
 
-        public async Task<int> UpdateAttendance(InsertAttendanceDto attendance)
+        public async Task<int> UpdateAttendance(UpdateAttendanceDto attendance)
         {
             return await _attendanceRepository.UpdateAttendance(attendance);
         }

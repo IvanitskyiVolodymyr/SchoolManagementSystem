@@ -4,6 +4,7 @@
     [ClassSubjectId]            INT            NOT NULL,
     [EndTime]                   DATETIME       NOT NULL,
     [Place]                     NVARCHAR (200) NULL,
+    [IsAttendanceChecked] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [PK_Schedule] PRIMARY KEY CLUSTERED ([ScheduleId] ASC),
     CONSTRAINT [FK_Schedule_ClassSubject] FOREIGN KEY ([ClassSubjectId]) REFERENCES [school].[ClassesSubjects] ([ClassSubjectId])
 );

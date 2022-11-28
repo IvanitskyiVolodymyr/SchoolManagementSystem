@@ -12,9 +12,9 @@ namespace Application.Interfaces
         Task InsertScheduleRange(IList<InsertScheduleDto> scheduleRange);
         Task<int> InsertSchedule(InsertScheduleDto scheduleDto);
         Task<int> UpdateSchedule(Schedule schedule);
-        Task<int> InsertAttendances(IList<InsertAttendanceDto> attendances);
+        Task<List<int>> InsertAttendances(IList<InsertAttendanceDto> attendances, int scheduleId);
         Task<IEnumerable<ScheduleAttendanceDto>> GetScheduleForStudentWithAttendancesByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId);
         Task<IEnumerable<Attendance>> GetAttendancesForClassSubjectByPeriod(DateTime startDateTime, DateTime endDateTime, int classSubjectId);
-        Task<int> UpdateAttendance(InsertAttendanceDto attendance);
+        Task<int> UpdateAttendance(UpdateAttendanceDto attendance);
     }
 }
