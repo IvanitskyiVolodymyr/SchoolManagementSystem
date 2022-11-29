@@ -19,6 +19,11 @@ namespace Infrastructure.Data.Repositories
             _dataHelper = dataHelper;
         }
 
+        public async Task<IEnumerable<StudentTaskAttachmentDto>> GetStudentTaskAttachments(int studentTaskId)
+        {
+            return await _dataHelper.LoadData<StudentTaskAttachmentDto, dynamic>("spStudentTaskAttachment_GetByStudentTaskId", new { StudentTaskId = studentTaskId });
+        }
+
         public async Task<StudentTask?> GetStudentTaskById(int studentTaskId)
         {
             var result = await _dataHelper.LoadData<StudentTask, dynamic>("spStudentTask_GetById", new { StudentTaskId = studentTaskId });
@@ -28,6 +33,12 @@ namespace Infrastructure.Data.Repositories
         public async Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to)
         {
             return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTask_GetByStudentId", new { StudentId = studentId, StartDateTime = from, EndDateTime = to});
+        }
+
+        public async Task<IEnumerable<ResponseTeacherTaskDto>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId)
+        {
+            return await _dataHelper.LoadData<ResponseTeacherTaskDto, dynamic>("spTask_GetByTeacherIdSubjectIdClassId",
+                                                                               new { TeacherId = teacherId, SubjectId = subjectId, ClassId = classId, IsDone = true, IsChecked = false });
         }
 
         public async Task<int> InsertStudentTask(InsertStudentTaskDto studentTaskDto)

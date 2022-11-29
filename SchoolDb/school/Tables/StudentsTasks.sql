@@ -3,12 +3,12 @@
 	[StudentTaskId] INT NOT NULL IDENTITY, 
     [StudentId] INT NOT NULL, 
     [TaskId] INT NOT NULL,
-    [IsDone]             BIT      NULL,
-    [IsChecked]          BIT      NULL,
-    [IsNeededToBeRedone] BIT      NULL,
+    [IsDone]             BIT      NOT NULL DEFAULT 0,
+    [IsChecked]          BIT      NOT NULL DEFAULT 0,
+    [IsNeededToBeRedone] BIT      NOT NULL DEFAULT 0,
     CONSTRAINT [PK_StudentTask] PRIMARY KEY CLUSTERED ([StudentTaskId] ASC),
     CONSTRAINT [FK_StudentTask_Student] FOREIGN KEY ([StudentId]) REFERENCES [school].[Students] ([StudentId]),
-    CONSTRAINT [FK_StudentTask_Task] FOREIGN KEY ([TaskId]) REFERENCES [school].[Tasks]([TaskId])
+    CONSTRAINT [FK_StudentTask_Task] FOREIGN KEY ([TaskId]) REFERENCES [school].[Tasks]([TaskId]),
 )
 
 GO

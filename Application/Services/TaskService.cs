@@ -76,5 +76,15 @@ namespace Application.Services
             }
             return _mapper.Map<UpdateStudentTaskDto>(studentTask);
         }
+
+        public async Task<IEnumerable<ResponseTeacherTaskDto>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId)
+        {
+            return await _taskRepository.GetUncheckedTasksByTeacherIdSubjectIdClassId(teacherId, subjectId, classId);
+        }
+
+        public async Task<IEnumerable<StudentTaskAttachmentDto>> GetStudentTaskAttachments(int studentTaskId)
+        {
+            return await _taskRepository.GetStudentTaskAttachments(studentTaskId);
+        }
     }
 }

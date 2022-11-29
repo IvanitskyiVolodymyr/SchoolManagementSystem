@@ -58,5 +58,17 @@ namespace WebApi.Controllers
         {
             return Ok(await _taskService.GetTasksByStudentId(studentId, from, to));
         }
+
+        [HttpGet("GetUncheckedTasksByTeacherIdSubjectIdClassId")]
+        public async Task<ActionResult<IEnumerable<ResponseTeacherTaskDto>>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId)
+        {
+            return Ok(await _taskService.GetUncheckedTasksByTeacherIdSubjectIdClassId(teacherId, subjectId, classId));
+        }
+
+        [HttpGet("GetStudentTaskAttachments")]
+        public async Task<ActionResult<IEnumerable<StudentTaskAttachmentDto>>> GetStudentTaskAttachments(int studentTaskId)
+        {
+            return Ok(await _taskService.GetStudentTaskAttachments(studentTaskId));
+        }
     }
 }

@@ -135,6 +135,8 @@
     <Build Include="school\StoredProcedures\StudentTaskAttachment\spStudentTaskAttachment_Insert.sql" />
     <Build Include="school\Tables\StudentTaskAttachment.sql" />
     <Build Include="school\StoredProcedures\StudentTask\spStudentTask_GetById.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetByTeacherIdSubjectIdClassId.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskAttachment\spStudentTaskAttachment_GetByStudentTaskId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

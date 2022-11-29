@@ -9,7 +9,10 @@ namespace Application.Interfaces
         Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to);
 
         //ForTeacher
-        //Task<IEnumerable<ResponseTaskDto>> GetTasksByTeacherIdAndSubjectId(string studentName);
+        Task<IEnumerable<ResponseTeacherTaskDto>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId);
+
+        //ForTeacher
+        Task<IEnumerable<StudentTaskAttachmentDto>> GetStudentTaskAttachments(int studentTaskId);
 
         //ForTeacher
         Task<int> InsertTaskForStudent(InsertTaskDto taskDto, int studentId);
