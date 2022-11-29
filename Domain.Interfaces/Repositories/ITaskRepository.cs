@@ -7,6 +7,7 @@ namespace Domain.Interfaces.Repositories
     public interface ITaskRepository
     {
         Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to);
+        Task<StudentTask?> GetStudentTaskById(int studentTaskId);
         Task<int> InsertTask(InsertTaskDto taskDto);
         Task<int> InsertTaskForScheduleId(InsertTaskDto taskDto);
         Task<int> InsertStudentTask(InsertStudentTaskDto studentTaskDto);

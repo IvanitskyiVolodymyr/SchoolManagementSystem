@@ -2,6 +2,7 @@
 using Common.Dtos.Tasks;
 using Common.Dtos.Users;
 using Dapper;
+using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data.DataAccess;
 using System.Data.SqlClient;
@@ -15,6 +16,12 @@ namespace Infrastructure.Data.Repositories
         public TaskRepository(ISqlDataAccess dataHelper)
         {
             _dataHelper = dataHelper;
+        }
+
+        public async Task<StudentTask?> GetStudentTaskById(int studentTaskId)
+        {
+            var result = await _dataHelper.LoadData<StudentTask, dynamic>("spStudentTask_GetById", new { StudentTaskId = studentTaskId });
+            return result.FirstOrDefault();
         }
 
         public async Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to)
