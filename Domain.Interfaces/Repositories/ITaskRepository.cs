@@ -1,4 +1,5 @@
 ﻿using Common.Dtos.StudentTask;
+using Common.Dtos.StudentTaskAttachment;
 using Common.Dtos.Tasks;
 using Domain.Core.Entities;
 
@@ -12,6 +13,7 @@ namespace Domain.Interfaces.Repositories
         Task<int> InsertTaskForScheduleId(InsertTaskDto taskDto);
         Task<int> InsertStudentTask(InsertStudentTaskDto studentTaskDto);
         Task<int> UpdateStudentTask(UpdateStudentTaskDto studentTaskDto);
+        Task<int> UpdateStudentTaskWithAttachments(UpdateStudentTaskDto studentTaskDto, List<InsertStudentTaskAttachmentDto> attachments);
         Task<int> UpdateTask(UpdateTaskDto task);
     }
 }

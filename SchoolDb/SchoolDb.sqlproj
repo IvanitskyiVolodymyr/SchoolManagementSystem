@@ -75,6 +75,7 @@
     <Folder Include="school\StoredProcedures\Attendance" />
     <Folder Include="school\StoredProcedures\Tasks" />
     <Folder Include="school\StoredProcedures\StudentTask" />
+    <Folder Include="school\StoredProcedures\StudentTaskAttachment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -131,6 +132,9 @@
     <Build Include="school\StoredProcedures\Tasks\spTask_GetByStudentId.sql" />
     <Build Include="school\StoredProcedures\StudentTask\spStudentTask_Update.sql" />
     <Build Include="school\StoredProcedures\Student\spUser_GetAllByScheduleId.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskAttachment\spStudentTaskAttachment_Insert.sql" />
+    <Build Include="school\Tables\StudentTaskAttachment.sql" />
+    <Build Include="school\StoredProcedures\StudentTask\spStudentTask_GetById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
