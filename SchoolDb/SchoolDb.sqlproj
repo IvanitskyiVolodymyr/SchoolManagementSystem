@@ -144,6 +144,7 @@
     <Build Include="school\StoredProcedures\Tasks\spTask_GetCheckedByStudentId.sql" />
     <Build Include="school\StoredProcedures\Grade\spGrade_GetAllByStudentIdAndPeriod.sql" />
     <Build Include="school\StoredProcedures\Tasks\spTask_GetUncheckedByStudentId.sql" />
+    <Build Include="school\StoredProcedures\Subject\spSubject_GetAllByStudentId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
