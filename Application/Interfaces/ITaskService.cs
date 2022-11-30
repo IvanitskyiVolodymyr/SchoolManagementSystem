@@ -32,9 +32,12 @@ namespace Application.Interfaces
         //ForTeacher
         Task<int> MarkStudentTaskAsNeededToBeRedone(int studentTaskId);
 
-        //Common
-        /*Task<int> EvaluateTask(int taskId, int grade); //authomatically markAsChecked
-        Task<int> AddAttachment(int taskId, string url); // IAttachment
+        //ForTeacher
+        Task<int> EvaluateTask(int studentTaskId, int grade);
+
+        //ForTeacher
+        Task<int> UpdateStudentTaskGrade(int studentTaskId, int grade);
+        /*Task<int> AddAttachment(int taskId, string url); // IAttachment
         Task<int> AddComment(); // CommentDto*/
     }
 }

@@ -28,4 +28,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="EndOfTheAcademicYear" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="83bdee1e-957a-4912-9879-2426b5e4bf57" ChangeDateTime="11/29/2022 17:07:05">
+    <Property Name="ElementName" Value="[school].[Grades].[TaskId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[school].[Grades]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StudentTaskId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8c48c36c-5862-4451-9e9d-be4d668ae4cb" ChangeDateTime="11/29/2022 17:17:46">
+    <Property Name="ElementName" Value="[school].[Grades].[Grade]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[school].[Grades]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Value" />
+  </Operation>
 </Operations>

@@ -29,6 +29,18 @@ namespace WebApi.Controllers
             return Ok(await _taskService.InsertTaskForStudentsByScheduleId(taskDto));
         }
 
+        [HttpPost("EvaluateTask")]
+        public async Task<ActionResult<int>> EvaluateTask(int studentTaskId, int grade)
+        {
+            return Ok(await _taskService.EvaluateTask(studentTaskId, grade));
+        }
+
+        [HttpPut("UpdateStudentTaskGrade")]
+        public async Task<ActionResult<int>> UpdateStudentTaskGrade(int studentTaskId, int grade)
+        {
+            return Ok(await _taskService.UpdateStudentTaskGrade(studentTaskId, grade));
+        }
+
         [HttpPut("UpdateTask")]
         public async Task<ActionResult<int>> UpdateTask([FromBody] UpdateTaskDto task)
         {

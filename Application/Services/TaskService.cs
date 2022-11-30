@@ -5,6 +5,7 @@ using Domain.Interfaces.Repositories;
 using Common.Dtos.StudentTask;
 using Common.Dtos.StudentTaskAttachment;
 using Common.Exceptions;
+using Common.Dtos.Grades;
 using AutoMapper;
 
 namespace Application.Services
@@ -13,11 +14,13 @@ namespace Application.Services
     {
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
+        private readonly IGradeRepository _gradeRepository;
 
-        public TaskService(ITaskRepository taskRepository, IMapper mapper)
+        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
+            _gradeRepository = gradeRepository;
         }
 
         public async Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to)
@@ -85,6 +88,34 @@ namespace Application.Services
         public async Task<IEnumerable<StudentTaskAttachmentDto>> GetStudentTaskAttachments(int studentTaskId)
         {
             return await _taskRepository.GetStudentTaskAttachments(studentTaskId);
+        }
+
+        public async Task<int> EvaluateTask(int studentTaskId, int grade)
+        {
+            var taskGrade = await _gradeRepository.GetByStudentTaskId(studentTaskId);
+
+            if(taskGrade is not null)
+            {
+                throw new Exception($"Student task with Id {studentTaskId} already has a grade");
+            }
+
+            var insertedValue = await _gradeRepository.InsertGrade(new InsertGradeDto { StudentTaskId = studentTaskId, Value = grade });
+
+            await MarkStudentTaskAsChecked(studentTaskId);
+
+            return insertedValue;
+        }
+
+        public async Task<int> UpdateStudentTaskGrade(int studentTaskId, int grade)
+        {
+            var taskGrade = await _gradeRepository.GetByStudentTaskId(studentTaskId);
+
+            if (taskGrade is null)
+            {
+                throw new NotFoundException(typeof(Grade), "StudentTaskId", studentTaskId.ToString());
+            }
+
+            return await _gradeRepository.UpdateGrade(new InsertGradeDto { StudentTaskId = studentTaskId, Value = grade });
         }
     }
 }
