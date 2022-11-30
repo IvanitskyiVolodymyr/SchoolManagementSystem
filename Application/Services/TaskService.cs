@@ -117,5 +117,25 @@ namespace Application.Services
 
             return await _gradeRepository.UpdateGrade(new InsertGradeDto { StudentTaskId = studentTaskId, Value = grade });
         }
+
+        public async Task<IEnumerable<ResponseTaskWithGradeDto>> GetAllCheckedTasksWithGradesForStudent(int studentId, DateTime from, DateTime to)
+        {
+            var studentCheckedTask = await _taskRepository.GetCheckedStudentTaskByStudentId(studentId, from, to);
+            var grades = await _gradeRepository.GetAllStudentGradesByStudentIdAndPeriod(studentId, from, to);
+
+            return (from left in studentCheckedTask
+                    join right in grades on left.StudentTaskId equals right.StudentTaskId into joinedList
+                        from sub in joinedList.DefaultIfEmpty()
+                        select new ResponseTaskWithGradeDto
+                        {
+                            Title = left.Title,
+                            Description = left.Description,
+                            StartDate = left.StartDate,
+                            EndDate = left.EndDate,
+                            TaskType = left.TaskType,
+                            StudentTaskId = left.StudentTaskId,
+                            GradeValue = sub?.Value
+                        }).ToList();
+        }
     }
 }

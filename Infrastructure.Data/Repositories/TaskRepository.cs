@@ -19,6 +19,11 @@ namespace Infrastructure.Data.Repositories
             _dataHelper = dataHelper;
         }
 
+        public async Task<IEnumerable<ResponseTaskDto>> GetCheckedStudentTaskByStudentId(int studentId, DateTime from, DateTime to)
+        {
+            return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTask_GetCheckedByStudentId", new { StudentId = studentId, From = from, To = to });
+        }
+
         public async Task<IEnumerable<StudentTaskAttachmentDto>> GetStudentTaskAttachments(int studentTaskId)
         {
             return await _dataHelper.LoadData<StudentTaskAttachmentDto, dynamic>("spStudentTaskAttachment_GetByStudentTaskId", new { StudentTaskId = studentTaskId });

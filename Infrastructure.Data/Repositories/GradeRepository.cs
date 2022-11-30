@@ -14,6 +14,16 @@ namespace Infrastructure.Data.Repositories
             _dataAccess = dataAccess;
         }
 
+        public async Task<IEnumerable<Grade>> GetAllStudentGradesByClassSubjectIdAndPeriod(int studentId, int classSubjectId, DateTime from, DateTime to)
+        {
+            return await _dataAccess.LoadData<Grade, dynamic>("spGrade_GetByClassSubjectIdAndPeriod", new { StudentId = studentId, ClassSubjectId = classSubjectId, From = from, To = to });
+        }
+
+        public async Task<IEnumerable<Grade>> GetAllStudentGradesByStudentIdAndPeriod(int studentId, DateTime from, DateTime to)
+        {
+            return await _dataAccess.LoadData<Grade, dynamic>("spGrade_GetAllByStudentIdAndPeriod", new { StudentId = studentId, From = from, To = to });
+        }
+
         public async Task<Grade?> GetByStudentTaskId(int studentTaskId)
         {
             var results = await _dataAccess.LoadData<Grade, dynamic>(

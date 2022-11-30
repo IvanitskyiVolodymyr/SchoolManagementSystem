@@ -141,6 +141,9 @@
     <Build Include="school\StoredProcedures\Grade\spGrade_GetByStudentTaskId.sql" />
     <Build Include="school\StoredProcedures\Grade\spGrade_Insert.sql" />
     <Build Include="school\StoredProcedures\Grade\spGrade_Update.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_GetByClassSubjectIdAndPeriod.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetCheckedByStudentId.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_GetAllByStudentIdAndPeriod.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

@@ -65,10 +65,16 @@ namespace WebApi.Controllers
             return Ok(await _taskService.MarkStudentTaskAsNeededToBeRedone(studentTaskId));
         }
 
-        [HttpGet("GetTasksByStudentId")]
+        [HttpGet("GetTasksByStudentId")] // change to get undone
         public async Task<ActionResult<IEnumerable<ResponseTaskDto>>> GetTasksByStudentId(int studentId, DateTime from, DateTime to)
         {
             return Ok(await _taskService.GetTasksByStudentId(studentId, from, to));
+        }
+
+        [HttpGet("GetAllCheckedTasksWithGradesForStudent")]
+        public async Task<ActionResult<IEnumerable<ResponseTaskWithGradeDto>>> GetAllCheckedTasksWithGradesForStudent(int studentId, DateTime from, DateTime to)
+        {
+            return Ok(await _taskService.GetAllCheckedTasksWithGradesForStudent(studentId, from, to));
         }
 
         [HttpGet("GetUncheckedTasksByTeacherIdSubjectIdClassId")]
