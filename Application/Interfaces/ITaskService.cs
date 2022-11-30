@@ -6,7 +6,7 @@ namespace Application.Interfaces
     public interface ITaskService
     {
         //ForStudent
-        Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to);
+        Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId);
 
         //ForStudent
         Task<IEnumerable<ResponseTaskWithGradeDto>> GetAllCheckedTasksWithGradesForStudent(int studentId, DateTime from, DateTime to);

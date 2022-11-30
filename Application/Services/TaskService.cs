@@ -23,9 +23,9 @@ namespace Application.Services
             _gradeRepository = gradeRepository;
         }
 
-        public async Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to)
+        public async Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId)
         {
-            return await _taskRepository.GetTasksByStudentId(studentId, from, to);
+            return await _taskRepository.GetAllUncheckedTasksForStudent(studentId);
         }
 
         public async Task<int> InsertTaskForStudentsByScheduleId(InsertTaskDto taskDto)

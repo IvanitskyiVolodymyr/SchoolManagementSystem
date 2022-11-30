@@ -35,9 +35,9 @@ namespace Infrastructure.Data.Repositories
             return result.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<ResponseTaskDto>> GetTasksByStudentId(int studentId, DateTime from, DateTime to)
+        public async Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId)
         {
-            return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTask_GetByStudentId", new { StudentId = studentId, StartDateTime = from, EndDateTime = to});
+            return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTask_GetUncheckedByStudentId", new { StudentId = studentId });
         }
 
         public async Task<IEnumerable<ResponseTeacherTaskDto>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId)

@@ -130,7 +130,6 @@
     <Build Include="school\StoredProcedures\Tasks\spTask_Insert.sql" />
     <Build Include="school\StoredProcedures\Tasks\spTask_Update.sql" />
     <Build Include="school\StoredProcedures\StudentTask\spStudentTask_Insert.sql" />
-    <Build Include="school\StoredProcedures\Tasks\spTask_GetByStudentId.sql" />
     <Build Include="school\StoredProcedures\StudentTask\spStudentTask_Update.sql" />
     <Build Include="school\StoredProcedures\Student\spUser_GetAllByScheduleId.sql" />
     <Build Include="school\StoredProcedures\StudentTaskAttachment\spStudentTaskAttachment_Insert.sql" />
@@ -144,6 +143,7 @@
     <Build Include="school\StoredProcedures\Grade\spGrade_GetByClassSubjectIdAndPeriod.sql" />
     <Build Include="school\StoredProcedures\Tasks\spTask_GetCheckedByStudentId.sql" />
     <Build Include="school\StoredProcedures\Grade\spGrade_GetAllByStudentIdAndPeriod.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetUncheckedByStudentId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
