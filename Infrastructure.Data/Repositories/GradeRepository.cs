@@ -1,7 +1,9 @@
 ﻿using Common.Dtos.Grades;
+using Dapper;
 using Domain.Core.Entities;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data.DataAccess;
+using System.Data.SqlClient;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -12,6 +14,34 @@ namespace Infrastructure.Data.Repositories
         public GradeRepository(ISqlDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
+        }
+
+        public async Task<IEnumerable<SubjectGradesDto>> GetAllGradesWithSubjectsForStudent(int studentId)
+        {
+            var map = new Dictionary<int, SubjectGradesDto>();
+            using var connection = new SqlConnection(_dataAccess.GetConnectionString());
+            await connection.OpenAsync();
+            var result = await connection.QueryAsync<SubjectGradesDto, Grade, SubjectGradesDto>("spGrade_GetAllWithSubjects",
+                map: (subjectGrade, grade) =>
+                {
+                    if(map.TryGetValue(subjectGrade.ClassSubjectId, out SubjectGradesDto existingSubjectGrades))
+                    {
+                        subjectGrade = existingSubjectGrades;
+                    }
+                    else
+                    {
+                        subjectGrade.Grades = new List<Grade>();
+                        map.Add(subjectGrade.ClassSubjectId, subjectGrade);
+                    }
+
+                    subjectGrade.Grades.Add(grade);
+                    return subjectGrade;
+                },
+                param: new { StudentId = studentId },
+                splitOn: "GradeId",
+                commandType: System.Data.CommandType.StoredProcedure);
+
+            return result.Distinct();
         }
 
         public async Task<IEnumerable<Grade>> GetAllStudentGradesByClassSubjectIdAndPeriod(int studentId, int classSubjectId, DateTime from, DateTime to)
