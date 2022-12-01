@@ -1,7 +1,8 @@
-﻿namespace Common.Dtos.StudentTask
+﻿namespace Domain.Core.Entities
 {
-    public class UpdateStudentTaskDto
+    public class StudentTask
     {
+        public int StudentTaskId { get; set; }
         public int StudentId { get; set; }
         public int TaskId { get; set; }
         public bool IsDone { get; set; }

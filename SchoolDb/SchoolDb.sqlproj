@@ -75,6 +75,8 @@
     <Folder Include="school\StoredProcedures\Attendance" />
     <Folder Include="school\StoredProcedures\Tasks" />
     <Folder Include="school\StoredProcedures\StudentTask" />
+    <Folder Include="school\StoredProcedures\StudentTaskAttachment" />
+    <Folder Include="school\StoredProcedures\Grade" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -128,9 +130,22 @@
     <Build Include="school\StoredProcedures\Tasks\spTask_Insert.sql" />
     <Build Include="school\StoredProcedures\Tasks\spTask_Update.sql" />
     <Build Include="school\StoredProcedures\StudentTask\spStudentTask_Insert.sql" />
-    <Build Include="school\StoredProcedures\Tasks\spTask_GetByStudentId.sql" />
     <Build Include="school\StoredProcedures\StudentTask\spStudentTask_Update.sql" />
     <Build Include="school\StoredProcedures\Student\spUser_GetAllByScheduleId.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskAttachment\spStudentTaskAttachment_Insert.sql" />
+    <Build Include="school\Tables\StudentTaskAttachment.sql" />
+    <Build Include="school\StoredProcedures\StudentTask\spStudentTask_GetById.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetByTeacherIdSubjectIdClassId.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskAttachment\spStudentTaskAttachment_GetByStudentTaskId.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_GetByStudentTaskId.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_Insert.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_Update.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_GetByClassSubjectIdAndPeriod.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetCheckedByStudentId.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_GetAllByStudentIdAndPeriod.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetUncheckedByStudentId.sql" />
+    <Build Include="school\StoredProcedures\Subject\spSubject_GetAllByStudentId.sql" />
+    <Build Include="school\StoredProcedures\Grade\spGrade_GetAllWithSubjects.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

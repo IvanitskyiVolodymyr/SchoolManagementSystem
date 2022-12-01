@@ -19,6 +19,11 @@ namespace Infrastructure.Data.Repositories
             return await _db.LoadData<Subject, dynamic>("spSubject_GetAll", new { });
         }
 
+        public async Task<IEnumerable<StudentSubjectResponseDto>> GetSubjectsByStudentId(int studentId)
+        {
+            return await _db.LoadData<StudentSubjectResponseDto, dynamic>("spSubject_GetAllByStudentId", new { StudentId = studentId });
+        }
+
         public async Task<int> InsertSubject(InsertSubjectDto subjectDto)
         {
             return await _db.SaveData("spSubject_Insert", subjectDto);

@@ -10,5 +10,7 @@ namespace Application.Interfaces
         Task<IEnumerable<int>> CreateSubjects(IEnumerable<InsertSubjectDto> subjects);
         Task<IEnumerable<Subject>> GetAllSubjects();
         Task<int> AddTeacherToSubject(InsertSubjectTeacherDto subjectTeacherDto);
+
+        //GetAllSubjectsByTeacherId
     }
 }

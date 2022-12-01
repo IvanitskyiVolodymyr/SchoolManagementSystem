@@ -94,6 +94,7 @@ namespace Application
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IJournalService, JournalService>();
         }
     }
 }
