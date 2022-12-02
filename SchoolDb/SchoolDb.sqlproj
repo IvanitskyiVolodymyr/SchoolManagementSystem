@@ -77,6 +77,7 @@
     <Folder Include="school\StoredProcedures\StudentTask" />
     <Folder Include="school\StoredProcedures\StudentTaskAttachment" />
     <Folder Include="school\StoredProcedures\Grade" />
+    <Folder Include="school\StoredProcedures\ClassSubjectGrade" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -146,6 +147,11 @@
     <Build Include="school\StoredProcedures\Tasks\spTask_GetUncheckedByStudentId.sql" />
     <Build Include="school\StoredProcedures\Subject\spSubject_GetAllByStudentId.sql" />
     <Build Include="school\StoredProcedures\Grade\spGrade_GetAllWithSubjects.sql" />
+    <Build Include="school\Tables\ClassSubjectGrades.sql" />
+    <Build Include="school\StoredProcedures\ClassSubjectGrade\spClassSubjectGrade_Insert.sql" />
+    <Build Include="school\StoredProcedures\ClassSubjectGrade\spClassSubjectGrade_Update.sql" />
+    <Build Include="school\StoredProcedures\ClassSubjectGrade\spClassSubjectGrade_GetByClassId.sql" />
+    <Build Include="school\StoredProcedures\ClassSubjectGrade\spClassSubjectGrade_GetByClassSubjectId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
