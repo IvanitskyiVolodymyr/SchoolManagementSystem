@@ -27,6 +27,7 @@ namespace Infrastructure.Data
             services.AddScoped<IAttendanceRepository, AttendanceRepository>();
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IGradeRepository, GradeRepository>();
+            services.AddScoped<IClassSubjectGradeRepository, ClassSubjectGradeRepository>();
         }
     }
 }
