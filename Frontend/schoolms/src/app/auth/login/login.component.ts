@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { UserLogin } from 'src/app/shared/models/Users/user-login';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { loginAction } from 'src/app/store/actions/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +15,12 @@ export class LoginComponent implements OnInit{
   public hidePassword = true;
 
   constructor(
-    private authService: AuthService
+    private store: Store
   ) { }
 
   ngOnInit(): void {
   }
+
   public loginForm : FormGroup = new FormGroup({
     email: new FormControl('',[
       Validators.required,
@@ -34,6 +36,6 @@ export class LoginComponent implements OnInit{
   });
 
   public submitClicked() {
-    this.authService.login(this.userLogin).subscribe(res => console.log(res))
+    this.store.dispatch(loginAction({userLogin: this.userLogin}));
   }
 }

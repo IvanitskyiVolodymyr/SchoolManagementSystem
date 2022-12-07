@@ -1,5 +1,5 @@
-import { Token } from "@angular/compiler";
 import { User } from "../Users/user";
+import { Token } from "./token";
 
 export interface AuthUser {
     user: User;
