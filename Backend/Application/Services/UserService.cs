@@ -113,5 +113,41 @@ namespace Application.Services
 
             return registeredUser;
         }
+
+        public async Task<EntityWithRoleDto> GetEntityIdWithRoleByUserId(int userId, int roleId)
+        {
+            EntityWithRoleDto result = new EntityWithRoleDto();
+            result.RoleId = roleId;
+
+            switch (roleId)
+            {
+                case (int)Role.Student:
+                    var student = await _userRepository.GetStudentByUserId(userId);
+
+                    if (student is null)
+                        throw new NotFoundException(typeof(Student), "UserId", userId.ToString());
+
+                    result.EntityId = student.StudentId;
+                    break;
+                case (int)Role.Parent:
+                    var parent = await _userRepository.GetParentByUserId(userId);
+
+                    if (parent is null)
+                        throw new NotFoundException(typeof(Parent), "UserId", userId.ToString());
+
+                    result.EntityId = parent.ParentId;
+                    break;
+                case (int)Role.Teacher:
+                    var teacher = await _userRepository.GetTeacherByUserId(userId);
+
+                    if (teacher is null)
+                        throw new NotFoundException(typeof(Teacher), "UserId", userId.ToString());
+
+                    result.EntityId = teacher.TeacherId;
+                    break;
+            }
+
+            return result;
+        }
     }
 }

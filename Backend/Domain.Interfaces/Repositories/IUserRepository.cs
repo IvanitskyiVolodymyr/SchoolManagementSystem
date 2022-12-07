@@ -11,5 +11,8 @@ namespace Domain.Interfaces.Repositories
         Task<IEnumerable<User>> GetUsers();
         Task<int> InsertUser(InsertUserDto user);
         Task<int> UpdateUser(User user);
+        Task<Student?> GetStudentByUserId(int userId);
+        Task<Teacher?> GetTeacherByUserId(int userId);
+        Task<Parent?> GetParentByUserId(int userId);
     }
 }

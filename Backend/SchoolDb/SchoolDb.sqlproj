@@ -152,6 +152,9 @@
     <Build Include="school\StoredProcedures\ClassSubjectGrade\spClassSubjectGrade_Update.sql" />
     <Build Include="school\StoredProcedures\ClassSubjectGrade\spClassSubjectGrade_GetByClassId.sql" />
     <Build Include="school\StoredProcedures\ClassSubjectGrade\spClassSubjectGrade_GetByClassSubjectId.sql" />
+    <Build Include="school\StoredProcedures\Student\spStudent_GetByUserId.sql" />
+    <Build Include="school\StoredProcedures\Parent\spParent_GetByUserId.sql" />
+    <Build Include="school\StoredProcedures\Teacher\spTeacher_GetByUserId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

@@ -32,6 +32,12 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [HttpGet("GetEntityIdWithRoleByUserId")]
+        public async Task<ActionResult<EntityWithRoleDto>> GetEntityIdWithRoleByUserId(int userId, int roleId)
+        {
+            return Ok(await _userService.GetEntityIdWithRoleByUserId(userId, roleId));
+        } 
+
         [HttpPut("UpdateUser")]
         public async Task UpdateUser([FromBody] User user)
         {

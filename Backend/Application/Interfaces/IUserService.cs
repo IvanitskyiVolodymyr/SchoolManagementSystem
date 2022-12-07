@@ -7,6 +7,7 @@ namespace Application.Interfaces
     {
         Task<UserDto> GetUserByEmail(string email);
         Task<UserDto> GetUserById(int id);
+        Task<EntityWithRoleDto> GetEntityIdWithRoleByUserId(int userId, int roleId);
         Task<int> UpdateUser(User user);
         Task<ResponseParentDto> CreateParentWithChildrenIds(CreateParentDto parent);
         Task<UserDto> CreateStudent(CreateStudentDto student);

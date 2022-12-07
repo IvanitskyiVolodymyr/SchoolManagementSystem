@@ -51,5 +51,23 @@ namespace Infrastructure.Data.Repositories
 
             return results.FirstOrDefault();
         }
+
+        public async Task<Student?> GetStudentByUserId(int userId)
+        {
+            var result = await _db.LoadData<Student, dynamic>("spStudent_GetByUserId", new { UserId = userId });
+            return result.FirstOrDefault();
+        }
+
+        public async Task<Teacher?> GetTeacherByUserId(int userId)
+        {
+            var result = await _db.LoadData<Teacher, dynamic>("spTeacher_GetByUserId", new { UserId = userId });
+            return result.FirstOrDefault();
+        }
+
+        public async Task<Parent?> GetParentByUserId(int userId)
+        {
+            var result = await _db.LoadData<Parent, dynamic>("spParent_GetByUserId", new { UserId = userId });
+            return result.FirstOrDefault();
+        }
     }
 }
