@@ -46,7 +46,7 @@
         </mat-form-field>
         
       </mat-card-content>
-      <button mat-raised-button class="login-btn" type="submit"  [disabled]="!(loginForm.valid)">Log in</button>
+      <button mat-raised-button class="login-btn" type="submit"  [disabled]="!(loginForm.valid)" (click) = "submitClicked()">Log in</button>
     </form>
   </mat-card>
 </div>
