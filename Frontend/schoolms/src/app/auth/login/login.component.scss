@@ -1,0 +1,55 @@
+.login-container {
+    display: flex;
+    background-image: url('../../../assets/background.png');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+
+    .login-box {
+        height: 50vh;
+        width: 450px;
+        margin: auto;
+        background: #C9E2F1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 20px;
+        padding: 20px;
+
+        mat-card-header {
+            justify-content: center;
+            padding: 0;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+
+            mat-label {
+                font-weight: bold;
+            }
+
+            .login-btn {
+                margin-left: 20%;
+                margin-right: 20%;
+                border-radius: 20px;
+                background: #F8CFDD;
+                font-size: 16px;
+                margin-top: 10px;
+                height: 3rem;
+            }
+            .login-btn:disabled {
+                cursor: default;
+                color: grey;
+                background: #e0d8d7;
+            }
+        }
+    }
+
+    .mat-mdc-card-content {
+        display: flex;
+        flex-direction: column;
+    }
+}

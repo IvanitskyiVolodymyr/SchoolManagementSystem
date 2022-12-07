@@ -1,0 +1,52 @@
+<div class="login-container">
+  <mat-card class="login-box">
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+    <form class="login-form" [formGroup]="loginForm">
+      <mat-card-content>
+
+        <mat-label>Email</mat-label>
+        <mat-form-field class="form-field" appearance="fill">
+          <input matInput
+            placeholder="email@gmail.com"
+            type="email"
+            [(ngModel)] = 'userLogin.email'
+            formControlName="email"
+            required>
+          <mat-error *ngIf="loginForm.controls['email'].hasError('pattern')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-label>Password</mat-label>
+        <mat-form-field class="form-field" appearance="fill">
+          <input matInput
+           placeholder="password"
+           [type]="hidePassword ? 'password' : 'text'"
+           [(ngModel)] = 'userLogin.password'
+           formControlName="password"
+           maxlength="20"
+           required>
+           <mat-icon matSuffix (click)='hidePassword=!hidePassword'>
+            {{hidePassword ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('pattern') ||
+          loginForm.controls['password'].hasError('minlength') ||
+          loginForm.controls['password'].hasError('maxlength') ||
+          loginForm.controls['password'].hasError('cannotContainSpace')">
+            At least 1 digit and 1 letter, 8-20 characters without spaces
+          </mat-error>
+        </mat-form-field>
+        
+      </mat-card-content>
+      <button mat-raised-button class="login-btn" type="submit"  [disabled]="!(loginForm.valid)" (click) = "submitClicked()">Log in</button>
+    </form>
+  </mat-card>
+</div>
