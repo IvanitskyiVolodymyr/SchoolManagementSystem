@@ -25,6 +25,7 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [Authorize]
         [HttpGet("GetUserByEmail")]
         public async Task<ActionResult<UserDto>> GetUserByEmail(string email)
         {
@@ -32,6 +33,7 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [AllowAnonymous]
         [HttpGet("GetEntityIdWithRoleByUserId")]
         public async Task<ActionResult<EntityWithRoleDto>> GetEntityIdWithRoleByUserId(int userId, int roleId)
         {
