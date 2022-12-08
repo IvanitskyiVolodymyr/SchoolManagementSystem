@@ -4,7 +4,9 @@ import * as AuthActions from "../actions/auth.actions"
 import * as UserActions from "../actions/user.actions";
 
 export const initAuthUserState: AuthUserState = {
-    authUser: null,
+    //authUser: null,
+    user: null,
+    tokens: null,
     entityWithRole: null,
     errorMessage: null
 };
@@ -12,7 +14,8 @@ export const authReducer = createReducer(
     initAuthUserState,
     on(AuthActions.loginSuccessAction, (state, action) => ({
         ...state,
-        authUser: action.userAuth
+        user: action.userAuth.user,
+        tokens: action.userAuth.tokens
     })),
     on(AuthActions.loginFailureAction, (state, action) => ({
         ...state,
@@ -28,9 +31,14 @@ export const authReducer = createReducer(
     })),
     on(AuthActions.logoutAction, (state) => ({
         ...state,
-        authUser: null,
+        tokens: null,
+        user: null,
         entityWithRole: null,
         errorMessage: null
+    })),
+    on(AuthActions.refreshAction, (state, action) => ({
+        ...state,
+        tokens: action.tokens
     }))
     
 );
