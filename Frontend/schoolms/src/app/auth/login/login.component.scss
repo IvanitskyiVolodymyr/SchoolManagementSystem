@@ -8,7 +8,7 @@
     padding: 0px;
 
     .login-box {
-        height: 50vh;
+        height: 350px;
         width: 450px;
         margin: auto;
         background: #C9E2F1;
@@ -51,5 +51,14 @@
     .mat-mdc-card-content {
         display: flex;
         flex-direction: column;
+    }
+}
+
+@media (width <= 500px) {
+    .login-container {
+        .login-box {
+            max-height: 350px;
+            max-width: 350px;
+        }
     }
 }
