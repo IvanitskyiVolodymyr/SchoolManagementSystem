@@ -25,6 +25,12 @@ export const authReducer = createReducer(
     on(UserActions.getEntityIdWithRoleFailure, (state, action) => ({
         ...state,
         errorMessage: action.error
+    })),
+    on(AuthActions.logoutAction, (state) => ({
+        ...state,
+        authUser: null,
+        entityWithRole: null,
+        errorMessage: null
     }))
     
 );
