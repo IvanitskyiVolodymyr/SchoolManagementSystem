@@ -15,6 +15,7 @@ export const loginSuccessAction = createAction(
 
 export const loginFailureAction = createAction(
     '[Auth] Login failure',
+    // eslint-disable-next-line
     props<{error: any}>()
 );
 

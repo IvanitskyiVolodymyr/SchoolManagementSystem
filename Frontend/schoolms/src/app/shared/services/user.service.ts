@@ -9,7 +9,7 @@ import { HttpClientService } from './http-client.service';
 })
 export class UserService {
 
-  private prefix: string = "/users";
+  private prefix = "/users";
   constructor(
     private httpService: HttpClientService
   ) { }

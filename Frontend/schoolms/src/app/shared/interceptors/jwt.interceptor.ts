@@ -43,6 +43,7 @@ export class JwtInterceptor implements HttpInterceptor {
     );
   }
 
+  // eslint-disable-next-line
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
@@ -80,6 +81,7 @@ export class JwtInterceptor implements HttpInterceptor {
     );
   }
 
+  // eslint-disable-next-line
   private addTokenHeader(request: HttpRequest<any>, token: string) {
     return request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
   }

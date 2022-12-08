@@ -6,8 +6,6 @@ import { Token } from '../models/auth/token';
 })
 export class TokenService {
 
-  constructor() { }
-
   public saveTokens(tokens: Token) {
     localStorage.setItem('access-token', tokens.accessToken);
     localStorage.setItem('refresh-token', tokens.refreshToken);

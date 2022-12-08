@@ -8,5 +8,6 @@ export const getEntityIdWithRole = createAction(
 
 export const getEntityIdWithRoleFailure = createAction(
     '[User] Entity Id with role failure',
+    // eslint-disable-next-line
     props<{error: any}>()
 );

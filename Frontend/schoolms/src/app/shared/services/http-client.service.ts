@@ -1,4 +1,4 @@
-import { HttpClient, HttpContext, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,13 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class HttpClientService {
 
-  public baseUrl: string = 'https://localhost:7059/api';
+  public baseUrl = 'https://localhost:7059/api';
 
   constructor(private http: HttpClient) {}
 
   public getFullRequest<T>(
     url: string,
-    httpParams?: any,
+    httpParams?: HttpParams,
     headers?: HttpHeaders | { [p: string]: string | string[] },
   ): Observable<HttpResponse<T>> {
     return this.http.get<T>(this.buildUrl(url), {
@@ -51,7 +51,7 @@ export class HttpClientService {
 
   public deleteFullRequest<T>(
     url: string,
-    httpParams?: any,
+    httpParams?: HttpParams,
     headers?: HttpHeaders | { [p: string]: string | string[] },
   ): Observable<HttpResponse<T>> {
     return this.http.delete<T>(this.buildUrl(url), {
