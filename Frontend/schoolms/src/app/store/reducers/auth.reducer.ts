@@ -4,7 +4,6 @@ import * as AuthActions from "../actions/auth.actions"
 import * as UserActions from "../actions/user.actions";
 
 export const initAuthUserState: AuthUserState = {
-    //authUser: null,
     user: null,
     tokens: null,
     entityWithRole: null,
