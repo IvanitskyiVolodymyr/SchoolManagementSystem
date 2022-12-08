@@ -4,3 +4,4 @@ import { AuthUserState } from "../states/authUser.state";
 
 export const featureSelector = createFeatureSelector<AuthUserState>(authFeatureKey);
 export const authUserSelector = createSelector(featureSelector, state => state.authUser);
+export const authErrorSelector = createSelector(featureSelector, state => state.errorMessage);

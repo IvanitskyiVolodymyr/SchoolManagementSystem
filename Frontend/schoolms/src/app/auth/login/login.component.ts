@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { UserLogin } from 'src/app/shared/models/Users/user-login';
 import { loginAction } from 'src/app/store/actions/auth.actions';
+import { authErrorSelector } from 'src/app/store/selectors/auth.selector';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,17 @@ import { loginAction } from 'src/app/store/actions/auth.actions';
 export class LoginComponent implements OnInit{
 
   public userLogin: UserLogin = {} as UserLogin;
-  public hidePassword = true;
+  public hidePassword = true; 
+  public errorMessage: string | null |undefined;
 
   constructor(
     private store: Store
   ) { }
 
   ngOnInit(): void {
+    this.store.select(authErrorSelector).subscribe(
+      error => this.errorMessage = error
+    );
   }
 
   public loginForm : FormGroup = new FormGroup({
