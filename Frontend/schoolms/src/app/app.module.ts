@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -25,7 +24,6 @@ import { LogInGuard } from './shared/guards/log-in.guard';
     AuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule,
     SharedModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
