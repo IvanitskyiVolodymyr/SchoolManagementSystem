@@ -1,0 +1,56 @@
+<mat-toolbar style="height:56px;">
+    <div class="left-part" fxHide.gt-xs>
+        <button *ngIf="openSidenavFlag" mat-icon-button class="menu" (click)="sidenavToggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>School MS</span>
+    </div>
+    <div class="center-part" *ngIf="!openSidenavFlag">
+        <div class="nav-item">
+            <mat-icon>timer</mat-icon>
+            <span>Schedule</span>
+        </div>
+        <div class="nav-item">
+            <mat-icon>work_outline</mat-icon>
+            <span>HomeWork</span>
+        </div>
+        <div class="nav-item">
+            <mat-icon> table_chart</mat-icon>
+            <span>Journal</span>
+        </div>
+        <div class="nav-item">
+            <mat-icon> sentiment_satisfied_alt</mat-icon>
+            <span>Attendances</span>
+        </div>
+    </div>
+    <div class="right-part">
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>person_outline</mat-icon>
+          </button>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav-container (window:resize)="onResize($event)">
+    <mat-sidenav mode="over" [opened]="isShowing">
+        <div class="nav-item">
+            <mat-icon>timer</mat-icon>
+            <span>Schedule</span>
+        </div>
+        <div class="nav-item">
+            <mat-icon>work_outline</mat-icon>
+            <span>HomeWork</span>
+        </div>
+        <div class="nav-item">
+            <mat-icon> table_chart</mat-icon>
+            <span>Journal</span>
+        </div>
+        <div class="nav-item">
+            <mat-icon> sentiment_satisfied_alt</mat-icon>
+            <span>Attendances</span>
+        </div>
+    </mat-sidenav>
+
+</mat-sidenav-container>

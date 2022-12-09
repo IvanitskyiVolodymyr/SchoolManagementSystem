@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const materials = [
@@ -24,6 +25,7 @@ const materials = [
   MatSelectModule,
   MatSidenavModule,
   MatFormFieldModule,
+  MatToolbarModule,
 ];
 
 @NgModule({
@@ -34,7 +36,7 @@ const materials = [
     EffectsModule.forFeature([UserEffects]),
     ...materials,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     ...materials,
