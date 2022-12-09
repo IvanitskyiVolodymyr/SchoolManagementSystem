@@ -28,7 +28,7 @@ namespace Application.Services
             return await _attendanceRepository.GetAttendancesForClassSubjectByPeriod(startDateTime, endDateTime, classSubjectId);
         }
 
-        public async Task<IEnumerable<Schedule>> GetScheduleForStudentByPeriod(DateTime startTime, DateTime endTime, int studentId)
+        public async Task<IEnumerable<ScheduleWithSubject>> GetScheduleForStudentByPeriod(DateTime startTime, DateTime endTime, int studentId)
         {
             return await _scheduleRepository.GetScheduleForStudentByPeriod(startTime, endTime, studentId);
         }
@@ -47,6 +47,7 @@ namespace Application.Services
                              StartTime = left.StartTime,
                              EndTime = left.EndTime,
                              ClassSubjectId = left.ClassSubjectId,
+                             SubjectName = left.SubjectName,
                              Place = left.Place,
                              Status = sub?.Status   
                          }).ToList();

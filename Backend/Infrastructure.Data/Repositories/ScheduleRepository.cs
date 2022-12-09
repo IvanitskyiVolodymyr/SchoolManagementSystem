@@ -26,9 +26,9 @@ namespace Infrastructure.Data.Repositories
             return Convert.ToBoolean(result);
         }
 
-        public async Task<IEnumerable<Schedule>> GetScheduleForStudentByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId)
+        public async Task<IEnumerable<ScheduleWithSubject>> GetScheduleForStudentByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId)
         {
-            return await _db.LoadData<Schedule, dynamic>("spSchedule_GetForStudentByPeriod", new
+            return await _db.LoadData<ScheduleWithSubject, dynamic>("spSchedule_GetForStudentByPeriod", new
             {
                 StartDateTime = startDateTime,
                 EndDateTime = endDateTime,
