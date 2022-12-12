@@ -11,9 +11,11 @@
         <span class="subject-title">{{scheduleAttendance?.subjectName}}</span>
         <span class="subject-place-info" (click)="openSubjectLink(scheduleAttendance?.place)">[Відкрити посилання]</span>
     </div>
-    <div class="card-title-additional-info"> 
-        <span class="home-work">Домашка</span>
-        <span class="home-work">Тут буде домашка, тут буде домашка, тут буде домашка.</span>
+    <div class="card-title-additional-info">
+        <span *ngFor="let task of homework">
+            <span class="home-work" *ngIf="task"><b>Д/З: </b></span>
+            <span class="home-work">{{ task.title }}</span>
+        </span>
     </div>
     <div class="attendance">
         <div *ngIf="scheduleAttendance?.status === 1" class="attendance-n">

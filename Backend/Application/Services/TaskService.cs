@@ -137,5 +137,10 @@ namespace Application.Services
                             GradeValue = sub?.Value
                         }).ToList();
         }
+
+        public async Task<IEnumerable<ResponseTaskDto>> GetAllHomeworksForStudent(int studentId, DateTime from, DateTime to)
+        {
+            return await _taskRepository.GetAllHomeworksForStudent(studentId, from, to);
+        }
     }
 }

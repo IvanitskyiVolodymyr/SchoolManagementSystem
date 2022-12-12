@@ -71,6 +71,12 @@ namespace WebApi.Controllers
             return Ok(await _taskService.GetAllUncheckedTasksForStudent(studentId));
         }
 
+        [HttpGet("GetAllHomeworksForStudent")]
+        public async Task<ActionResult<IEnumerable<ResponseTaskDto>>> GetAllHomeworksForStudent(int studentId, DateTime from, DateTime to)
+        {
+            return Ok(await _taskService.GetAllHomeworksForStudent(studentId, from, to));
+        }
+
         [HttpGet("GetAllCheckedTasksWithGradesForStudent")]
         public async Task<ActionResult<IEnumerable<ResponseTaskWithGradeDto>>> GetAllCheckedTasksWithGradesForStudent(int studentId, DateTime from, DateTime to)
         {

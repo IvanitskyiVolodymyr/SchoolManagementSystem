@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ScheduleAttendance } from 'src/app/shared/models/schedule/scheduleAttendance';
 import { ScheduleDay } from 'src/app/shared/models/schedule/scheduleDay';
+import { ResponseTask } from 'src/app/shared/models/tasks/reposponseTask';
 import { ScheduleService } from 'src/app/shared/services/schedule.service';
+import { TasksService } from 'src/app/shared/services/tasks.service';
 
 @Component({
   selector: 'app-schedule-list',
@@ -11,12 +13,14 @@ import { ScheduleService } from 'src/app/shared/services/schedule.service';
 export class ScheduleListComponent implements OnInit {
 
   public schedules: Array<ScheduleAttendance> = [];
+  public homeworks: Array<ResponseTask> = [];
   public scheduleDays: Array<ScheduleDay> = [] as Array<ScheduleDay>;
   public startDate: Date = {} as Date;
   public finishDate: Date = {} as Date;
 
   constructor(
-    private scheduleService: ScheduleService
+    private scheduleService: ScheduleService,
+    private taskService: TasksService
   ) {
       
   }
@@ -31,6 +35,12 @@ export class ScheduleListComponent implements OnInit {
     .subscribe((result) => {
         this.groupScheduleByDays(result);
     });
+
+    this.taskService.GetAllHomeworksForStudent(1, periodOfDates.startDate, periodOfDates.finishDate).subscribe(
+      (result) => {
+        this.homeworks = result;
+      }
+    );
   }
 
   private groupScheduleByDays(sa: ScheduleAttendance[]) {
@@ -85,6 +95,10 @@ export class ScheduleListComponent implements OnInit {
   public onNextWeekClick() {
     const finishDate = new Date(this.startDate.getTime() + 7*24*60*60*1000);
     this.getSchedulesByDate(finishDate);
+  }
+
+  public getHomework(scheduleId: number) {
+    return this.homeworks.filter((element) => element.scheduleId === scheduleId);
   }
 
 }
