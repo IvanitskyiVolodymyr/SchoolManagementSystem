@@ -1,0 +1,29 @@
+<div class="shedule-nav-container">
+    <div class="title">
+        <span>Щоденник</span>
+    </div>
+    <div class="shedule-nav">
+        <div class="left" (click)="onPreviousWeekClick()">
+            <mat-icon>arrow_back_ios</mat-icon>
+            <span>Попередній</span> 
+        </div>
+        <div class="center">
+            ( {{startDate | date:'d MMMM' | ukrainianDate}} - {{finishDate | date:'d MMMM' | ukrainianDate}} )
+        </div>
+        <div class="right" (click)="onNextWeekClick()">
+            <span>Наступний</span>
+            <mat-icon>arrow_forward_ios</mat-icon>
+        </div>
+    </div>
+</div>
+
+<div class="schedule-container">
+    <div class="day-schedule" *ngFor="let day of scheduleDays">
+        <div class="day-dates">
+            <span>{{day.date | date:'EEEE, d MMMM' | ukrainianDate}}</span>
+        </div>
+        <div class="day-lessons" *ngFor="let item of day.schedules">
+            <app-schedule-card [scheduleAttendance] = "item" [homework] = "getHomework(item.scheduleId)"></app-schedule-card>
+        </div>
+    </div>
+</div>  

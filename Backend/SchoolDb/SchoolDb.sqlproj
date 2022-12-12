@@ -155,6 +155,7 @@
     <Build Include="school\StoredProcedures\Student\spStudent_GetByUserId.sql" />
     <Build Include="school\StoredProcedures\Parent\spParent_GetByUserId.sql" />
     <Build Include="school\StoredProcedures\Teacher\spTeacher_GetByUserId.sql" />
+    <Build Include="school\StoredProcedures\Tasks\spTask_GetAllByPeriodAndType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

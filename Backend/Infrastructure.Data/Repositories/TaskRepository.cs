@@ -127,5 +127,10 @@ namespace Infrastructure.Data.Repositories
             await _dataHelper.SaveData("spTask_Update", task);
             return task.TaskId;
         }
+
+        public async Task<IEnumerable<ResponseTaskDto>> GetAllHomeworksForStudent(int studentId, DateTime from, DateTime to)
+        {
+            return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTask_GetAllByPeriodAndType", new { StudentId = studentId, From = from, To = to, TaskType = TaskType.HomeWork });
+        }
     }
 }

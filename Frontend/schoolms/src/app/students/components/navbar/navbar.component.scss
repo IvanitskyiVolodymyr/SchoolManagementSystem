@@ -15,7 +15,6 @@ mat-toolbar {
         height: 100%;
         display: flex;
         flex-direction: row;
-
         .nav-item {
             display: flex;
             flex-direction: row;
@@ -56,6 +55,14 @@ mat-sidenav-container {
             padding: 15px;
             color: #C9B6EF;
         }
+        .nav-item:hover {
+            color: white;
+            cursor: pointer;
+        }
 
     }
+}
+
+.is-active {
+    color:white;
 }

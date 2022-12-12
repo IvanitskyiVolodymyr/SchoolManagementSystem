@@ -14,6 +14,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LogInGuard } from './shared/guards/log-in.guard';
+import { metaReducers } from './store/reducers/hydration.reducer';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { LogInGuard } from './shared/guards/log-in.guard';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({}, {metaReducers}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([]),
   ],

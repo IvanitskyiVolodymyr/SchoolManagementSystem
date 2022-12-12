@@ -6,21 +6,21 @@
         <span>School MS</span>
     </div>
     <div class="center-part" *ngIf="!openSidenavFlag">
-        <div class="nav-item">
+        <div class="nav-item" [routerLink]="['schedule']" [routerLinkActive]="['is-active']">
             <mat-icon>timer</mat-icon>
-            <span>Schedule</span>
+            <span>Щоденник</span>
         </div>
         <div class="nav-item">
             <mat-icon>work_outline</mat-icon>
-            <span>HomeWork</span>
+            <span>Домашка</span>
         </div>
         <div class="nav-item">
             <mat-icon> table_chart</mat-icon>
-            <span>Journal</span>
+            <span>Журнал</span>
         </div>
         <div class="nav-item">
             <mat-icon> sentiment_satisfied_alt</mat-icon>
-            <span>Attendances</span>
+            <span>Відвідуваність</span>
         </div>
     </div>
     <div class="right-part">
@@ -35,22 +35,24 @@
 
 <mat-sidenav-container (window:resize)="onResize($event)">
     <mat-sidenav mode="over" [opened]="isShowing">
-        <div class="nav-item">
+        <div class="nav-item" [routerLink]="['schedule']" [routerLinkActive]="['is-active']">
             <mat-icon>timer</mat-icon>
-            <span>Schedule</span>
+            <span>Щоденник</span>
         </div>
         <div class="nav-item">
             <mat-icon>work_outline</mat-icon>
-            <span>HomeWork</span>
+            <span>Домашка</span>
         </div>
         <div class="nav-item">
             <mat-icon> table_chart</mat-icon>
-            <span>Journal</span>
+            <span>Журнал</span>
         </div>
         <div class="nav-item">
             <mat-icon> sentiment_satisfied_alt</mat-icon>
-            <span>Attendances</span>
+            <span>Відвідуваність</span>
         </div>
     </mat-sidenav>
+
+    <router-outlet></router-outlet>
 
 </mat-sidenav-container>

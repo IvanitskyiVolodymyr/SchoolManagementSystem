@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from '../store/effects/user.effects';
@@ -14,6 +14,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ScheduleCardComponent } from './components/schedule/schedule-card/schedule-card.component';
+import { ScheduleListComponent } from './components/schedule/schedule-list/schedule-list.component';
+import { CustomUkrainianDatePipe } from './pipes/custom-ukrainian-date.pipe';
 
 const materials = [
   MatButtonModule,
@@ -29,7 +32,11 @@ const materials = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ScheduleCardComponent,
+    ScheduleListComponent,
+    CustomUkrainianDatePipe
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -41,7 +48,10 @@ const materials = [
   exports: [
     ...materials,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    ScheduleListComponent,
+    ScheduleCardComponent
+  ],
+  providers:[DatePipe]
 })
 export class SharedModule { }

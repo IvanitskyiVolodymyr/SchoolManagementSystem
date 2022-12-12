@@ -38,7 +38,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetScheduleForStudentByPeriod")]
-        public async Task<ActionResult<IEnumerable<Schedule>>> GetScheduleForStudentByPeriod(DateTime startTime, DateTime endTime, int studentId)
+        public async Task<ActionResult<IEnumerable<ScheduleWithSubject>>> GetScheduleForStudentByPeriod(DateTime startTime, DateTime endTime, int studentId)
         {
             return Ok(await _scheduleService.GetScheduleForStudentByPeriod(startTime, endTime, studentId));
         }

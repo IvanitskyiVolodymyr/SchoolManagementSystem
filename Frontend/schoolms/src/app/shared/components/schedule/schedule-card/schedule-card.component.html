@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="time-range">
+        <span>
+            {{scheduleAttendance?.startTime | date: 'H:mm'}}
+        </span>
+        <span>
+            {{scheduleAttendance?.endTime | date: 'H:mm'}}
+        </span>
+    </div>
+    <div class="card-title-main-info"> 
+        <span class="subject-title">{{scheduleAttendance?.subjectName}}</span>
+        <span class="subject-place-info" (click)="openSubjectLink(scheduleAttendance?.place)">[Відкрити посилання]</span>
+    </div>
+    <div class="card-title-additional-info">
+        <span *ngFor="let task of homework">
+            <span class="home-work" *ngIf="task"><b>Д/З: </b></span>
+            <span class="home-work">{{ task.title }}</span>
+        </span>
+    </div>
+    <div class="attendance">
+        <div *ngIf="scheduleAttendance?.status === 1" class="attendance-n">
+            <span>Н</span>
+        </div>
+        <div *ngIf="scheduleAttendance?.status === 2" class="attendance-x">
+            <span>Х</span>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,6 @@
-﻿
-using Domain.Core.Entities;
-
-namespace Common.Dtos.Schedule
+﻿namespace Common.Dtos.Schedule
 {
-    public class ScheduleAttendanceDto
+    public class ScheduleWithSubject
     {
         public int ScheduleId { get; set; }
         public DateTime StartTime { get; set; }
@@ -11,6 +8,5 @@ namespace Common.Dtos.Schedule
         public string SubjectName { get; set; }
         public DateTime EndTime { get; set; }
         public string Place { get; set; }
-        public AttendanceStatus? Status { get; set; }
     }
 }
