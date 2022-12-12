@@ -4,13 +4,13 @@ import { AuthGuard } from './shared/guards/auth.guard';
 
 const appRoutes: Routes = [
   {
-    path: '',
+    path: 'auth',
     loadChildren: () => 
       import('./auth/auth.module').then(m => m.AuthModule),
       canActivate:[AuthGuard]
   },
   {
-    path: 'student',
+    path: '',
     loadChildren: () => 
       import('./students/students.module').then(m => m.StudentsModule),
       canActivate: [AuthGuard]

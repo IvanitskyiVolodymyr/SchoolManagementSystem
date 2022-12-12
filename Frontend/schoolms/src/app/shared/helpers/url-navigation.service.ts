@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class UrlNavigationService {
 
-  constructor() { }
-
   public openExternalUrl(url: string | undefined) {
     if(url !==undefined) {
 
