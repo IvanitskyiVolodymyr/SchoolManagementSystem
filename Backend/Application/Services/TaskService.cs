@@ -118,12 +118,12 @@ namespace Application.Services
             return await _gradeRepository.UpdateGrade(new InsertGradeDto { StudentTaskId = studentTaskId, Value = grade });
         }
 
-        public async Task<IEnumerable<ResponseTaskWithGradeDto>> GetAllCheckedTasksWithGradesForStudent(int studentId, DateTime from, DateTime to)
+        public async Task<IEnumerable<ResponseTaskWithGradeDto>> GetAllTasksWithGradesForStudent(int studentId, DateTime from, DateTime to)
         {
-            var studentCheckedTask = await _taskRepository.GetCheckedStudentTaskByStudentId(studentId, from, to);
+            var studentTask = await _taskRepository.GetAllTasksForStudentByPeriod(studentId, from, to);
             var grades = await _gradeRepository.GetAllStudentGradesByStudentIdAndPeriod(studentId, from, to);
 
-            return (from left in studentCheckedTask
+            return (from left in studentTask
                     join right in grades on left.StudentTaskId equals right.StudentTaskId into joinedList
                         from sub in joinedList.DefaultIfEmpty()
                         select new ResponseTaskWithGradeDto
@@ -134,13 +134,23 @@ namespace Application.Services
                             EndDate = left.EndDate,
                             TaskType = left.TaskType,
                             StudentTaskId = left.StudentTaskId,
-                            GradeValue = sub?.Value
+                            ScheduleId = left.ScheduleId,
+                            IsChecked = left.IsChecked,
+                            IsDone = left.IsDone,
+                            IsNeededToBeRedone = left.IsNeededToBeRedone,
+                            SubjectTitle = left.SubjectTitle,
+                            GradeValue = sub?.Value,
                         }).ToList();
         }
 
         public async Task<IEnumerable<ResponseTaskDto>> GetAllHomeworksForStudent(int studentId, DateTime from, DateTime to)
         {
             return await _taskRepository.GetAllHomeworksForStudent(studentId, from, to);
+        }
+
+        public async Task<IEnumerable<ResponseTaskDto>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to)
+        {
+            return await _taskRepository.GetAllTasksForStudentByPeriod(studentId, from, to);
         }
     }
 }

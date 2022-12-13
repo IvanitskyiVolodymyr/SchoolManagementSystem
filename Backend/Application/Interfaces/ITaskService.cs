@@ -12,7 +12,10 @@ namespace Application.Interfaces
         Task<IEnumerable<ResponseTaskDto>> GetAllHomeworksForStudent(int studentId, DateTime from, DateTime to);
 
         //ForStudent
-        Task<IEnumerable<ResponseTaskWithGradeDto>> GetAllCheckedTasksWithGradesForStudent(int studentId, DateTime from, DateTime to);
+        Task<IEnumerable<ResponseTaskDto>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to);
+
+        //ForStudent
+        Task<IEnumerable<ResponseTaskWithGradeDto>> GetAllTasksWithGradesForStudent(int studentId, DateTime from, DateTime to);
 
         //ForTeacher
         Task<IEnumerable<ResponseTeacherTaskDto>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId);
