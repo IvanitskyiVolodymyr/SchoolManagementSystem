@@ -1,0 +1,23 @@
+<div class="task-card-container">
+    <div class="task-type">
+        <span>{{task.taskType | taskType}}</span>
+    </div>
+    <div class="card">
+        <div class="card-title">
+            <span class="subject">{{task.subjectTitle}}</span>
+        </div>
+        <div class="card-body">
+            <span>{{task.title}}</span>
+        </div>
+    </div>
+    <div class="task-status" [ngStyle]="{'background': statusBgColor}">
+        <span *ngIf="task.isChecked; else isNotChecked">
+            <span *ngIf="task.gradeValue; else isNotGrade">Оцінено:  {{task.gradeValue}}/10</span>
+            <ng-template #isNotGrade>Перевірено</ng-template>
+        </span>
+        <ng-template #isNotChecked>
+            <span *ngIf="task.isDone">Здано. Очікується перевірка</span>
+            <span *ngIf="!task.isDone">Не здано</span>
+        </ng-template>
+    </div>
+</div>

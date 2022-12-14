@@ -1,0 +1,54 @@
+.task-card-container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    .task-type {
+        font-size: 16px;
+        align-self: center;
+        background: #C9E2F1;
+        border: 1px solid black;
+        box-shadow: 0px 0px 5px black;
+        border-width: 1px 1px 0 1px;
+        border-radius: 10px 10px 0px 0px;
+        padding: 5px;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        background: white;
+        box-shadow: 0px 0px 5px black;
+        border-radius: 10px 10px 0px 10px;
+        padding: 5px;
+        .card-title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-bottom: 5px;
+            .subject {
+                font-weight: 600;
+                font-size: 16px;
+            }
+        }
+        .card-body {
+            display: flex;
+            min-height: 20px;
+            align-items: center;
+        }
+    }
+
+    .task-status {
+        border: 1px solid black;
+        // background: #E4F6D0;
+        border-width: 0px 1px 1px 1px;
+        border-radius: 0px 0px 10px 10px;
+        box-shadow: 0px 1px 4px black;
+        padding: 5px;
+        align-self: flex-end;
+        font-size: 16px;
+    }
+    .checked {
+        background: #E4F6D0;
+    }
+}
