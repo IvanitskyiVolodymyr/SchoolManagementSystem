@@ -76,6 +76,7 @@ export class ScheduleListComponent implements OnInit {
 
       this.scheduleDays.push(scheduleDay);
     });
+    this.scheduleDays = this.scheduleDays.sort((b, a) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }
 
   private getPeriodOfDate(date: Date) {
