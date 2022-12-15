@@ -1,0 +1,80 @@
+<app-date-time-nav-bar 
+    title='Завдання' 
+    [daysDiff]="daysDiff" 
+    [startDate]="startDate"
+    [isFromWeekBegining] = "isFromWeekBegining"
+    (dateRangeChange)="onDateRangeChanged($event)">
+
+</app-date-time-nav-bar>
+
+<div class="tasks-container">
+    <div class="filter">
+        <label id="radio-group-label">Обери тип завдання</label>
+        <mat-radio-group
+            aria-labelledby="radio-group-label"
+            class="radio-group"
+            [(ngModel)]="selectedTaskType">
+            <mat-radio-button class="radio-button" *ngFor="let taskType of taskTypeKeys" [value]="taskType"
+            (change)="typeChange($event,taskType)">
+                {{taskType}}
+            </mat-radio-button>
+        </mat-radio-group>
+
+        <label id="radio-group-label">Обери статус завдання</label>
+        <mat-radio-group
+            aria-labelledby="radio-group-label"
+            class="radio-group"
+            [(ngModel)]="selectedTaskStatus">
+            <mat-radio-button class="radio-button"
+            value="notDone" 
+            (change)="statusChange($event,'notDone')"
+            [style.--mdc-radio-unselected-icon-color]="'#B0B1B7'"
+            [style.--mdc-radio-unselected-hover-icon-color]="'#B0B1B7'"
+            [style.--mdc-radio-selected-focus-icon-color]="'#B0B1B7'"
+            [style.--mdc-radio-selected-hover-icon-color]="'#B0B1B7'"
+            [style.--mdc-radio-selected-icon-color]="'#B0B1B7'"
+            [style.--mdc-radio-selected-pressed-icon-color]="'#B0B1B7'"
+            [style.--mat-mdc-radio-checked-ripple-color]="'#B0B1B7'">
+                <span class="not-done">Не здані</span>
+            </mat-radio-button>
+            <mat-radio-button class="radio-button"
+            value="done" 
+            (change)="statusChange($event, 'done')"
+            [style.--mdc-radio-unselected-icon-color]="'#DEAE77'"
+            [style.--mdc-radio-unselected-hover-icon-color]="'#DEAE77'"
+            [style.--mdc-radio-selected-focus-icon-color]="'#DEAE77'"
+            [style.--mdc-radio-selected-hover-icon-color]="'#DEAE77'"
+            [style.--mdc-radio-selected-icon-color]="'#DEAE77'"
+            [style.--mdc-radio-selected-pressed-icon-color]="'#DEAE77'"
+            [style.--mat-mdc-radio-checked-ripple-color]="'#DEAE77'">
+                <span class="done">Очікують на перевірку</span>
+            </mat-radio-button>
+            <mat-radio-button class="radio-button"
+            value="checked"
+            (change)="statusChange($event, 'checked')"
+            [style.--mdc-radio-unselected-icon-color]="'#80BBA0'"
+            [style.--mdc-radio-unselected-hover-icon-color]="'#80BBA0'"
+            [style.--mdc-radio-selected-focus-icon-color]="'#80BBA0'"
+            [style.--mdc-radio-selected-hover-icon-color]="'#80BBA0'"
+            [style.--mdc-radio-selected-icon-color]="'#80BBA0'"
+            [style.--mdc-radio-selected-pressed-icon-color]="'#80BBA0'"
+            [style.--mat-mdc-radio-checked-ripple-color]="'#80BBA0'">
+                <span class="checked">Перевірені</span>
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="tasks">
+        <div class="tasks-day" *ngFor="let day of filteredTasks">
+            <div class="day-title">
+                <span>{{day.date | date:'d MMMM' | ukrainianDate}}</span>
+            </div>
+            <div class="day-tasks" *ngFor="let task of day.tasks">
+                <app-task-card [task]="task"></app-task-card>
+            </div>
+        </div>
+        <div class="tasks-day" *ngIf="filteredTasks.length === 0">
+            <span class="zero-tasks-count">Завдань немає =)</span>
+        </div>
+    </div>
+</div>
+

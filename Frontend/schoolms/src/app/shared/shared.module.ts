@@ -17,6 +17,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScheduleCardComponent } from './components/schedule/schedule-card/schedule-card.component';
 import { ScheduleListComponent } from './components/schedule/schedule-list/schedule-list.component';
 import { CustomUkrainianDatePipe } from './pipes/custom-ukrainian-date.pipe';
+import { MatRadioModule } from '@angular/material/radio';
+import { TaskTypePipe } from './pipes/task-type.pipe';
+import { DateTimeNavBarComponent } from './components/date-time-nav-bar/date-time-nav-bar/date-time-nav-bar.component';
 
 const materials = [
   MatButtonModule,
@@ -29,13 +32,16 @@ const materials = [
   MatSidenavModule,
   MatFormFieldModule,
   MatToolbarModule,
+  MatRadioModule,
 ];
 
 @NgModule({
   declarations: [
     ScheduleCardComponent,
     ScheduleListComponent,
-    CustomUkrainianDatePipe
+    CustomUkrainianDatePipe,
+    TaskTypePipe,
+    DateTimeNavBarComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +56,10 @@ const materials = [
     FormsModule,
     ReactiveFormsModule,
     ScheduleListComponent,
-    ScheduleCardComponent
+    ScheduleCardComponent,
+    TaskTypePipe,
+    CustomUkrainianDatePipe,
+    DateTimeNavBarComponent
   ],
   providers:[DatePipe]
 })

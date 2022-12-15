@@ -132,5 +132,10 @@ namespace Infrastructure.Data.Repositories
         {
             return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTask_GetAllByPeriodAndType", new { StudentId = studentId, From = from, To = to, TaskType = TaskType.HomeWork });
         }
+
+        public async Task<IEnumerable<ResponseTaskDto>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to)
+        {
+            return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTasks_GetAllByPeriod", new { StudentId = studentId, From = from, To = to });
+        }
     }
 }

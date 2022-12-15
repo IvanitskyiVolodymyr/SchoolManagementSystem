@@ -1,21 +1,10 @@
-<div class="shedule-nav-container">
-    <div class="title">
-        <span>Щоденник</span>
-    </div>
-    <div class="shedule-nav">
-        <div class="left" (click)="onPreviousWeekClick()">
-            <mat-icon>arrow_back_ios</mat-icon>
-            <span>Попередній</span> 
-        </div>
-        <div class="center">
-            ( {{startDate | date:'d MMMM' | ukrainianDate}} - {{finishDate | date:'d MMMM' | ukrainianDate}} )
-        </div>
-        <div class="right" (click)="onNextWeekClick()">
-            <span>Наступний</span>
-            <mat-icon>arrow_forward_ios</mat-icon>
-        </div>
-    </div>
-</div>
+<app-date-time-nav-bar 
+    title='Щоденник' 
+    [daysDiff]="daysDiff" 
+    [startDate]="startDate"
+    [isFromWeekBegining] = "isFromWeekBegining"
+    (dateRangeChange)="onDateRangeChanged($event)">
+</app-date-time-nav-bar>
 
 <div class="schedule-container">
     <div class="day-schedule" *ngFor="let day of scheduleDays">

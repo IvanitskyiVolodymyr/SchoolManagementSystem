@@ -9,6 +9,7 @@ namespace Domain.Interfaces.Repositories
     {
         Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId);
         Task<IEnumerable<ResponseTaskDto>> GetAllHomeworksForStudent(int studentId, DateTime from, DateTime to);
+        Task<IEnumerable<ResponseTaskDto>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to);
         Task<IEnumerable<ResponseTeacherTaskDto>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId);
         Task<IEnumerable<StudentTaskAttachmentDto>> GetStudentTaskAttachments(int studentTaskId);
         Task<StudentTask?> GetStudentTaskById(int studentTaskId);

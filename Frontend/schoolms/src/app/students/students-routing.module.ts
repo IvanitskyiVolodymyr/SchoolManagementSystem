@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ScheduleListComponent } from '../shared/components/schedule/schedule-list/schedule-list.component';
 import { StudentBaseComponent } from './components/student-base/student-base.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 const studentRoutes: Routes = [
   {
@@ -9,6 +10,9 @@ const studentRoutes: Routes = [
     children: [
       {
         path: 'schedule', component: ScheduleListComponent
+      },
+      {
+        path: 'tasks', component: TasksComponent
       },
       {
         path: '', redirectTo:'schedule', pathMatch: 'full'

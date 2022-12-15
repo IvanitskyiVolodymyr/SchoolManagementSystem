@@ -1,0 +1,18 @@
+<div class="shedule-nav-container">
+    <div class="title">
+        <span>{{title}}</span>
+    </div>
+    <div class="shedule-nav">
+        <div class="left" (click)="onPreviousWeekClick()">
+            <mat-icon>arrow_back_ios</mat-icon>
+            <span>Попередній</span> 
+        </div>
+        <div class="center">
+            ( {{dateRange.startDate | date:'d MMMM' | ukrainianDate}} - {{dateRange.endDate | date:'d MMMM' | ukrainianDate}} )
+        </div>
+        <div class="right" (click)="onNextWeekClick()">
+            <span>Наступний</span>
+            <mat-icon>arrow_forward_ios</mat-icon>
+        </div>
+    </div>
+</div>

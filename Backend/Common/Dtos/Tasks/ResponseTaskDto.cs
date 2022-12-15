@@ -16,5 +16,7 @@ namespace Common.Dtos.Tasks
         public bool IsChecked { get; set; }
         public bool IsDone { get; set; }
         public bool IsNeededToBeRedone { get; set; }
+
+        public string SubjectTitle { get; set; }
     }
 }
