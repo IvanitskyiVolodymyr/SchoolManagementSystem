@@ -14,7 +14,8 @@
             aria-labelledby="radio-group-label"
             class="radio-group"
             [(ngModel)]="selectedTaskType">
-            <mat-radio-button class="radio-button" *ngFor="let taskType of taskTypes" [value]="taskType">
+            <mat-radio-button class="radio-button" *ngFor="let taskType of taskTypeKeys" [value]="taskType"
+            (change)="typeChange($event,taskType)">
                 {{taskType}}
             </mat-radio-button>
         </mat-radio-group>
@@ -26,7 +27,7 @@
             [(ngModel)]="selectedTaskStatus">
             <mat-radio-button class="radio-button"
             value="notDone" 
-            (change)="radioChange($event,'notDone')"
+            (change)="statusChange($event,'notDone')"
             [style.--mdc-radio-unselected-icon-color]="'#B0B1B7'"
             [style.--mdc-radio-unselected-hover-icon-color]="'#B0B1B7'"
             [style.--mdc-radio-selected-focus-icon-color]="'#B0B1B7'"
@@ -38,7 +39,7 @@
             </mat-radio-button>
             <mat-radio-button class="radio-button"
             value="done" 
-            (change)="radioChange($event, 'done')"
+            (change)="statusChange($event, 'done')"
             [style.--mdc-radio-unselected-icon-color]="'#DEAE77'"
             [style.--mdc-radio-unselected-hover-icon-color]="'#DEAE77'"
             [style.--mdc-radio-selected-focus-icon-color]="'#DEAE77'"
@@ -50,7 +51,7 @@
             </mat-radio-button>
             <mat-radio-button class="radio-button"
             value="checked"
-            (change)="radioChange($event, 'checked')"
+            (change)="statusChange($event, 'checked')"
             [style.--mdc-radio-unselected-icon-color]="'#80BBA0'"
             [style.--mdc-radio-unselected-hover-icon-color]="'#80BBA0'"
             [style.--mdc-radio-selected-focus-icon-color]="'#80BBA0'"
@@ -71,7 +72,7 @@
                 <app-task-card [task]="task"></app-task-card>
             </div>
         </div>
-        <div class="tasks-day" *ngIf="filteredTasks.length == 0">
+        <div class="tasks-day" *ngIf="filteredTasks.length === 0">
             <span class="zero-tasks-count">Завдань немає =)</span>
         </div>
     </div>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { DateRange } from 'src/app/shared/models/date/date-range';
 import { ResponseTaskWithGrade } from 'src/app/shared/models/tasks/responseTaskWithGrade';
 import { TasksDay } from 'src/app/shared/models/tasks/tasksDay';
+import { TaskType } from 'src/app/shared/models/tasks/taskType';
 import { TasksService } from 'src/app/shared/services/tasks.service';
 import { entityWithRole } from 'src/app/store/selectors/auth.selector';
 
@@ -16,27 +16,28 @@ import { entityWithRole } from 'src/app/store/selectors/auth.selector';
 export class TasksComponent implements OnInit {
   
   public startDate: Date = new Date();
-  public daysDiff: number = 4;
+  public daysDiff = 4;
   public finishDate: Date = new Date();
   public isFromWeekBegining = false;
   public studentId = 1;
 
-  public taskTypes: string[] = ['Д/З','К/Р','С/Р','Індивідувальні'];
-  public selectedTaskType = '';
+  public taskTypes = new Map<string, TaskType>(
+    [
+      [ "Д/З", TaskType.HomeWork ],
+      [ "К/Р", TaskType.ControlWork ],
+      [ "С/Р", TaskType.ClassWork ],
+      [ "Індивідуальні", TaskType.AdditionalWork ],
+    ]);
 
-  public taskStatuses: string[] = ['Не здані','Здані','Перевірені'];
+  public taskTypeKeys = [...this.taskTypes.keys()];
+
+  public selectedTaskType = '';
   public selectedTaskStatus = '';
 
-  public tasks: ResponseTaskWithGrade[] = {} as ResponseTaskWithGrade[];
   public tasksByDay: Array<TasksDay> = [];
 
-  public districts$: Observable<Array<TasksDay>> = {} as Observable<Array<TasksDay>>;
   public filteredTasks: Array<TasksDay> = [];
-  public filter$: Observable<string> = {} as Observable<string>;
 
-
-
-  public green = "green";
 
   constructor(private taskService: TasksService,
     private store: Store) { }
@@ -47,16 +48,14 @@ export class TasksComponent implements OnInit {
         this.studentId = result?.entityId as number;
       }
     );
-    console.log('status: ' + this.selectedTaskType);
   }
 
   private groupTasksByDays(allTasks: ResponseTaskWithGrade[]) {
     this.tasksByDay = [];
     this.filteredTasks = [];
-    this.tasks = allTasks;
     const map = new Map<number, Array<ResponseTaskWithGrade>>();
 
-    this.tasks.forEach(task => {
+    allTasks.forEach(task => {
       const dateDay = new Date(task.endDate).getDate();
 
       if(!map.get(dateDay)) {
@@ -76,17 +75,23 @@ export class TasksComponent implements OnInit {
     });
     this.tasksByDay = this.tasksByDay.sort((b, a) => new Date(b.date).getTime() - new Date(a.date).getTime())
     this.filteredTasks = this.tasksByDay;
-    this.filterTasksByStatus(this.selectedTaskStatus);
+    return this.tasksByDay;
   }
 
-  public radioChange(event: MatRadioChange, value: string) {
-    this.filterTasksByStatus(value);
+  public statusChange(event: MatRadioChange, value: string) {
+    const filteredTasks = this.filterTasksByStatus(value, this.tasksByDay);
+    this.filteredTasks = this.filterTasksByType(this.taskTypes.get(this.selectedTaskType), filteredTasks);
   }
 
-  private filterTasksByStatus(value: string) {
-    this.filteredTasks = [];
+  public typeChange(event: MatRadioChange, value: string) {
+    const filteredTasks = this.filterTasksByType(this.taskTypes.get(value) as TaskType, this.tasksByDay);
+    this.filteredTasks = this.filterTasksByStatus(this.selectedTaskStatus,filteredTasks);
+  } 
 
-    this.tasksByDay.forEach((element) => {
+  private filterTasksByStatus(value: string, tasksToFilter: TasksDay[]) {
+    const bufferTasks = [] as Array<TasksDay>;
+
+    tasksToFilter.forEach((element) => {
 
       const taskDay: TasksDay = {
         date: element.date,
@@ -113,16 +118,39 @@ export class TasksComponent implements OnInit {
       }
 
       if(taskDay.tasks.length > 0) {
-        this.filteredTasks.push(taskDay);
+        bufferTasks.push(taskDay);
       }
     });
+
+    return bufferTasks;
+  }
+
+  private filterTasksByType(taskType: TaskType | undefined, tasksToFilter: TasksDay[]) {
+    if(taskType === undefined) {
+      return tasksToFilter;
+    }
+
+    const bufferTasks = [] as Array<TasksDay>;
+    tasksToFilter.forEach((element) => {
+      const taskDay: TasksDay = {
+        date: element.date,
+        tasks: element.tasks.filter(t => t.taskType === taskType)
+      };
+      if(taskDay.tasks.length > 0) {
+        bufferTasks.push(taskDay);
+      }
+    });
+
+    return bufferTasks;
   }
 
   public onDateRangeChanged(date: DateRange) {
     this.taskService.GetAllTasksWithGradesForStudent(this.studentId, date.startDate, date.endDate)
     .subscribe(
       (result) => {
-        this.groupTasksByDays(result);
+        const tasksByDay = this.groupTasksByDays(result);
+        const filtered = this.filterTasksByStatus(this.selectedTaskStatus, tasksByDay);
+        this.filteredTasks = this.filterTasksByType(this.taskTypes.get(this.selectedTaskType), filtered);
       }
     );
   }
