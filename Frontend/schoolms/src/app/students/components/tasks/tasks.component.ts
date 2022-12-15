@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { DateRange } from 'src/app/shared/models/date/date-range';
 import { ResponseTaskWithGrade } from 'src/app/shared/models/tasks/responseTaskWithGrade';
 import { TasksDay } from 'src/app/shared/models/tasks/tasksDay';
 import { TasksService } from 'src/app/shared/services/tasks.service';
@@ -14,8 +15,10 @@ import { entityWithRole } from 'src/app/store/selectors/auth.selector';
 })
 export class TasksComponent implements OnInit {
   
-  public startDate: Date = {} as Date;
-  public finishDate: Date = {} as Date;
+  public startDate: Date = new Date();
+  public daysDiff: number = 4;
+  public finishDate: Date = new Date();
+  public isFromWeekBegining = false;
   public studentId = 1;
 
   public taskTypes: string[] = ['Д/З','К/Р','С/Р','Індивідувальні'];
@@ -42,25 +45,14 @@ export class TasksComponent implements OnInit {
     this.store.select(entityWithRole).subscribe(
       result => {
         this.studentId = result?.entityId as number;
-        this.getTasksForDaysByDate(this.studentId, new Date());
       }
     );
-    console.log(this.selectedTaskType);
-  }
-
-  private getTasksForDaysByDate(studentId: number, date: Date) {
-    const periodOfDate = this.getPeriodOfDate(date);
-
-    this.taskService.GetAllTasksWithGradesForStudent(studentId, new Date('2022-12-01'), new Date('2022-12-30'))
-    .subscribe(
-      (result) => {
-        this.groupTasksByDays(result);
-      }
-    );
+    console.log('status: ' + this.selectedTaskType);
   }
 
   private groupTasksByDays(allTasks: ResponseTaskWithGrade[]) {
     this.tasksByDay = [];
+    this.filteredTasks = [];
     this.tasks = allTasks;
     const map = new Map<number, Array<ResponseTaskWithGrade>>();
 
@@ -81,30 +73,17 @@ export class TasksComponent implements OnInit {
       };
 
       this.tasksByDay.push(taskDay);
-      this.filteredTasks = this.tasksByDay;
     });
-  }
-
-  private getPeriodOfDate(date: Date) {
-    const startDate = new Date(date);
-    startDate.setDate(startDate.getDate() - startDate.getDay() +1 );
-    startDate.setHours(0);
-    startDate.setMinutes(0);
-    startDate.setSeconds(0);
-    this.startDate = startDate;
-
-    const finishDate = date;
-    finishDate.setDate(finishDate.getDate() + 7 - finishDate.getDay());
-    finishDate.setHours(23);
-    finishDate.setMinutes(59);
-    finishDate.setSeconds(59);
-    this.finishDate = finishDate;
-
-    return { startDate, finishDate };
+    this.tasksByDay = this.tasksByDay.sort((b, a) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    this.filteredTasks = this.tasksByDay;
+    this.filterTasksByStatus(this.selectedTaskStatus);
   }
 
   public radioChange(event: MatRadioChange, value: string) {
-    console.log(value);
+    this.filterTasksByStatus(value);
+  }
+
+  private filterTasksByStatus(value: string) {
     this.filteredTasks = [];
 
     this.tasksByDay.forEach((element) => {
@@ -128,12 +107,23 @@ export class TasksComponent implements OnInit {
             taskDay.tasks = element.tasks.filter(t => t.isChecked == true);
           break;
         }
+        default: {
+          taskDay.tasks = element.tasks;
+        }
       }
 
       if(taskDay.tasks.length > 0) {
         this.filteredTasks.push(taskDay);
       }
     });
+  }
 
+  public onDateRangeChanged(date: DateRange) {
+    this.taskService.GetAllTasksWithGradesForStudent(this.studentId, date.startDate, date.endDate)
+    .subscribe(
+      (result) => {
+        this.groupTasksByDays(result);
+      }
+    );
   }
 }

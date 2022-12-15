@@ -1,21 +1,12 @@
-<div class="tasks-nav">
-    <div class="title">
-        <span>Завдання</span>
-    </div>
-    <div class="shedule-nav">
-        <div class="left">
-            <mat-icon>arrow_back_ios</mat-icon>
-            <span>Попередній</span> 
-        </div>
-        <div class="center">
-            ( 13 грудня - 15 грудня )
-        </div>
-        <div class="right">
-            <span>Наступний</span>
-            <mat-icon>arrow_forward_ios</mat-icon>
-        </div>
-    </div>
-</div>
+<app-date-time-nav-bar 
+    title='Завдання' 
+    [daysDiff]="daysDiff" 
+    [startDate]="startDate"
+    [isFromWeekBegining] = "isFromWeekBegining"
+    (dateRangeChange)="onDateRangeChanged($event)">
+
+</app-date-time-nav-bar>
+
 <div class="tasks-container">
     <div class="filter">
         <label id="radio-group-label">Обери тип завдання</label>
@@ -79,6 +70,9 @@
             <div class="day-tasks" *ngFor="let task of day.tasks">
                 <app-task-card [task]="task"></app-task-card>
             </div>
+        </div>
+        <div class="tasks-day" *ngIf="filteredTasks.length == 0">
+            <span class="zero-tasks-count">Завдань немає =)</span>
         </div>
     </div>
 </div>

@@ -19,6 +19,7 @@ import { ScheduleListComponent } from './components/schedule/schedule-list/sched
 import { CustomUkrainianDatePipe } from './pipes/custom-ukrainian-date.pipe';
 import { MatRadioModule } from '@angular/material/radio';
 import { TaskTypePipe } from './pipes/task-type.pipe';
+import { DateTimeNavBarComponent } from './components/date-time-nav-bar/date-time-nav-bar/date-time-nav-bar.component';
 
 const materials = [
   MatButtonModule,
@@ -39,7 +40,8 @@ const materials = [
     ScheduleCardComponent,
     ScheduleListComponent,
     CustomUkrainianDatePipe,
-    TaskTypePipe
+    TaskTypePipe,
+    DateTimeNavBarComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,7 @@ const materials = [
     ScheduleCardComponent,
     TaskTypePipe,
     CustomUkrainianDatePipe,
+    DateTimeNavBarComponent
   ],
   providers:[DatePipe]
 })

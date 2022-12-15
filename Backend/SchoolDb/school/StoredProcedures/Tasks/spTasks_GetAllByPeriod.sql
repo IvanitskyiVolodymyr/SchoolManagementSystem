@@ -10,6 +10,7 @@ BEGIN
 	JOIN [school].[ClassesSubjects] CS ON CS.ClassSubjectId = SCH.ClassSubjectId
 	JOIN [school].[Subjects] S ON CS.SubjectId = S.SubjectId
 	WHERE ST.StudentId = @StudentId AND
-	(T.StartDate BETWEEN @From AND @To OR
-	T.EndDate BETWEEN @From AND @To)
+	--(T.StartDate BETWEEN @From AND @To OR
+	--T.EndDate BETWEEN @From AND @To)
+	T.EndDate BETWEEN @From AND @To
 END
