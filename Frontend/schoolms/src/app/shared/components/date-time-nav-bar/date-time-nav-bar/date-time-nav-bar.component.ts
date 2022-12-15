@@ -7,10 +7,10 @@ import { DateRange } from 'src/app/shared/models/date/date-range';
   styleUrls: ['./date-time-nav-bar.component.scss']
 })
 export class DateTimeNavBarComponent implements OnInit {
-  @Input() title: string = "";
-  @Input() daysDiff: number = 7;
+  @Input() title = "";
+  @Input() daysDiff = 7;
   @Input() startDate: Date = new Date();
-  @Input() isFromWeekBegining: boolean = false;
+  @Input() isFromWeekBegining = false;
 
   @Output() dateRangeChange = new EventEmitter<DateRange>();
 

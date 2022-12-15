@@ -22,7 +22,7 @@ export class ScheduleListComponent implements OnInit {
   public startDate: Date = new Date();
   public finishDate: Date = new Date();
   public isFromWeekBegining = true;
-  public daysDiff: number = 7;
+  public daysDiff = 7;
 
 
   private studentId: number = 1 as number;
