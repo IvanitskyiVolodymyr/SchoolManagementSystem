@@ -23,6 +23,9 @@ namespace Application.MapperProfiles
 
             CreateMap<User, InsertUserDto>();
             CreateMap<CreateUserDto, User>();
+            CreateMap<CreateStudentDto, UserDto>();
+            CreateMap<CreateTeacherDto, UserDto>();
+            CreateMap<CreateParentDto, UserDto>();
         }
     }
 }

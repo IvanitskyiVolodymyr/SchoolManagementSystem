@@ -145,6 +145,8 @@ namespace Application.Services
 
                     result.EntityId = teacher.TeacherId;
                     break;
+                default:
+                    throw new NotFoundException(typeof(Role), "RoleId", roleId.ToString());
             }
 
             return result;
