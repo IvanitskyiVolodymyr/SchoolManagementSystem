@@ -1,0 +1,50 @@
+<div class="task-info-container">
+    <div class="icon-part">
+        <div class="circle">
+            <mat-icon>assignment</mat-icon>
+        </div>
+    </div>
+    <div class="task-info">
+        <div class="left-part">
+            <div class="task-title">
+                <span>Домашня робота</span>
+            </div>
+            <div class="subject-date-info">
+                <span class="subject-title">Математика</span>
+                <span class="deadline"> Від 9 грудня до 12 грудня</span>
+            </div>
+            <div class="line"></div>
+            <div class="task-description">
+                <span>Завдання номер 10,11,12,13,14,15.</span>
+            </div>
+            <div class="line"></div>
+        </div>
+        <div class="right-part">
+            <div class="task-status">
+                <div class="first-line">
+                    <span class="status">Не здано</span>
+                </div>
+                <div class="second-line">
+                    <button mat-button [matMenuTriggerFor]="menu" #menuTrigger>+ Додати</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openAttachLinkDialog()">
+                            <mat-icon class="icon">link</mat-icon>
+                            <span>Посилання</span>
+                        </button>
+                        <button mat-menu-item >
+                            <mat-icon class="icon"> attach_file</mat-icon>
+                            <span>Файл</span>
+                        </button>
+                    </mat-menu>
+                </div>
+                <div class="third-line">
+                    <button>Позначити як виконане</button>
+                </div>
+            </div>
+            <div class="task-comments">
+                <span>Коменти</span>
+            </div>
+        </div>
+    </div>
+    
+</div>
