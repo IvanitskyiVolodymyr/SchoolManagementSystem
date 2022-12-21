@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ResponseTaskWithGrade } from 'src/app/shared/models/tasks/responseTaskWithGrade';
 
 @Component({
@@ -9,6 +10,8 @@ import { ResponseTaskWithGrade } from 'src/app/shared/models/tasks/responseTaskW
 export class TaskCardComponent implements OnInit{
 
   @Input() task: ResponseTaskWithGrade = {} as ResponseTaskWithGrade;
+
+  constructor(private router: Router) { }
 
   public statusBgColor = '#E4F6D0';
 
@@ -26,9 +29,10 @@ export class TaskCardComponent implements OnInit{
       } else {
         this.statusBgColor = '#B0B1B7';//'#FFB3B3'
       }
-
     }
-
   }
 
+  public taskClick() {
+    this.router.navigate(['/student/tasks/','5']);
+  }
 }

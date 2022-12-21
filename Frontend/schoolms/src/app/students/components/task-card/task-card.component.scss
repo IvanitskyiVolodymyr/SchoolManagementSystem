@@ -52,3 +52,11 @@
         background: #E4F6D0;
     }
 }
+
+.task-card-container:hover {
+    cursor: pointer;
+    
+    .card {
+        background: #E9EDF2;
+    }
+}
