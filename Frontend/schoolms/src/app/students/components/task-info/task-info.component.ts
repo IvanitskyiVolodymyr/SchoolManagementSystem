@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { AddLinkDialogComponent } from 'src/app/shared/components/add-link-dialog/add-link-dialog.component';
 
 @Component({
   selector: 'app-task-info',
@@ -9,16 +10,13 @@ import { MatMenuTrigger } from '@angular/material/menu';
 })
 export class TaskInfoComponent {
 
-  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger = {} as MatMenuTrigger;
+  @ViewChild('addAttachmentTrigger') attachmentTrigger: MatMenuTrigger = {} as MatMenuTrigger;
 
   constructor(public dialog: MatDialog) {}
 
   openAttachLinkDialog() {
-    //const dialogRef = this.dialog.open(DialogFromMenuExampleDialog, {restoreFocus: false});
-
-    // Manually restore focus to the menu trigger since the element that
-    // opens the dialog won't be in the DOM any more when the dialog closes.
-    //dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    const dialogRef = this.dialog.open(AddLinkDialogComponent, {restoreFocus: false});
+    dialogRef.afterClosed().subscribe(() => this.attachmentTrigger.focus());
   }
 
 }

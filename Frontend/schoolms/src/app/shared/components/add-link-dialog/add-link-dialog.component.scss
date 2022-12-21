@@ -1,0 +1,14 @@
+.add-link-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    .title {
+        font-size: 18px;
+        text-align: center;
+        padding-bottom: 15px;
+    }
+    .link-form {
+        display: flex;
+        flex-direction: column;
+    }
+}

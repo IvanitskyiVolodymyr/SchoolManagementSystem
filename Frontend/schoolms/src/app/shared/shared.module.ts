@@ -22,6 +22,7 @@ import { CustomUkrainianDatePipe } from './pipes/custom-ukrainian-date.pipe';
 import { MatRadioModule } from '@angular/material/radio';
 import { TaskTypePipe } from './pipes/task-type.pipe';
 import { DateTimeNavBarComponent } from './components/date-time-nav-bar/date-time-nav-bar/date-time-nav-bar.component';
+import { AddLinkDialogComponent } from './components/add-link-dialog/add-link-dialog.component';
 
 const materials = [
   MatButtonModule,
@@ -45,7 +46,8 @@ const materials = [
     ScheduleListComponent,
     CustomUkrainianDatePipe,
     TaskTypePipe,
-    DateTimeNavBarComponent
+    DateTimeNavBarComponent,
+    AddLinkDialogComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +65,8 @@ const materials = [
     ScheduleCardComponent,
     TaskTypePipe,
     CustomUkrainianDatePipe,
-    DateTimeNavBarComponent
+    DateTimeNavBarComponent,
+    AddLinkDialogComponent
   ],
   providers:[DatePipe]
 })
