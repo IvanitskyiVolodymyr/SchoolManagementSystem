@@ -7,6 +7,7 @@
             <input matInput
             placeholder="example.com"
             type="text"
+            [(ngModel)] = 'attachment.fileUrl'
             formControlName="link">
             <mat-error *ngIf="linkForm.controls['link'].hasError('pattern')">
                 Введіть дійсне посилання
@@ -20,7 +21,7 @@
         <button mat-button mat-dialog-close style="color:grey">
             Скасувати
         </button>
-        <button mat-button [disabled]="!(linkForm.valid)">
+        <button mat-button [disabled]="!(linkForm.valid)" (click)="addLinkClicked()" [mat-dialog-close]="true">
             Додати посилання
         </button>
     </div>

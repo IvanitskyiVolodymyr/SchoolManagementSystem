@@ -24,6 +24,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { TaskTypePipe } from './pipes/task-type.pipe';
 import { DateTimeNavBarComponent } from './components/date-time-nav-bar/date-time-nav-bar/date-time-nav-bar.component';
 import { AddLinkDialogComponent } from './components/add-link-dialog/add-link-dialog.component';
+import { StoreModule } from '@ngrx/store';
+import { studentFeatureKey, studentReducer } from '../store/reducers/student.reducer';
 
 const materials = [
   MatButtonModule,
@@ -54,6 +56,7 @@ const materials = [
   imports: [
     CommonModule,
     HttpClientModule,
+    StoreModule.forFeature(studentFeatureKey, studentReducer),
     EffectsModule.forFeature([UserEffects]),
     ...materials,
     FormsModule,

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { addStudentTaskAttachments } from 'src/app/store/actions/student.actions';
+import { StudentTaskAttachment } from '../../models/attachments/studentTaskAttachment';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-link-dialog',
@@ -7,6 +11,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-link-dialog.component.scss']
 })
 export class AddLinkDialogComponent {
+  
+  public attachment: StudentTaskAttachment = {} as StudentTaskAttachment;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private store: Store
+  ) { }
 
   public linkForm : FormGroup = new FormGroup({
     link: new FormControl('',[
@@ -15,4 +25,8 @@ export class AddLinkDialogComponent {
     ]),
   });
 
+  public addLinkClicked() {
+    console.log(this.data);
+    this.store.dispatch(addStudentTaskAttachments({studentTaskId: this.data.studentTaskId, attachment: this.attachment}));
+  }
 }

@@ -48,7 +48,7 @@ export class TaskInfoComponent implements OnInit{
   }
 
   openAttachLinkDialog() {
-    const dialogRef = this.dialog.open(AddLinkDialogComponent, {restoreFocus: false});
+    const dialogRef = this.dialog.open(AddLinkDialogComponent, {restoreFocus: false, data: {studentTaskId: this.task.studentTaskId}});
     dialogRef.afterClosed().subscribe(() => this.attachmentTrigger.focus());
   }
 
