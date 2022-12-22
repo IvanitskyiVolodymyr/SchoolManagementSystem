@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { StudentTaskAttachment } from '../models/attachments/studentTaskAttachment';
 import { ResponseTask } from '../models/tasks/reposponseTask';
 import { ResponseTaskWithGrade } from '../models/tasks/responseTaskWithGrade';
+import { ResponseTaskWithGradeAndAttachments } from '../models/tasks/responseTaskWithGradeAndAttachments';
 import { HttpClientService } from './http-client.service';
 
 @Injectable({
@@ -38,6 +40,31 @@ export class TasksService {
         map(
           (resp) => {
             return resp.body as Array<ResponseTaskWithGrade>;
+          })
+      )
+  }
+
+  public GetTaskWithStatusAndAttachments(studentTaskId: number): Observable<ResponseTaskWithGradeAndAttachments> {
+    return this.httpService.getFullRequest<ResponseTaskWithGradeAndAttachments>(`${this.prefix}/GetTaskWithStatusAndAttachments`,
+    new HttpParams()
+    .set('studentTaskId', studentTaskId))
+      .pipe(
+        map(
+          (resp) => {
+            return resp.body as ResponseTaskWithGradeAndAttachments;
+          })
+      )
+  }
+
+  public SubmitStudentTask(attachments: Array<StudentTaskAttachment>,studentTaskId: number): Observable<number> {
+    const params = new HttpParams()
+    .set('studentTaskId', studentTaskId);
+
+    return this.httpService.postFullRequest<number>(`${this.prefix}/SubmitStudentTask`, attachments, undefined, params )
+      .pipe(
+        map(
+          (resp) => {
+            return resp.body as number;
           })
       )
   }

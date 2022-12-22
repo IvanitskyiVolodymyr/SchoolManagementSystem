@@ -75,14 +75,22 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-                .first-line {
+                .status-line {
                     align-self: center;
                     .status {
                         color: red;
                         font-weight: 500;
                     }
                 }
-                .second-line {
+                .attachments-line {
+                    display: flex;
+                    flex-direction: column;
+                    button {
+                        padding-left: 0px;
+                    }
+
+                }
+                .add-attachments-line {
                     button {
                         background: white;
                         color: black;
@@ -92,7 +100,7 @@
                         background: #e6e6e6;
                     }
                 }
-                .third-line {
+                .submit-line {
                     button {
                         background: black;
                         color: white;

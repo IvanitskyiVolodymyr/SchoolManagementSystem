@@ -100,5 +100,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _taskService.GetStudentTaskAttachments(studentTaskId));
         }
+
+        [HttpGet("GetTaskWithStatusAndAttachments")]
+        public async Task<ActionResult<ResponseTaskWithGradeAndAttachmentsDto>> GetTaskWithStatusAndAttachments(int studentTaskId)
+        {
+            return Ok(await _taskService.GetTaskWithStatusAndAttachments(studentTaskId));
+        }
     }
 }

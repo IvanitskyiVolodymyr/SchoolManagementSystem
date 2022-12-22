@@ -7,24 +7,41 @@
     <div class="task-info">
         <div class="left-part">
             <div class="task-title">
-                <span>Домашня робота</span>
+                <span>{{task.taskType | taskType}}</span>
             </div>
             <div class="subject-date-info">
-                <span class="subject-title">Математика</span>
-                <span class="deadline"> Від 9 грудня до 12 грудня</span>
+                <span class="subject-title">{{task.subjectTitle}}</span>
+                <span class="deadline"> До {{task.endDate | date:'d MMMM HH:mm' | ukrainianDate}}</span>
             </div>
             <div class="line"></div>
             <div class="task-description">
-                <span>Завдання номер 10,11,12,13,14,15.</span>
+                <span>{{task.title}}</span>
             </div>
             <div class="line"></div>
         </div>
         <div class="right-part">
             <div class="task-status">
-                <div class="first-line">
-                    <span class="status">Не здано</span>
+                <div class="status-line" [ngStyle]="{'color': statusColor}">
+                    <span *ngIf="task.isChecked; else isNotChecked">
+                        <span *ngIf="task.gradeValue; else isNotGrade">Оцінено:  {{task.gradeValue}}/10</span>
+                        <ng-template #isNotGrade>Перевірено</ng-template>
+                    </span>
+                    <ng-template #isNotChecked>
+                        <span *ngIf="task.isDone">Здано. Очікується перевірка</span>
+                        <span *ngIf="!task.isDone">Не здано</span>
+                    </ng-template>
                 </div>
-                <div class="second-line">
+                <div class="attachments-line" *ngIf="task.attachments"> 
+                    <mat-chip-listbox *ngFor="let attachment of task.attachments">
+                        <mat-chip (removed)="remove(attachment)">
+                            {{attachment.fileUrl}}
+                            <button matChipRemove *ngIf="!task.isDone">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                    </mat-chip-listbox>
+                </div>
+                <div class="add-attachments-line" *ngIf="!task.isDone">
                     <button mat-button [matMenuTriggerFor]="addAttachmentMenu" #addAttachmentTrigger>+ Додати</button>
                     <mat-menu #addAttachmentMenu="matMenu">
                         <button mat-menu-item (click)="openAttachLinkDialog()">
@@ -37,8 +54,9 @@
                         </button>
                     </mat-menu>
                 </div>
-                <div class="third-line">
-                    <button>Позначити як виконане</button>
+                <div class="submit-line" *ngIf="!task.isChecked">
+                    <button *ngIf="!task.isDone" (click)="submitTask()">Здати завдання</button>
+                    <button *ngIf="task.isDone">Скасувати надсилання</button>
                 </div>
             </div>
             <div class="task-comments">

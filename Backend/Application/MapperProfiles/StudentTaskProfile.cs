@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Dtos.StudentTask;
+using Common.Dtos.Tasks;
 using Domain.Core.Entities;
 
 namespace Application.MapperProfiles
@@ -9,6 +10,7 @@ namespace Application.MapperProfiles
         public StudentTaskProfile()
         {
             CreateMap<StudentTask, UpdateStudentTaskDto>();
+            CreateMap<ResponseTaskWithGradeDto, ResponseTaskWithGradeAndAttachmentsDto>();
         }
     }
 }

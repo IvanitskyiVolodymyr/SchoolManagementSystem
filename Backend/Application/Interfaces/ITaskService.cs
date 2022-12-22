@@ -16,6 +16,7 @@ namespace Application.Interfaces
 
         //ForStudent
         Task<IEnumerable<ResponseTaskWithGradeDto>> GetAllTasksWithGradesForStudent(int studentId, DateTime from, DateTime to);
+        Task<ResponseTaskWithGradeAndAttachmentsDto> GetTaskWithStatusAndAttachments(int studentTaskId);
 
         //ForTeacher
         Task<IEnumerable<ResponseTeacherTaskDto>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId);

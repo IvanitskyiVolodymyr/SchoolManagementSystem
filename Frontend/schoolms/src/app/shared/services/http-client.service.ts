@@ -27,12 +27,14 @@ export class HttpClientService {
     url: string,
     payload: object,
     headers?: HttpHeaders | { [p: string]: string | string[] },
+    params?:HttpParams
   ): Observable<HttpResponse<T>> {
     return this.http.post<T>(
       this.buildUrl(url),
       payload,
       {
         headers,
+        params: params,
         observe: 'response',
       }
     );

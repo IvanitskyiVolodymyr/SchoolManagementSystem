@@ -15,12 +15,14 @@ namespace Application.Services
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
         private readonly IGradeRepository _gradeRepository;
+        private readonly ICurrentUserService _currentUserService;
 
-        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository)
+        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository, ICurrentUserService currentUserService)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
             _gradeRepository = gradeRepository;
+            _currentUserService = currentUserService;
         }
 
         public async Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId)
@@ -151,6 +153,27 @@ namespace Application.Services
         public async Task<IEnumerable<ResponseTaskDto>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to)
         {
             return await _taskRepository.GetAllTasksForStudentByPeriod(studentId, from, to);
+        }
+
+        public async Task<ResponseTaskWithGradeAndAttachmentsDto> GetTaskWithStatusAndAttachments(int studentTaskId)
+        {
+            int currentUserId = _currentUserService.GetCurrentUserId();
+            var taskUserId = await _taskRepository.GetUserIdByStudentTaskId(studentTaskId);
+
+            if(currentUserId != taskUserId)
+            {
+                throw new Exception("No access");
+            }
+
+            var task = await _taskRepository.GetTaskByStudentTaskId(studentTaskId);
+            var grade = await _gradeRepository.GetByStudentTaskId(studentTaskId);
+            var attachments = await _taskRepository.GetStudentTaskAttachments(studentTaskId);
+
+            var responseTaskWithGradeAndAttachments = _mapper.Map<ResponseTaskWithGradeAndAttachmentsDto>(task);
+            responseTaskWithGradeAndAttachments.GradeValue = grade?.Value;
+            responseTaskWithGradeAndAttachments.Attachments = attachments;
+
+            return responseTaskWithGradeAndAttachments;
         }
     }
 }

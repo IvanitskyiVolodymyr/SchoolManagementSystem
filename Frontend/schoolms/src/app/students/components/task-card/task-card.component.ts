@@ -21,18 +21,18 @@ export class TaskCardComponent implements OnInit{
 
   private setStatusColor() {
     if(this.task.isChecked) {
-      this.statusBgColor = '#80BBA0';//'#79D879';
+      this.statusBgColor = '#80BBA0';
     }
     else {
       if(this.task.isDone) {
-        this.statusBgColor = '#DEAE77';//'#F4CA16'
+        this.statusBgColor = '#DEAE77';
       } else {
-        this.statusBgColor = '#B0B1B7';//'#FFB3B3'
+        this.statusBgColor = '#DE0000';
       }
     }
   }
 
   public taskClick() {
-    this.router.navigate(['/student/tasks/','5']);
+    this.router.navigate(['/student/tasks/',this.task.studentTaskId]);
   }
 }

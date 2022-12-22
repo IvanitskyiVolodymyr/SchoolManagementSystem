@@ -137,5 +137,17 @@ namespace Infrastructure.Data.Repositories
         {
             return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTasks_GetAllByPeriod", new { StudentId = studentId, From = from, To = to });
         }
+
+        public async Task<ResponseTaskWithGradeDto> GetTaskByStudentTaskId(int studentTaskId)
+        {
+            var result =  await _dataHelper.LoadData<ResponseTaskWithGradeDto, dynamic>("spTasks_GetByStudentTaskId", new { StudentTaskId = studentTaskId});
+            return result.FirstOrDefault();
+        }
+
+        public async Task<int> GetUserIdByStudentTaskId(int studentTaskId)
+        {
+            var result = await _dataHelper.LoadData<int, dynamic>("spTask_GetUserIdByStudentTaskId", new { StudentTaskId = studentTaskId });
+            return result.FirstOrDefault();
+        }
     }
 }
