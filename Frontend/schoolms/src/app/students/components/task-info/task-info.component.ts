@@ -2,10 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AddLinkDialogComponent } from 'src/app/shared/components/add-link-dialog/add-link-dialog.component';
 import { StudentTaskAttachment } from 'src/app/shared/models/attachments/studentTaskAttachment';
 import { ResponseTaskWithGradeAndAttachments } from 'src/app/shared/models/tasks/responseTaskWithGradeAndAttachments';
 import { TasksService } from 'src/app/shared/services/tasks.service';
+import { removeStudentTaskAttachment } from 'src/app/store/actions/student.actions';
+import { selectStudentTaskAttachments } from 'src/app/store/selectors/user.selector';
 
 @Component({
   selector: 'app-task-info',
@@ -16,11 +19,13 @@ export class TaskInfoComponent implements OnInit{
 
   @ViewChild('addAttachmentTrigger') attachmentTrigger: MatMenuTrigger = {} as MatMenuTrigger;
   public task: ResponseTaskWithGradeAndAttachments = { } as ResponseTaskWithGradeAndAttachments;
+  public attachments: Array<StudentTaskAttachment> = [];
   public statusColor = '#E4F6D0';
 
   constructor(public dialog: MatDialog,
       private taskService: TasksService,
-      private router: ActivatedRoute) {}
+      private router: ActivatedRoute,
+      private store: Store) {}
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -29,6 +34,7 @@ export class TaskInfoComponent implements OnInit{
           this.task = result;
           console.log(result);
           this.setStatusColor();
+          this.getStudentTaskFromStorage(result.studentTaskId);
         }
       )
     });
@@ -47,6 +53,18 @@ export class TaskInfoComponent implements OnInit{
     }
   }
 
+  private getStudentTaskFromStorage(studentTaskId: number) {
+    this.store.select(selectStudentTaskAttachments(studentTaskId)).subscribe(
+      result => {
+        if(result?.length > 0) {
+          this.attachments = result[0].attachments;
+        } else {
+          this.attachments = this.task.attachments;
+        }
+      }
+    );
+  }
+
   openAttachLinkDialog() {
     const dialogRef = this.dialog.open(AddLinkDialogComponent, {restoreFocus: false, data: {studentTaskId: this.task.studentTaskId}});
     dialogRef.afterClosed().subscribe(() => this.attachmentTrigger.focus());
@@ -59,11 +77,8 @@ export class TaskInfoComponent implements OnInit{
   }
 
   remove(attachment: StudentTaskAttachment): void {
-    const index = this.task.attachments.indexOf(attachment);
 
-    if (index >= 0) {
-      this.task.attachments.splice(index, 1);
-    }
+    this.store.dispatch(removeStudentTaskAttachment({studentTaskId: this.task.studentTaskId, attachment: attachment}));
   }
 
 }

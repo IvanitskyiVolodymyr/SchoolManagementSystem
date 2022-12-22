@@ -32,7 +32,7 @@
                     </ng-template>
                 </div>
                 <div class="attachments-line" *ngIf="task.attachments"> 
-                    <mat-chip-listbox *ngFor="let attachment of task.attachments">
+                    <mat-chip-listbox *ngFor="let attachment of attachments">
                         <mat-chip (removed)="remove(attachment)">
                             {{attachment.fileUrl}}
                             <button matChipRemove *ngIf="!task.isDone">

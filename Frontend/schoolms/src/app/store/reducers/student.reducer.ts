@@ -18,6 +18,10 @@ export const studentReducer = createReducer(
         ...state,
         studentTasks: AddStudentTaskAttachment(state.studentTasks, action.studentTaskId, action.attachment)
     })),
+    on(StudentActions.removeStudentTaskAttachment, (state, action) => ({
+        ...state,
+        studentTasks: RemoveStudentTaskAttachment(state.studentTasks, action.studentTaskId, action.attachment)
+    })),
 );
 
 function AddStudentTaskAttachment(studentTasks: Array<StudentTaskWithAttachments>, studentTaskId: number, attachment: StudentTaskAttachment) {
@@ -36,4 +40,24 @@ function AddStudentTaskAttachment(studentTasks: Array<StudentTaskWithAttachments
         studentTasks.push(newStudentTask);
     }
     return studentTasks;
+}
+
+function RemoveStudentTaskAttachment(studentTasks: Array<StudentTaskWithAttachments>, studentTaskId: number, attachment: StudentTaskAttachment) {
+    studentTasks = [...studentTasks];
+    const studentTask = studentTasks.filter( t=> t.studentTaskId == studentTaskId)[0] as StudentTaskWithAttachments;
+    const index = studentTasks.indexOf(studentTask);
+    
+    const newStudentTask = Object.assign({}, studentTask, {attachments: [...studentTask.attachments], studentTaskId: studentTaskId}); 
+    newStudentTask.attachments = RemoveElementFromArray(newStudentTask.attachments, attachment.fileUrl);
+    studentTasks[index] = newStudentTask;
+    
+    return studentTasks;
+}
+
+function RemoveElementFromArray(attachments: Array<StudentTaskAttachment>, attachmentName: string) {
+    const bufferAttachments = [...attachments];
+    bufferAttachments.forEach((value,index)=>{
+        if(value.fileUrl==attachmentName) bufferAttachments.splice(index,1);
+    });
+    return bufferAttachments;
 }

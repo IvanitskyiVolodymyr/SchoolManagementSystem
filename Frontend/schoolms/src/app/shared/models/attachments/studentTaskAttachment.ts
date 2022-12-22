@@ -1,3 +1,3 @@
 export interface StudentTaskAttachment {
-    fileUrl: number;
+    fileUrl: string;
 }
