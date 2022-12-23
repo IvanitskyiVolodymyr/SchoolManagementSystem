@@ -1,6 +1,4 @@
-﻿using Common.Dtos.Attachments;
-
-namespace Common.Dtos.StudentTaskAttachment
+﻿namespace Common.Dtos.StudentTaskAttachment
 {
     public class StudentTaskAttachmentModel
     {
