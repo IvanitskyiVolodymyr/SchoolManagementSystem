@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { StudentTaskAttachment } from '../models/attachments/studentTaskAttachment';
@@ -61,6 +61,19 @@ export class TasksService {
     .set('studentTaskId', studentTaskId);
 
     return this.httpService.postFullRequest<number>(`${this.prefix}/SubmitStudentTask`, attachments, undefined, params )
+      .pipe(
+        map(
+          (resp) => {
+            return resp.body as number;
+          })
+      )
+  }
+
+  public CancelSubmitStudentTask(studentTaskId: number): Observable<number> {
+    const params = new HttpParams()
+    .set('studentTaskId', studentTaskId);
+
+    return this.httpService.postFullRequest<number>(`${this.prefix}/CancelSubmitStudentTask`,{}, undefined, params )
       .pipe(
         map(
           (resp) => {

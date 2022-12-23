@@ -11,6 +11,7 @@ namespace Application.MapperProfiles
         {
             CreateMap<StudentTask, UpdateStudentTaskDto>();
             CreateMap<ResponseTaskWithGradeDto, ResponseTaskWithGradeAndAttachmentsDto>();
+            CreateMap<TaskWithGradeDto, ResponseTaskWithGradeAndAttachmentsDto>();
         }
     }
 }

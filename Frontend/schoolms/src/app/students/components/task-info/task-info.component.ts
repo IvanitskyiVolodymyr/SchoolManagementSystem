@@ -7,7 +7,7 @@ import { AddLinkDialogComponent } from 'src/app/shared/components/add-link-dialo
 import { StudentTaskAttachment } from 'src/app/shared/models/attachments/studentTaskAttachment';
 import { ResponseTaskWithGradeAndAttachments } from 'src/app/shared/models/tasks/responseTaskWithGradeAndAttachments';
 import { TasksService } from 'src/app/shared/services/tasks.service';
-import { removeStudentTaskAttachment } from 'src/app/store/actions/student.actions';
+import { addStudentTaskAttachments, removeStudentTaskAttachment } from 'src/app/store/actions/student.actions';
 import { selectStudentTaskAttachments } from 'src/app/store/selectors/user.selector';
 
 @Component({
@@ -32,7 +32,7 @@ export class TaskInfoComponent implements OnInit{
       this.taskService.GetTaskWithStatusAndAttachments(params['id']).subscribe(
         (result) => {
           this.task = result;
-          console.log(result);
+          //console.log(result);
           this.setStatusColor();
           this.getStudentTaskFromStorage(result.studentTaskId);
         }
@@ -56,9 +56,12 @@ export class TaskInfoComponent implements OnInit{
   private getStudentTaskFromStorage(studentTaskId: number) {
     this.store.select(selectStudentTaskAttachments(studentTaskId)).subscribe(
       result => {
-        if(result?.length > 0) {
+        if(result.length > 0 && result[0]?.attachments.length > 0) {
           this.attachments = result[0].attachments;
         } else {
+          if(this.task.attachments?.length > 0) {
+            this.addAttachmentsToStorage(this.task.studentTaskId, this.task.attachments);
+          }
           this.attachments = this.task.attachments;
         }
       }
@@ -71,14 +74,35 @@ export class TaskInfoComponent implements OnInit{
   }
 
   submitTask() {
-    this.taskService.SubmitStudentTask([],this.task.studentTaskId).subscribe(
-      res => console.log("Return data: " + res)
+    this.taskService.SubmitStudentTask(this.attachments,this.task.studentTaskId).subscribe(
+      result => {
+        if(result !== 0) {
+          this.task.isDone = true;
+          this.setStatusColor();
+        }
+      }
+    );
+  }
+
+  cancelSubmitTask() {
+    this.taskService.CancelSubmitStudentTask(this.task.studentTaskId).subscribe(
+      result => {
+        if(result !== 0) {
+          this.task.isDone = false;
+          this.attachments = [...this.attachments];
+          this.setStatusColor();
+        }
+      }
     );
   }
 
   remove(attachment: StudentTaskAttachment): void {
-
     this.store.dispatch(removeStudentTaskAttachment({studentTaskId: this.task.studentTaskId, attachment: attachment}));
   }
 
+  addAttachmentsToStorage(studentTaskId: number, attachments: Array<StudentTaskAttachment>) {
+    attachments.forEach(attachment => {
+      this.store.dispatch(addStudentTaskAttachments({studentTaskId: studentTaskId, attachment: attachment}));
+    })
+  }
 }

@@ -31,7 +31,7 @@
                         <span *ngIf="!task.isDone">Не здано</span>
                     </ng-template>
                 </div>
-                <div class="attachments-line" *ngIf="task.attachments"> 
+                <div class="attachments-line" *ngIf="task.attachments || attachments"> 
                     <mat-chip-listbox *ngFor="let attachment of attachments">
                         <mat-chip (removed)="remove(attachment)">
                             {{attachment.fileUrl}}
@@ -42,7 +42,7 @@
                     </mat-chip-listbox>
                 </div>
                 <div class="add-attachments-line" *ngIf="!task.isDone">
-                    <button mat-button [matMenuTriggerFor]="addAttachmentMenu" #addAttachmentTrigger>+ Додати</button>
+                    <button mat-button [matMenuTriggerFor]="addAttachmentMenu" #addAttachmentTrigger>+ Додати</button><!--[disabled]="attachments.length >= 3"-->
                     <mat-menu #addAttachmentMenu="matMenu">
                         <button mat-menu-item (click)="openAttachLinkDialog()">
                             <mat-icon class="icon">link</mat-icon>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="submit-line" *ngIf="!task.isChecked">
                     <button *ngIf="!task.isDone" (click)="submitTask()">Здати завдання</button>
-                    <button *ngIf="task.isDone">Скасувати надсилання</button>
+                    <button *ngIf="task.isDone" (click)="cancelSubmitTask()">Скасувати надсилання</button>
                 </div>
             </div>
             <div class="task-comments">

@@ -6,6 +6,7 @@
     [IsDone]             BIT      NOT NULL DEFAULT 0,
     [IsChecked]          BIT      NOT NULL DEFAULT 0,
     [IsNeededToBeRedone] BIT      NOT NULL DEFAULT 0,
+    [AttachmentsLinks] NVARCHAR(MAX) NULL, 
     CONSTRAINT [PK_StudentTask] PRIMARY KEY CLUSTERED ([StudentTaskId] ASC),
     CONSTRAINT [FK_StudentTask_Student] FOREIGN KEY ([StudentId]) REFERENCES [school].[Students] ([StudentId]),
     CONSTRAINT [FK_StudentTask_Task] FOREIGN KEY ([TaskId]) REFERENCES [school].[Tasks]([TaskId]),

@@ -35,6 +35,7 @@ namespace Application.Interfaces
 
         //ForStudent
         Task<int> SubmitStudentTask(int studentTaskId, List<StudentTaskAttachmentDto> attachments);
+        Task<int> CancelSubmitStudentTask(int studentTaskId);
 
         //ForTeacher
         Task<int> MarkStudentTaskAsChecked(int studentTaskId);
