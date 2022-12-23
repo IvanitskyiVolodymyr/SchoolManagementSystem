@@ -26,6 +26,7 @@ import { DateTimeNavBarComponent } from './components/date-time-nav-bar/date-tim
 import { AddLinkDialogComponent } from './components/add-link-dialog/add-link-dialog.component';
 import { StoreModule } from '@ngrx/store';
 import { studentFeatureKey, studentReducer } from '../store/reducers/student.reducer';
+import { NotAcceptableComponent } from './components/errors/not-acceptable/not-acceptable.component';
 
 const materials = [
   MatButtonModule,
@@ -51,7 +52,8 @@ const materials = [
     CustomUkrainianDatePipe,
     TaskTypePipe,
     DateTimeNavBarComponent,
-    AddLinkDialogComponent
+    AddLinkDialogComponent,
+    NotAcceptableComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,8 @@ const materials = [
     TaskTypePipe,
     CustomUkrainianDatePipe,
     DateTimeNavBarComponent,
-    AddLinkDialogComponent
+    AddLinkDialogComponent,
+    NotAcceptableComponent
   ],
   providers:[DatePipe]
 })

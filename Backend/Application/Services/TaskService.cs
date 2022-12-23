@@ -171,7 +171,7 @@ namespace Application.Services
 
             if(currentUserId != taskUserId)
             {
-                throw new Exception("No access");
+                throw new NotAcceptableException();
             }
 
             var task = await _taskRepository.GetTaskByStudentTaskId(studentTaskId);
