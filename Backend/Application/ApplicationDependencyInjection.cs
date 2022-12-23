@@ -8,6 +8,7 @@ using Application.Interfaces;
 using Application.Services;
 using Common.Exceptions;
 using Common.Exceptions.Auth;
+using Microsoft.AspNetCore.Http;
 
 namespace Application
 {
@@ -95,6 +96,8 @@ namespace Application
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IJournalService, JournalService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
         }
     }
 }

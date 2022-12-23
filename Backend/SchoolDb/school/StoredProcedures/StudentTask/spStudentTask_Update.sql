@@ -3,14 +3,16 @@
 	@TaskId INT,
 	@IsDone BIT,
 	@IsChecked BIT,
-	@IsNeededToBeRedone BIT
+	@IsNeededToBeRedone BIT,
+	@AttachmentsLinks NVARCHAR(MAX)
 AS
 BEGIN
 	UPDATE [school].[StudentsTasks]
 	SET
 	IsDone = @IsDone,
 	IsChecked = @IsChecked,
-	IsNeededToBeRedone = @IsNeededToBeRedone
+	IsNeededToBeRedone = @IsNeededToBeRedone,
+	AttachmentsLinks = @AttachmentsLinks
 
 	WHERE TaskId = @TaskId AND StudentId = @StudentId
 END

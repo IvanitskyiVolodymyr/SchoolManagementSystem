@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Common.Dtos.StudentTask;
 using Common.Dtos.StudentTaskAttachment;
 using Common.Dtos.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +52,12 @@ namespace WebApi.Controllers
             return Ok(await _taskService.SubmitStudentTask(studentTaskId, attachments));
         }
 
+        [HttpPost("CancelSubmitStudentTask")]
+        public async Task<ActionResult<int>> CancelSubmitStudentTask(int studentTaskId)
+        {
+            return Ok(await _taskService.CancelSubmitStudentTask(studentTaskId));
+        }
+
         [HttpPut("MarkStudentTaskAsChecked")]
         public async Task<ActionResult<int>> MarkStudentTaskAsChecked(int studentTaskId)
         {
@@ -99,6 +104,12 @@ namespace WebApi.Controllers
         public async Task<ActionResult<IEnumerable<StudentTaskAttachmentDto>>> GetStudentTaskAttachments(int studentTaskId)
         {
             return Ok(await _taskService.GetStudentTaskAttachments(studentTaskId));
+        }
+
+        [HttpGet("GetTaskWithStatusAndAttachments")]
+        public async Task<ActionResult<ResponseTaskWithGradeAndAttachmentsDto>> GetTaskWithStatusAndAttachments(int studentTaskId)
+        {
+            return Ok(await _taskService.GetTaskWithStatusAndAttachments(studentTaskId));
         }
     }
 }

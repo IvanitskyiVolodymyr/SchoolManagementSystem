@@ -19,11 +19,11 @@ export class CustomUkrainianDatePipe implements PipeTransform {
     let transformed_date = date as string;
 
     Array.from(this.dayOfWeek.keys()).forEach(element => {
-      transformed_date = transformed_date.replace(element, this.dayOfWeek.get(element) as string);
+      transformed_date = transformed_date?.replace(element, this.dayOfWeek.get(element) as string);
     });
 
     Array.from(this.months.keys()).forEach(element => {
-      transformed_date = transformed_date.replace(element, this.months.get(element) as string);
+      transformed_date = transformed_date?.replace(element, this.months.get(element) as string);
     });
     
     return transformed_date as string;

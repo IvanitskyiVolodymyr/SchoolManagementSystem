@@ -8,6 +8,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -20,6 +23,10 @@ import { CustomUkrainianDatePipe } from './pipes/custom-ukrainian-date.pipe';
 import { MatRadioModule } from '@angular/material/radio';
 import { TaskTypePipe } from './pipes/task-type.pipe';
 import { DateTimeNavBarComponent } from './components/date-time-nav-bar/date-time-nav-bar/date-time-nav-bar.component';
+import { AddLinkDialogComponent } from './components/add-link-dialog/add-link-dialog.component';
+import { StoreModule } from '@ngrx/store';
+import { studentFeatureKey, studentReducer } from '../store/reducers/student.reducer';
+import { NotAcceptableComponent } from './components/errors/not-acceptable/not-acceptable.component';
 
 const materials = [
   MatButtonModule,
@@ -33,6 +40,9 @@ const materials = [
   MatFormFieldModule,
   MatToolbarModule,
   MatRadioModule,
+  MatMenuModule,
+  MatDialogModule,
+  MatChipsModule,
 ];
 
 @NgModule({
@@ -41,11 +51,14 @@ const materials = [
     ScheduleListComponent,
     CustomUkrainianDatePipe,
     TaskTypePipe,
-    DateTimeNavBarComponent
+    DateTimeNavBarComponent,
+    AddLinkDialogComponent,
+    NotAcceptableComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
+    StoreModule.forFeature(studentFeatureKey, studentReducer),
     EffectsModule.forFeature([UserEffects]),
     ...materials,
     FormsModule,
@@ -59,7 +72,9 @@ const materials = [
     ScheduleCardComponent,
     TaskTypePipe,
     CustomUkrainianDatePipe,
-    DateTimeNavBarComponent
+    DateTimeNavBarComponent,
+    AddLinkDialogComponent,
+    NotAcceptableComponent
   ],
   providers:[DatePipe]
 })

@@ -1,0 +1,14 @@
+.not-accept-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    .error-title {
+        padding-top: 35vh;
+        font-size: 50px;
+        padding-bottom: 50px;
+    }
+    .error-description {
+        font-size: 28px;
+    }
+}

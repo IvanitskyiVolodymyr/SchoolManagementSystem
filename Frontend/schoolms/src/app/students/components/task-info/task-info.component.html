@@ -1,0 +1,68 @@
+<div class="task-info-container">
+    <div class="icon-part">
+        <div class="circle">
+            <mat-icon>assignment</mat-icon>
+        </div>
+    </div>
+    <div class="task-info">
+        <div class="left-part">
+            <div class="task-title">
+                <span>{{task.taskType | taskType}}</span>
+            </div>
+            <div class="subject-date-info">
+                <span class="subject-title">{{task.subjectTitle}}</span>
+                <span class="deadline"> До {{task.endDate | date:'d MMMM HH:mm' | ukrainianDate}}</span>
+            </div>
+            <div class="line"></div>
+            <div class="task-description">
+                <span>{{task.title}}</span>
+            </div>
+            <div class="line"></div>
+        </div>
+        <div class="right-part">
+            <div class="task-status">
+                <div class="status-line" [ngStyle]="{'color': statusColor}">
+                    <span *ngIf="task.isChecked; else isNotChecked">
+                        <span *ngIf="task.gradeValue; else isNotGrade">Оцінено:  {{task.gradeValue}}/10</span>
+                        <ng-template #isNotGrade>Перевірено</ng-template>
+                    </span>
+                    <ng-template #isNotChecked>
+                        <span *ngIf="task.isDone">Здано. Очікується перевірка</span>
+                        <span *ngIf="!task.isDone">Не здано</span>
+                    </ng-template>
+                </div>
+                <div class="attachments-line" *ngIf="task.attachments || attachments"> 
+                    <mat-chip-listbox *ngFor="let attachment of attachments">
+                        <mat-chip (removed)="remove(attachment)">
+                            {{attachment.fileUrl}}
+                            <button matChipRemove *ngIf="!task.isDone">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                    </mat-chip-listbox>
+                </div>
+                <div class="add-attachments-line" *ngIf="!task.isDone">
+                    <button mat-button [matMenuTriggerFor]="addAttachmentMenu" #addAttachmentTrigger>+ Додати</button><!--[disabled]="attachments.length >= 3"-->
+                    <mat-menu #addAttachmentMenu="matMenu">
+                        <button mat-menu-item (click)="openAttachLinkDialog()">
+                            <mat-icon class="icon">link</mat-icon>
+                            <span>Посилання</span>
+                        </button>
+                        <button mat-menu-item >
+                            <mat-icon class="icon"> attach_file</mat-icon>
+                            <span>Файл</span>
+                        </button>
+                    </mat-menu>
+                </div>
+                <div class="submit-line" *ngIf="!task.isChecked">
+                    <button *ngIf="!task.isDone" (click)="submitTask()">Здати завдання</button>
+                    <button *ngIf="task.isDone" (click)="cancelSubmitTask()">Скасувати надсилання</button>
+                </div>
+            </div>
+            <div class="task-comments">
+                <span>Коменти</span>
+            </div>
+        </div>
+    </div>
+    
+</div>

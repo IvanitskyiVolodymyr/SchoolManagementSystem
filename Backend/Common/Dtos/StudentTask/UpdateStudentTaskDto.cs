@@ -7,5 +7,6 @@
         public bool IsDone { get; set; }
         public bool IsChecked { get; set; }
         public bool IsNeededToBeRedone { get; set; }
+        public string AttachmentsLinks { get; set; }
     }
 }

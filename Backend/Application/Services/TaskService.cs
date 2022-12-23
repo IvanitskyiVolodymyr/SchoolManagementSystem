@@ -7,6 +7,7 @@ using Common.Dtos.StudentTaskAttachment;
 using Common.Exceptions;
 using Common.Dtos.Grades;
 using AutoMapper;
+using Common.Serializer;
 
 namespace Application.Services
 {
@@ -15,12 +16,14 @@ namespace Application.Services
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
         private readonly IGradeRepository _gradeRepository;
+        private readonly ICurrentUserService _currentUserService;
 
-        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository)
+        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository, ICurrentUserService currentUserService)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
             _gradeRepository = gradeRepository;
+            _currentUserService = currentUserService;
         }
 
         public async Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId)
@@ -47,11 +50,19 @@ namespace Application.Services
 
         public async Task<int> SubmitStudentTask(int studentTaskId, List<StudentTaskAttachmentDto> attachments)
         {
+            StudentTaskAttachmentModel attachmentModel = new StudentTaskAttachmentModel()
+            {
+                Links = attachments.Select(a => new StudentTaskAttachmentDto { FileUrl = a.FileUrl }).ToList()
+            };
+
+            var jsonAttachmentsLinks = JsonSerializer<StudentTaskAttachmentModel>.Serialize(attachmentModel);
+
             var studentTask = await GetModelUpdateStudentTask(studentTaskId);
 
             studentTask.IsDone = true;
-            var studentTaskAttachments = attachments.Select(a => new InsertStudentTaskAttachmentDto { FileUrl = a.FileUrl, StudentTaskId = studentTaskId }).ToList();
-            return await _taskRepository.UpdateStudentTaskWithAttachments(studentTask, studentTaskAttachments);
+            studentTask.AttachmentsLinks = jsonAttachmentsLinks;
+
+            return await _taskRepository.UpdateStudentTask(studentTask);
         }
 
         public async Task<int> MarkStudentTaskAsChecked(int studentTaskId)
@@ -151,6 +162,38 @@ namespace Application.Services
         public async Task<IEnumerable<ResponseTaskDto>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to)
         {
             return await _taskRepository.GetAllTasksForStudentByPeriod(studentId, from, to);
+        }
+
+        public async Task<ResponseTaskWithGradeAndAttachmentsDto> GetTaskWithStatusAndAttachments(int studentTaskId)
+        {
+            int currentUserId = _currentUserService.GetCurrentUserId();
+            var taskUserId = await _taskRepository.GetUserIdByStudentTaskId(studentTaskId);
+
+            if(currentUserId != taskUserId)
+            {
+                throw new NotAcceptableException();
+            }
+
+            var task = await _taskRepository.GetTaskByStudentTaskId(studentTaskId);
+            var grade = await _gradeRepository.GetByStudentTaskId(studentTaskId);
+            var attachments = task.AttachmentsLinks is not null ?
+                JsonSerializer<StudentTaskAttachmentModel>.Deserialize(task.AttachmentsLinks) :
+                new StudentTaskAttachmentModel();
+
+
+            var responseTaskWithGradeAndAttachments = _mapper.Map<ResponseTaskWithGradeAndAttachmentsDto>(task);
+            responseTaskWithGradeAndAttachments.GradeValue = grade?.Value;
+            responseTaskWithGradeAndAttachments.Attachments = attachments?.Links;
+
+            return responseTaskWithGradeAndAttachments;
+        }
+
+        public async Task<int> CancelSubmitStudentTask(int studentTaskId)
+        {
+            var studentTask = await GetModelUpdateStudentTask(studentTaskId);
+
+            studentTask.IsDone = false;
+            return await _taskRepository.UpdateStudentTask(studentTask);
         }
     }
 }

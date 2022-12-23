@@ -1,0 +1,28 @@
+<div class="add-link-container">
+    <div class="title">
+        <span>Додати посилання</span>
+    </div>
+    <form class="link-form" [formGroup]="linkForm">
+        <mat-form-field class="form-field" appearance="fill">
+            <input matInput
+            placeholder="example.com"
+            type="text"
+            [(ngModel)] = 'attachment.fileUrl'
+            formControlName="link">
+            <mat-error *ngIf="linkForm.controls['link'].hasError('pattern')">
+                Введіть дійсне посилання
+            </mat-error>
+            <mat-error *ngIf="linkForm.controls['link'].hasError('required')">
+                Посилання є <strong>обов'язквим полем</strong>
+              </mat-error>
+        </mat-form-field>
+    </form>
+    <div class="button-navigation">
+        <button mat-button mat-dialog-close style="color:grey">
+            Скасувати
+        </button>
+        <button mat-button [disabled]="!(linkForm.valid)" (click)="addLinkClicked()" [mat-dialog-close]="true">
+            Додати посилання
+        </button>
+    </div>
+</div>

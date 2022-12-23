@@ -94,34 +94,6 @@ namespace Infrastructure.Data.Repositories
             return studentTaskDto.TaskId;
         }
 
-        public async Task<int> UpdateStudentTaskWithAttachments(UpdateStudentTaskDto studentTaskDto, List<InsertStudentTaskAttachmentDto> attachments)
-        {
-            using var connection = new SqlConnection(_dataHelper.GetConnectionString());
-            await connection.OpenAsync();
-            var transaction = connection.BeginTransaction();
-
-            try
-            {
-                foreach(var attachment in attachments)
-                {
-                    await connection.ExecuteScalarAsync("spStudentTaskAttachment_Insert",
-                                                        new InsertStudentTaskAttachmentDto { StudentTaskId = attachment.StudentTaskId, FileUrl = attachment.FileUrl },
-                                                        transaction,
-                                                        commandType: System.Data.CommandType.StoredProcedure);
-                }
-
-                await connection.ExecuteScalarAsync<int>("spStudentTask_Update", studentTaskDto, transaction, commandType: System.Data.CommandType.StoredProcedure);
-
-                await transaction.CommitAsync();
-                return studentTaskDto.TaskId;
-            }
-            catch(Exception e)
-            {
-                await transaction.RollbackAsync();
-                throw new Exception("SQL transaction exception " + e.Message);
-            }
-        }
-
         public async Task<int> UpdateTask(UpdateTaskDto task)
         {
             await _dataHelper.SaveData("spTask_Update", task);
@@ -136,6 +108,18 @@ namespace Infrastructure.Data.Repositories
         public async Task<IEnumerable<ResponseTaskDto>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to)
         {
             return await _dataHelper.LoadData<ResponseTaskDto, dynamic>("spTasks_GetAllByPeriod", new { StudentId = studentId, From = from, To = to });
+        }
+
+        public async Task<TaskWithGradeDto> GetTaskByStudentTaskId(int studentTaskId)
+        {
+            var result =  await _dataHelper.LoadData<TaskWithGradeDto, dynamic>("spTasks_GetByStudentTaskId", new { StudentTaskId = studentTaskId});
+            return result.FirstOrDefault();
+        }
+
+        public async Task<int> GetUserIdByStudentTaskId(int studentTaskId)
+        {
+            var result = await _dataHelper.LoadData<int, dynamic>("spTask_GetUserIdByStudentTaskId", new { StudentTaskId = studentTaskId });
+            return result.FirstOrDefault();
         }
     }
 }
