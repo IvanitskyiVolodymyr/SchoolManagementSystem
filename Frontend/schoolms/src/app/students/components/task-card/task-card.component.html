@@ -18,6 +18,10 @@
         <ng-template #isNotChecked>
             <span *ngIf="task.isDone">Здано. Очікується перевірка</span>
             <span *ngIf="!task.isDone">Не здано</span>
+            <span *ngIf="!task.isDone && draftAttachments !==0 " class="attachment-draft"> 
+                <mat-icon> attach_file</mat-icon>
+                <span style="font-size: 18px;">{{draftAttachments}}</span>
+             </span>
         </ng-template>
     </div>
 </div>

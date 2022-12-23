@@ -40,13 +40,23 @@
 
     .task-status {
         border: 1px solid black;
-        // background: #E4F6D0;
         border-width: 0px 1px 1px 1px;
         border-radius: 0px 0px 10px 10px;
         box-shadow: 0px 1px 4px black;
         padding: 5px;
         align-self: flex-end;
         font-size: 16px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .attachment-draft {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-left: 10px;
+        }
     }
     .checked {
         background: #E4F6D0;
