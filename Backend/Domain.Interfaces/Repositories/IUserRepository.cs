@@ -14,5 +14,6 @@ namespace Domain.Interfaces.Repositories
         Task<Student?> GetStudentByUserId(int userId);
         Task<Teacher?> GetTeacherByUserId(int userId);
         Task<Parent?> GetParentByUserId(int userId);
+        Task<Role?> GetRoleByUserId(int userId);
     }
 }

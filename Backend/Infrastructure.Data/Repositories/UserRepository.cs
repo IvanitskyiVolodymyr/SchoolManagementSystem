@@ -69,5 +69,11 @@ namespace Infrastructure.Data.Repositories
             var result = await _db.LoadData<Parent, dynamic>("spParent_GetByUserId", new { UserId = userId });
             return result.FirstOrDefault();
         }
+
+        public async Task<Role?> GetRoleByUserId(int userId)
+        {
+            var result = await _db.LoadData<Role, dynamic>("spRole_GetByUserId", new { UserId = userId });
+            return result.FirstOrDefault();
+        }
     }
 }

@@ -78,6 +78,7 @@
     <Folder Include="school\StoredProcedures\StudentTaskAttachment" />
     <Folder Include="school\StoredProcedures\Grade" />
     <Folder Include="school\StoredProcedures\ClassSubjectGrade" />
+    <Folder Include="school\StoredProcedures\Role" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -159,6 +160,8 @@
     <Build Include="school\StoredProcedures\Tasks\spTasks_GetAllByPeriod.sql" />
     <Build Include="school\StoredProcedures\Tasks\spTasks_GetByStudentTaskId.sql" />
     <Build Include="school\StoredProcedures\Tasks\spTask_GetUserIdByStudentTaskId.sql" />
+    <Build Include="school\StoredProcedures\Role\spRole_GetByUserId.sql" />
+    <Build Include="school\StoredProcedures\ParentStudent\spParentStudent_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

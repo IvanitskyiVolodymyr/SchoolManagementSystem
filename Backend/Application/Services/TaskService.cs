@@ -16,14 +16,12 @@ namespace Application.Services
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
         private readonly IGradeRepository _gradeRepository;
-        private readonly ICurrentUserService _currentUserService;
 
-        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository, ICurrentUserService currentUserService)
+        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
             _gradeRepository = gradeRepository;
-            _currentUserService = currentUserService;
         }
 
         public async Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId)
@@ -166,14 +164,6 @@ namespace Application.Services
 
         public async Task<ResponseTaskWithGradeAndAttachmentsDto> GetTaskWithStatusAndAttachments(int studentTaskId)
         {
-            int currentUserId = _currentUserService.GetCurrentUserId();
-            var taskUserId = await _taskRepository.GetUserIdByStudentTaskId(studentTaskId);
-
-            if(currentUserId != taskUserId)
-            {
-                throw new NotAcceptableException();
-            }
-
             var task = await _taskRepository.GetTaskByStudentTaskId(studentTaskId);
             var grade = await _gradeRepository.GetByStudentTaskId(studentTaskId);
             var attachments = task.AttachmentsLinks is not null ?

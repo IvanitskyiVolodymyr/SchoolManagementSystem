@@ -1,7 +1,10 @@
 using Application;
+using FluentValidation.AspNetCore;
 using Infrastructure.Data;
+using System.Reflection;
 using WebApi.Extentions;
 using WebApi.Middleware;
+using WebApi.Validators.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,8 @@ builder.Services.RegisterInfrastructureServices();
 
 //Register ApplicationServices
 builder.Services.RegisterApplicationServices();
+
+builder.Services.AddScoped<TasksValidators>();
 
 //mapper
 builder.Services.ConfigureMapping();
@@ -29,7 +34,15 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
-builder.Services.AddControllers();
+#pragma warning disable CS0618 // Type or member is obsolete
+builder.Services.AddControllers()
+                .AddFluentValidation(options =>
+                {
+                    options.ImplicitlyValidateChildProperties = true;
+                    options.ImplicitlyValidateRootCollectionElements = true;
+                    options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                });
+#pragma warning restore CS0618 // Type or member is obsolete
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
