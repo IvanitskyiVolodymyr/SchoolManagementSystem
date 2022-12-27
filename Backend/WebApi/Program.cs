@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using System.Reflection;
 using WebApi.Extentions;
 using WebApi.Middleware;
+using WebApi.Validators.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.RegisterInfrastructureServices();
 
 //Register ApplicationServices
 builder.Services.RegisterApplicationServices();
+
+builder.Services.AddScoped<TasksValidators>();
 
 //mapper
 builder.Services.ConfigureMapping();
