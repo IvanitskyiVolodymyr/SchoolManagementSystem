@@ -75,7 +75,6 @@ export class JournalComponent implements OnInit{
   private getAllFinalGrades(studentId: number, classId: number) {
     this.journalService.GetAllFinalGradesByClassId(studentId, classId).
       subscribe(res => {
-        console.log(res);
         this.subjectsWithFinalGrades = res;
 
         this.subjectsWithGrades.forEach(item => {
