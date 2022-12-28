@@ -19,6 +19,12 @@ namespace Services.Tests.Unit.MockRepositories
                 .ReturnsAsync(output);
         }
 
+        public void GetClassIdByUserId(int userId, int output)
+        {
+            Setup(x => x.GetClassIdByUserId(It.Is<int>(i => i == userId)))
+                .ReturnsAsync(output);
+        }
+
         public void UpdateUser(User user, int output)
         {
             Setup(x => x.UpdateUser(It.Is<User>(i => JsonConvert.SerializeObject(i) == JsonConvert.SerializeObject(user))))
