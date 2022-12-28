@@ -151,5 +151,15 @@ namespace Application.Services
 
             return result;
         }
+
+        public async Task<int> GetClassIdByStudentId(int studentId)
+        {
+            int classId = await _userRepository.GetClassIdByStudentId(studentId);
+            if(classId == default(int))
+            {
+                throw new NotFoundException(typeof(Class), "ClassId", classId.ToString());
+            }
+            return classId;
+        }
     }
 }

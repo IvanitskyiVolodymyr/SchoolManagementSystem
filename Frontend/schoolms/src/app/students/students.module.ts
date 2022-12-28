@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { TaskCardComponent } from './components/task-card/task-card.component';
 import { TaskInfoComponent } from './components/task-info/task-info.component';
+import { JournalComponent } from './components/journal/journal.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { TaskInfoComponent } from './components/task-info/task-info.component';
     StudentBaseComponent,
     TasksComponent,
     TaskCardComponent,
-    TaskInfoComponent
+    TaskInfoComponent,
+    JournalComponent
   ],
   imports: [
     CommonModule,

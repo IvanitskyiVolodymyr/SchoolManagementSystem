@@ -25,4 +25,16 @@ export class UserService {
         })
     );
   }
+
+  public getClassIdByStudentId(studentId: number) : Observable<number> {
+    return this.httpService.getFullRequest<number>(
+      `${this.prefix}/GetClassIdByStudentId`,
+       new HttpParams().set('studentId', studentId))
+    .pipe(
+      map(
+        (resp) => {
+          return resp.body as number;
+        })
+    );
+  }
 }

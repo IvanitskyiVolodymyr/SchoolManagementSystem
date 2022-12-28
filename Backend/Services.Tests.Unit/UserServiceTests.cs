@@ -370,6 +370,33 @@ namespace Services.Tests.Unit
             await Assert.ThrowsAsync<NotFoundException>(async () => await userService.GetEntityIdWithRoleByUserId(userId, roleId));
         }
 
+        [Fact]
+        public async void GetClassIdByUserId_WithCorrectParameter_ReturnsClassId()
+        {
+            int userId = 1;
+            var mockUserRepository = new MockUserRepository();
+            mockUserRepository.GetClassIdByUserId(userId, 1);
+
+            IUserService userService = new UserService(mockUserRepository.Object, _mapper, null, null, null, null);
+
+            int expected = 1;
+            int actual = await userService.GetClassIdByUserId(userId);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async void GetClassIdByUserId_WithIncorrectParameter_ThrowsNotFoundException()
+        {
+            int userId = 99995;
+            var mockUserRepository = new MockUserRepository();
+            mockUserRepository.GetClassIdByUserId(userId, default(int));
+
+            IUserService userService = new UserService(mockUserRepository.Object, _mapper, null, null, null, null);
+
+            await Assert.ThrowsAsync<NotFoundException>(async () => await userService.GetClassIdByUserId(userId));
+        }
+
         private List<User> GetUsers()
         {
             var users = new List<User>() 

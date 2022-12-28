@@ -1,0 +1,25 @@
+<div class="journal-container">
+    <div class ="title">
+        <span>Журнал</span>
+    </div>
+    <div class="journal">
+        <table>
+            <tr>
+                <th>Предмет</th>
+                <th [attr.colspan]="[maxCountOfGrades]">Оцінки</th>
+                <th>Сем. 1</th>
+                <th>Сем. 2</th>
+                <th>Річна</th>    
+            </tr>
+            <tr *ngFor="let subject of subjectsWithGrades">
+              <td>{{subject.subjectName}}</td>
+              <td class="grade-value" *ngFor="let item of [].constructor(maxCountOfGrades); let i = index" (click)="onGradeClick(subject.grades[i])">
+                <span *ngIf="subject.grades[i]">{{subject.grades[i].value}}</span>
+              </td>
+                <td class="grade-value" *ngFor="let item of [].constructor(3); let i = index">
+                    <span *ngIf="subject.finalGrades[i]">{{subject.finalGrades[i].value}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

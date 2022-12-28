@@ -8,6 +8,7 @@ namespace Domain.Interfaces.Repositories
         Task DeleteUser(int id);
         Task<User?> GetUserById(int id);
         Task<User?> GetUserByEmail(string email);
+        Task<int> GetClassIdByStudentId(int studentId);
         Task<IEnumerable<User>> GetUsers();
         Task<int> InsertUser(InsertUserDto user);
         Task<int> UpdateUser(User user);
