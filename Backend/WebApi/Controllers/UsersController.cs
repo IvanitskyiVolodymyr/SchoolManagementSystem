@@ -25,6 +25,12 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [HttpGet("GetClassIdByStudentId")]
+        public async Task<ActionResult<int>> GetClassIdByStudentId(int studentId)
+        {
+            return Ok(await _userService.GetClassIdByStudentId(studentId));
+        }
+
         [Authorize]
         [HttpGet("GetUserByEmail")]
         public async Task<ActionResult<UserDto>> GetUserByEmail(string email)

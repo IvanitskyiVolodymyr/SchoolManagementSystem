@@ -162,6 +162,7 @@
     <Build Include="school\StoredProcedures\Tasks\spTask_GetUserIdByStudentTaskId.sql" />
     <Build Include="school\StoredProcedures\Role\spRole_GetByUserId.sql" />
     <Build Include="school\StoredProcedures\ParentStudent\spParentStudent_Get.sql" />
+    <Build Include="school\StoredProcedures\spUser_GetClassIdByStudentId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />
