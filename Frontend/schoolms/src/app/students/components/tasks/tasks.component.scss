@@ -13,31 +13,10 @@
         border-radius: 15px;
         margin-right: 50px;
         align-self: flex-start;
-        
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            
-            .checked {
-                color: #80BBA0;
-                font-weight: 700;
-            }
 
-            .done {
-                color: #DEAE77;
-                font-weight: 700;
-            }
-
-            .not-done {
-                color: #B0B1B7;
-                font-weight: 700;
-            }
-
-        }
-
-        #radio-group-label {
-            font-weight: 600;
-            margin-top: 20px;
+        .filter-title {
+            font-weight: 500;
+            margin-bottom: 10px;
         }
     }
     .tasks {
@@ -73,15 +52,40 @@
     }
 }
 
-::ng-deep.mat-mdc-radio-button.mat-accent.radio-button {
-    --mdc-radio-selected-focus-icon-color: grey;
-    --mdc-radio-selected-hover-icon-color: grey;
-    --mdc-radio-selected-icon-color:grey;
-    --mdc-radio-selected-pressed-icon-color: grey;
-    --mat-mdc-radio-checked-ripple-color: grey;
+ .not-done {
+    --mdc-checkbox-selected-focus-icon-color: #DE0000;
+    --mdc-checkbox-selected-hover-icon-color: #DE0000;
+    --mdc-checkbox-selected-icon-color: #DE0000;
+    --mdc-checkbox-selected-pressed-icon-color: #DE0000;
+    --mat-mdc-checkbox-checked-ripple-color: #DE0000;
+    --mdc-checkbox-unselected-focus-icon-color: #DE0000;
+    --mdc-checkbox-unselected-icon-color:  #DE0000;
+    --mdc-checkbox-unselected-hover-icon-color: #DE0000;
 }
 
-::ng-deep.mat-mdc-radio-button.radio-button {
-    --mdc-radio-unselected-icon-color:  grey;
-    --mdc-radio-unselected-hover-icon-color: grey;
+.wait-for-check {
+    --mdc-checkbox-selected-focus-icon-color: #DEAE77;
+    --mdc-checkbox-selected-hover-icon-color: #DEAE77;
+    --mdc-checkbox-selected-icon-color: #DEAE77;
+    --mdc-checkbox-selected-pressed-icon-color: #DEAE77;
+    --mat-mdc-checkbox-checked-ripple-color: #DEAE77;
+    --mdc-checkbox-unselected-focus-icon-color: #DEAE77;
+    --mdc-checkbox-unselected-icon-color:  #DEAE77;
+    --mdc-checkbox-unselected-hover-icon-color: #DEAE77;
 }
+
+.checked {
+    --mdc-checkbox-selected-focus-icon-color: #80BBA0;
+    --mdc-checkbox-selected-hover-icon-color: #80BBA0;
+    --mdc-checkbox-selected-icon-color: #80BBA0;
+    --mdc-checkbox-selected-pressed-icon-color: #80BBA0;
+    --mat-mdc-checkbox-checked-ripple-color: #80BBA0;
+    --mdc-checkbox-unselected-focus-icon-color: #80BBA0;
+    --mdc-checkbox-unselected-icon-color:  #80BBA0;
+    --mdc-checkbox-unselected-hover-icon-color: #80BBA0;
+}
+
+::ng-deep.mat-mdc-checkbox .mdc-form-field {
+    font-weight: 500;
+}
+

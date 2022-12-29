@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
+import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DateRange } from 'src/app/shared/models/date/date-range';
 import { ResponseTaskWithGrade } from 'src/app/shared/models/tasks/responseTaskWithGrade';
@@ -21,18 +21,16 @@ export class TasksComponent implements OnInit {
   public isFromWeekBegining = false;
   public studentId = 1;
 
-  public taskTypes = new Map<string, TaskType>(
-    [
-      [ "Д/З", TaskType.HomeWork ],
-      [ "К/Р", TaskType.ControlWork ],
-      [ "С/Р", TaskType.ClassWork ],
-      [ "Індивідуальні", TaskType.AdditionalWork ],
-    ]);
-
-  public taskTypeKeys = [...this.taskTypes.keys()];
-
-  public selectedTaskType = '';
-  public selectedTaskStatus = '';
+  public allTasks: Array<ResponseTaskWithGrade> = [] as Array<ResponseTaskWithGrade>;
+  tasksFilter = this.formBuilder.group({
+    isNotDone: true,
+    isWaitForCheck: false,
+    isChecked: false,
+    isHomeWork: true,
+    isControlWork: true,
+    isClassWork: true,
+    isAdditionalWork: true
+  });
 
   public tasksByDay: Array<TasksDay> = [];
 
@@ -40,7 +38,8 @@ export class TasksComponent implements OnInit {
 
 
   constructor(private taskService: TasksService,
-    private store: Store) { }
+    private store: Store,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.store.select(entityWithRole).subscribe(
@@ -78,80 +77,52 @@ export class TasksComponent implements OnInit {
     return this.tasksByDay;
   }
 
-  public statusChange(event: MatRadioChange, value: string) {
-    const filteredTasks = this.filterTasksByStatus(value, this.tasksByDay);
-    this.filteredTasks = this.filterTasksByType(this.taskTypes.get(this.selectedTaskType), filteredTasks);
-  }
-
-  public typeChange(event: MatRadioChange, value: string) {
-    const filteredTasks = this.filterTasksByType(this.taskTypes.get(value) as TaskType, this.tasksByDay);
-    this.filteredTasks = this.filterTasksByStatus(this.selectedTaskStatus,filteredTasks);
-  } 
-
-  private filterTasksByStatus(value: string, tasksToFilter: TasksDay[]) {
-    const bufferTasks = [] as Array<TasksDay>;
-
-    tasksToFilter.forEach((element) => {
-
-      const taskDay: TasksDay = {
-        date: element.date,
-        tasks: []
-      };
-
-      switch(value) {
-        case "notDone": {
-              taskDay.tasks = element.tasks.filter(t=> t.isDone === false);
-          break;
-        }
-        case "done": {
-            taskDay.tasks = element.tasks.filter(t => t.isDone == true && t.isChecked === false);
-          break;
-        }
-
-        case "checked": {
-            taskDay.tasks = element.tasks.filter(t => t.isChecked == true);
-          break;
-        }
-        default: {
-          taskDay.tasks = element.tasks;
-        }
-      }
-
-      if(taskDay.tasks.length > 0) {
-        bufferTasks.push(taskDay);
-      }
-    });
-
-    return bufferTasks;
-  }
-
-  private filterTasksByType(taskType: TaskType | undefined, tasksToFilter: TasksDay[]) {
-    if(taskType === undefined) {
-      return tasksToFilter;
-    }
-
-    const bufferTasks = [] as Array<TasksDay>;
-    tasksToFilter.forEach((element) => {
-      const taskDay: TasksDay = {
-        date: element.date,
-        tasks: element.tasks.filter(t => t.taskType === taskType)
-      };
-      if(taskDay.tasks.length > 0) {
-        bufferTasks.push(taskDay);
-      }
-    });
-
-    return bufferTasks;
-  }
-
   public onDateRangeChanged(date: DateRange) {
     this.taskService.GetAllTasksWithGradesForStudent(this.studentId, date.startDate, date.endDate)
     .subscribe(
       (result) => {
-        const tasksByDay = this.groupTasksByDays(result);
-        const filtered = this.filterTasksByStatus(this.selectedTaskStatus, tasksByDay);
-        this.filteredTasks = this.filterTasksByType(this.taskTypes.get(this.selectedTaskType), filtered);
+        this.allTasks = result;
+
+        this.filterTasks();
       }
     );
+  }
+
+  public filterTasks() {
+    let tasksBuffer = [] as Array<ResponseTaskWithGrade>;
+    if(this.tasksFilter.controls.isNotDone.value) {
+      tasksBuffer = this.allTasks.filter(t => t.isDone === false);
+    }
+    if(this.tasksFilter.controls.isWaitForCheck.value) {
+      tasksBuffer = [...tasksBuffer].concat(this.allTasks.filter(t => t.isDone === true && t.isChecked == false));
+    }
+    if(this.tasksFilter.controls.isChecked.value) {
+      tasksBuffer = [...tasksBuffer].concat(this.allTasks.filter(t => t.isDone === true && t.isChecked == true));
+    }
+
+    const filteredByType = this.filterByType();
+
+    tasksBuffer = tasksBuffer.filter(value => filteredByType.includes(value));
+
+    this.filteredTasks = this.groupTasksByDays(tasksBuffer);
+  }
+
+  private filterByType() {
+    let tasksBuffer = [] as Array<ResponseTaskWithGrade>;
+
+    if(this.tasksFilter.controls.isHomeWork.value) {
+      tasksBuffer = [...tasksBuffer].concat(this.allTasks.filter(t => t.taskType === TaskType.HomeWork));
+    }
+    if(this.tasksFilter.controls.isControlWork.value) {
+      tasksBuffer = [...tasksBuffer].concat(this.allTasks.filter(t => t.taskType === TaskType.ControlWork));
+    }
+    if(this.tasksFilter.controls.isClassWork.value) {
+      tasksBuffer = [...tasksBuffer].concat(this.allTasks.filter(t => t.taskType === TaskType.ClassWork));
+    }
+    if(this.tasksFilter.controls.isAdditionalWork.value) {
+      tasksBuffer = [...tasksBuffer].concat(this.allTasks.filter(t => t.taskType === TaskType.AdditionalWork));
+    }
+
+    return tasksBuffer;
   }
 }
