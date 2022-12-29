@@ -27,6 +27,7 @@ import { AddLinkDialogComponent } from './components/add-link-dialog/add-link-di
 import { StoreModule } from '@ngrx/store';
 import { studentFeatureKey, studentReducer } from '../store/reducers/student.reducer';
 import { NotAcceptableComponent } from './components/errors/not-acceptable/not-acceptable.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const materials = [
   MatButtonModule,
@@ -43,6 +44,7 @@ const materials = [
   MatMenuModule,
   MatDialogModule,
   MatChipsModule,
+  MatCheckboxModule,
 ];
 
 @NgModule({
