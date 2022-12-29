@@ -129,26 +129,21 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetCommentsByStudentTaskId")]
-        [AllowAnonymous]
         public async Task<ActionResult<ResponseTaskWithGradeAndAttachmentsDto>> GetCommentsByStudentTaskId(int studentTaskId)
         {
-            //await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
+            await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
             return Ok(await _taskService.GetCommentsByStudentTaskId(studentTaskId));
         }
 
         [HttpPost("CreateComment")]
-        [AllowAnonymous]
         public async Task<ActionResult<int>> CreateComment([FromBody] CreateStudentTaskCommentDto comment)
         {
-            //add fluent validation
             return Ok(await _taskService.CreateComment(comment));
         }
 
         [HttpPut("UpdateComment")]
-        [AllowAnonymous]
         public async Task<ActionResult<int>> UpdateComment([FromBody] UpdateStudentTaskCommentDto comment)
         {
-            //add fluent validation
             return Ok(await _taskService.UpdateComment(comment));
         }
 
