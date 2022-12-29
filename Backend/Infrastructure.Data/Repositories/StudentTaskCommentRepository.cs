@@ -38,6 +38,25 @@ namespace Infrastructure.Data.Repositories
             return result;
         }
 
+        public async Task<ResponseStudentTaskCommentDto?> GetCommentsByStudentTaskCommentId(int studentTaskCommentId)
+        {
+            using var connection = new SqlConnection(_dataAccess.GetConnectionString());
+
+            var result = await connection.QueryAsync<ResponseStudentTaskCommentDto, ShortUserInfoDto, ResponseStudentTaskCommentDto>(
+                "spStudenTaskComment_getByStudentTaskCommentId",
+                (rst, u) =>
+                {
+                    rst.ShortUserInfo = u;
+                    return rst;
+                },
+                new { StudentTaskCommentId = studentTaskCommentId },
+                splitOn: "UserId",
+                commandType: System.Data.CommandType.StoredProcedure
+                );
+
+            return result.FirstOrDefault();
+        }
+
         public async Task<int> UpdateComment(UpdateStudentTaskCommentDto comment)
         {
             await _dataAccess.SaveData("spStudentTaskComment_Update", comment);

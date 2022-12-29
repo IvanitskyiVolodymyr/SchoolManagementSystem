@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Common.Dtos.StudentTaskAttachment;
-using Common.Dtos.StudentTaskComment;
 using Common.Dtos.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -127,25 +126,5 @@ namespace WebApi.Controllers
             await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
             return Ok(await _taskService.GetTaskWithStatusAndAttachments(studentTaskId));
         }
-
-        [HttpGet("GetCommentsByStudentTaskId")]
-        public async Task<ActionResult<ResponseTaskWithGradeAndAttachmentsDto>> GetCommentsByStudentTaskId(int studentTaskId)
-        {
-            await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
-            return Ok(await _taskService.GetCommentsByStudentTaskId(studentTaskId));
-        }
-
-        [HttpPost("CreateComment")]
-        public async Task<ActionResult<int>> CreateComment([FromBody] CreateStudentTaskCommentDto comment)
-        {
-            return Ok(await _taskService.CreateComment(comment));
-        }
-
-        [HttpPut("UpdateComment")]
-        public async Task<ActionResult<int>> UpdateComment([FromBody] UpdateStudentTaskCommentDto comment)
-        {
-            return Ok(await _taskService.UpdateComment(comment));
-        }
-
     }
 }

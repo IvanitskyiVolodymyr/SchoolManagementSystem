@@ -1,5 +1,4 @@
 ﻿using Common.Dtos.StudentTaskAttachment;
-using Common.Dtos.StudentTaskComment;
 using Common.Dtos.Tasks;
 
 namespace Application.Interfaces
@@ -49,9 +48,5 @@ namespace Application.Interfaces
 
         //ForTeacher
         Task<int> UpdateStudentTaskGrade(int studentTaskId, int grade);
-
-        Task<IEnumerable<ResponseStudentTaskCommentDto>> GetCommentsByStudentTaskId(int studentTaskId);
-        Task<int> CreateComment(CreateStudentTaskCommentDto comment);
-        Task<int> UpdateComment(UpdateStudentTaskCommentDto comment);
     }
 }
