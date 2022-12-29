@@ -79,6 +79,7 @@
     <Folder Include="school\StoredProcedures\Grade" />
     <Folder Include="school\StoredProcedures\ClassSubjectGrade" />
     <Folder Include="school\StoredProcedures\Role" />
+    <Folder Include="school\StoredProcedures\StudentTaskComment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="school\Tables\Roles.sql" />
@@ -163,6 +164,10 @@
     <Build Include="school\StoredProcedures\Role\spRole_GetByUserId.sql" />
     <Build Include="school\StoredProcedures\ParentStudent\spParentStudent_Get.sql" />
     <Build Include="school\StoredProcedures\spUser_GetClassIdByStudentId.sql" />
+    <Build Include="school\Tables\StudentTaskComments.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskComment\spStudentTaskComment_Create.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskComment\spStudentTaskComment_Update.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskComment\spStudentTaskComment_GetByStudentTaskId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

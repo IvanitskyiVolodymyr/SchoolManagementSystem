@@ -8,6 +8,7 @@ using Common.Exceptions;
 using Common.Dtos.Grades;
 using AutoMapper;
 using Common.Serializer;
+using Common.Dtos.StudentTaskComment;
 
 namespace Application.Services
 {
@@ -16,12 +17,17 @@ namespace Application.Services
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
         private readonly IGradeRepository _gradeRepository;
+        private readonly IStudentTaskCommentRepository _studentTaskCommentRepository;
 
-        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository)
+        public TaskService(ITaskRepository taskRepository,
+                           IMapper mapper,
+                           IGradeRepository gradeRepository,
+                           IStudentTaskCommentRepository studentTaskCommentRepository)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
             _gradeRepository = gradeRepository;
+            _studentTaskCommentRepository = studentTaskCommentRepository;
         }
 
         public async Task<IEnumerable<ResponseTaskDto>> GetAllUncheckedTasksForStudent(int studentId)
@@ -184,6 +190,21 @@ namespace Application.Services
 
             studentTask.IsDone = false;
             return await _taskRepository.UpdateStudentTask(studentTask);
+        }
+
+        public async Task<IEnumerable<ResponseStudentTaskCommentDto>> GetCommentsByStudentTaskId(int studentTaskId)
+        {
+            return await _studentTaskCommentRepository.GetCommentsByStudentTaskId(studentTaskId);
+        }
+
+        public async Task<int> CreateComment(CreateStudentTaskCommentDto comment)
+        {
+            return await _studentTaskCommentRepository.CreateComment(comment);
+        }
+
+        public async Task<int> UpdateComment(UpdateStudentTaskCommentDto comment)
+        {
+            return await _studentTaskCommentRepository.UpdateComment(comment);
         }
     }
 }
