@@ -6,6 +6,7 @@
     [StudentTaskId] INT NOT NULL,
     [CreatedAt] DATETIME NOT NULL, 
     [UpdatedAt] DATETIME NULL, 
+    [CommentParentId] INT NULL, 
 
     CONSTRAINT [PK_StudentTaskComment] PRIMARY KEY CLUSTERED ([StudentTaskCommentId] ASC),
     CONSTRAINT [FK_StudentTaskComment_StudentTask] FOREIGN KEY ([StudentTaskId])  REFERENCES [school].[StudentsTasks]([StudentTaskId]),
