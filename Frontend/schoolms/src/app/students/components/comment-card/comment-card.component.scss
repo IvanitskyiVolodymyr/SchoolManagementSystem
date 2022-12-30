@@ -31,6 +31,12 @@
             display: flex;
             flex-direction: row;
             color: grey;
+            .edited {
+                display: flex;
+                align-self: center;
+                font-size: 12px;
+                padding-right: 5px;
+            }
             .comment-time {
                 padding-right: 10px;
             }

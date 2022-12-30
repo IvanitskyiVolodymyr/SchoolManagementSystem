@@ -5,6 +5,6 @@ export interface StudentTaskComment {
     commentParentId: number | undefined;
     comment: string;
     createdAt: Date;
-    updatedAt: Date;
+    updatedAt: Date | null;
     shortUserInfo: ShortUserInfo;
 }
