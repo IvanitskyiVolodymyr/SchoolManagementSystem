@@ -49,4 +49,17 @@ export class CommentsService {
           })
       )
   }
+
+  public DeleteComment(studentTaskCommentId: number): Observable<number> {
+    const params = new HttpParams()
+    .set('studentTaskCommentId', studentTaskCommentId);
+
+    return this.httpService.deleteFullRequest<number>(`${this.prefix}/delete-comment`, params)
+      .pipe(
+        map(  
+          (resp) => {
+            return resp.body as number;
+          })
+      )
+  }
 }

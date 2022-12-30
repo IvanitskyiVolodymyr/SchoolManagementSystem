@@ -52,6 +52,15 @@ constructor(private commentsService: CommentsService,
     )
   }
 
+  deleteComment(commentId: number): void {
+    if(confirm("Ти справді хочеш видалити цей коментар? ")) {
+      this.commentsService.DeleteComment(commentId)
+    .subscribe(() => {
+      this.comments = this.comments.filter(c => c.studentTaskCommentId != commentId);
+    })
+    }
+  }
+
   private getComments(studentTaskId: number) {
     this.commentsService.GetCommentsByStudentTaskId(studentTaskId)
     .subscribe(

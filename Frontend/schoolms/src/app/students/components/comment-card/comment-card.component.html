@@ -40,7 +40,9 @@
                     ">
                 <mat-icon>edit</mat-icon>
             </span>
-            <span class="comment-action" *ngIf="canDelete">
+            <span class="comment-action" 
+                *ngIf="canDelete"
+                (click)="deleteComment.emit(comment.studentTaskCommentId)">
                 <mat-icon>delete</mat-icon>
             </span>
         </div>
@@ -58,6 +60,7 @@
                 [activeComment]="activeComment"
                 (addComment)="addComment.emit($event)"
                 (updateComment)="updateComment.emit($event)"
+                (deleteComment)="deleteComment.emit($event)"
                 [parentId]="comment.studentTaskCommentId"
                 [replies]="[]">
             </app-comment-card>

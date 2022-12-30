@@ -169,6 +169,7 @@
     <Build Include="school\StoredProcedures\StudentTaskComment\spStudentTaskComment_Update.sql" />
     <Build Include="school\StoredProcedures\StudentTaskComment\spStudentTaskComment_GetByStudentTaskId.sql" />
     <Build Include="school\StoredProcedures\StudentTaskComment\spStudenTaskComment_getByStudentTaskCommentId.sql" />
+    <Build Include="school\StoredProcedures\StudentTaskComment\spStudentTaskComment_delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchoolDb.publish.xml" />

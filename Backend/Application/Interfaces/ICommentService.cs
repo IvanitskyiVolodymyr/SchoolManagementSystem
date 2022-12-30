@@ -7,5 +7,6 @@ namespace Application.Interfaces
         Task<IEnumerable<ResponseStudentTaskCommentDto>> GetCommentsByStudentTaskId(int studentTaskId);
         Task<ResponseStudentTaskCommentDto> CreateComment(CreateStudentTaskCommentDto comment);
         Task<ResponseStudentTaskCommentDto> UpdateComment(UpdateStudentTaskCommentDto comment);
+        Task<int> DeleteComment(int studentTaskCommentId);
     }
 }

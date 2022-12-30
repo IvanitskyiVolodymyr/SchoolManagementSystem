@@ -8,5 +8,6 @@ namespace Domain.Interfaces.Repositories
         Task<ResponseStudentTaskCommentDto> GetCommentsByStudentTaskCommentId(int studentTaskCommentId);
         Task<int> CreateComment(CreateStudentTaskCommentDto comment);
         Task<int> UpdateComment(UpdateStudentTaskCommentDto comment);
+        Task<int> DeleteComment(int studentTaskCommentId);
     }
 }

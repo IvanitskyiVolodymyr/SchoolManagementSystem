@@ -37,5 +37,10 @@ namespace Application.Services
 
             return updatedComment;
         }
+
+        public async Task<int> DeleteComment(int studentTaskCommentId)
+        {
+            return await _studentTaskCommentRepository.DeleteComment(studentTaskCommentId);
+        }
     }
 }

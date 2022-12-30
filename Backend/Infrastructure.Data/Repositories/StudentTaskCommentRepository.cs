@@ -62,5 +62,11 @@ namespace Infrastructure.Data.Repositories
             await _dataAccess.SaveData("spStudentTaskComment_Update", comment);
             return comment.StudentTaskCommentId;
         }
+
+        public async Task<int> DeleteComment(int studentTaskCommentId)
+        {
+            await _dataAccess.SaveData("spStudentTaskComment_delete", new { StudentTaskCommentId = studentTaskCommentId });
+            return studentTaskCommentId;
+        }
     }
 }

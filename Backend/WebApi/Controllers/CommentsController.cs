@@ -35,7 +35,15 @@ namespace WebApi.Controllers
         [HttpPut("update-comment")]
         public async Task<ActionResult<ResponseStudentTaskCommentDto>> UpdateComment([FromBody] UpdateStudentTaskCommentDto comment)
         {
+            //add validation
             return Ok(await _commentService.UpdateComment(comment));
+        }
+
+        [HttpDelete("delete-comment")]
+        public async Task<ActionResult<int>> DeleteComment(int studentTaskCommentId)
+        {
+            //add validation
+            return Ok(await _commentService.DeleteComment(studentTaskCommentId));
         }
     }
 }
