@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <textarea matInput 
+      maxlength="1000"
+      cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="2"
+      class="comment-form-textarea" 
+      formControlName="title"></textarea>
+    <div class="buttons">
+      <button mat-button type="submit" [disabled]="form.invalid" class="comment-form-button">
+        {{ submitLabel }}
+      </button>
+      <button mat-button
+        *ngIf="!hasCancelButton"
+        type="button"
+        class="comment-form-button comment-form-cancel-button"
+        (click)="onCancel()">
+        Відмінити
+      </button>
+    </div>
+</form>

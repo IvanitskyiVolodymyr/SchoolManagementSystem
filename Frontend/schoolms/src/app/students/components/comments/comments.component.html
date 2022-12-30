@@ -1,0 +1,16 @@
+<div class="comments-container">
+    <span>Коментарі</span>
+    <span *ngFor="let comment of comments">
+        <app-comment-card *ngIf="!comment.commentParentId"
+        [comment]="comment"
+        [replies]="getReplies(comment.studentTaskCommentId)"
+        (setActiveComment) = "setActiveComment($event)"
+        (addComment)="addComment($event.text, $event.commentParentId)"
+        [activeComment] = "activeComment">
+    </app-comment-card>
+    </span>
+    <app-comment-form submitLabel="Надіслати"
+        (handleSubmit)="addComment($event, undefined)">
+    </app-comment-form>
+</div>
+

@@ -32,7 +32,6 @@ export class TaskInfoComponent implements OnInit{
       this.taskService.GetTaskWithStatusAndAttachments(params['id']).subscribe(
         (result) => {
           this.task = result;
-          //console.log(result);
           this.setStatusColor();
           this.getStudentTaskFromStorage(result.studentTaskId);
         }
@@ -105,4 +104,5 @@ export class TaskInfoComponent implements OnInit{
       this.store.dispatch(addStudentTaskAttachments({studentTaskId: studentTaskId, attachment: attachment}));
     })
   }
+
 }

@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="task-comments">
-                <span>Коменти</span>
+                <app-comments *ngIf="task.studentTaskId" [studentTaskId] = "task.studentTaskId"></app-comments>
             </div>
         </div>
     </div>
