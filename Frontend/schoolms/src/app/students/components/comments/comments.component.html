@@ -1,15 +1,32 @@
 <div class="comments-container">
-    <span>Коментарі</span>
-    <span *ngFor="let comment of comments">
-        <app-comment-card *ngIf="!comment.commentParentId"
-        [comment]="comment"
-        [replies]="getReplies(comment.studentTaskCommentId)"
-        (setActiveComment) = "setActiveComment($event)"
-        (addComment)="addComment($event.text, $event.commentParentId)"
-        (updateComment)="updateComment($event.text, $event.commentId)"
-        (deleteComment)="deleteComment($event)"
-        [activeComment] = "activeComment">
-    </app-comment-card>
+    <span class="title">Коментарі ({{comments.length}}):</span>
+    <span *ngIf="comments.length >= 1">
+        <app-comment-card *ngIf="!comments[0].commentParentId && !isCommentsShow"
+            [comment]="comments[0]"
+            [replies]="[]"
+            (setActiveComment) = "setActiveComment($event)"
+            (addComment)="addComment($event.text, $event.commentParentId)"
+            (updateComment)="updateComment($event.text, $event.commentId)"
+            (deleteComment)="deleteComment($event)"
+            [activeComment] = "activeComment">
+        </app-comment-card>
+        <span>
+            <span *ngIf="!isCommentsShow && comments.length > 1" class="show-comments" (click)="isCommentsShow = true">Переглянути коментарі ({{comments.length-1}})</span>
+            <span *ngIf="isCommentsShow" class="show-comments" (click)="isCommentsShow = false">Сховати коментарі</span>
+        </span>
+        <span *ngIf="isCommentsShow">
+            <span *ngFor="let comment of comments">
+                <app-comment-card *ngIf="!comment.commentParentId"
+                [comment]="comment"
+                [replies]="getReplies(comment.studentTaskCommentId)"
+                (setActiveComment) = "setActiveComment($event)"
+                (addComment)="addComment($event.text, $event.commentParentId)"
+                (updateComment)="updateComment($event.text, $event.commentId)"
+                (deleteComment)="deleteComment($event)"
+                [activeComment] = "activeComment">
+                </app-comment-card>
+            </span>
+        </span>
     </span>
     <app-comment-form submitLabel="Надіслати"
         (handleSubmit)="addComment($event, undefined)">

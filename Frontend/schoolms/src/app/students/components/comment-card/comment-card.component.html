@@ -43,7 +43,7 @@
             </span>
             <span class="comment-action" 
                 *ngIf="canDelete"
-                (click)="deleteComment.emit(comment.studentTaskCommentId)">
+                (click)="deleteComment.emit(comment)">
                 <mat-icon>delete</mat-icon>
             </span>
         </div>

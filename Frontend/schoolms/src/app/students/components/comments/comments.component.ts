@@ -18,6 +18,8 @@ export class CommentsComponent implements OnInit{
 public comments: Array<StudentTaskComment> = [];
 private userId = 0;
 public activeComment: ActiveCommentInterface | null = null;
+public isCommentsShow = true;
+public maxCommentsShown = 10;
 
 constructor(private commentsService: CommentsService,
   private store: Store) { }
@@ -30,9 +32,17 @@ constructor(private commentsService: CommentsService,
   addComment(text: string, commentParentId: number | undefined): void {
     const comment = {comment: text, userId: this.userId, studentTaskId: this.studentTaskId, commentParentId: commentParentId} as CreateCommentModel;
     this.commentsService.CreateComment(comment).subscribe(
-      (comment) => {
-        this.comments = [...this.comments, comment];
+      (commentResponse) => {
+        this.comments = this.comments.map((comment) => {
+          if (comment.studentTaskCommentId === commentParentId) {
+            return {...comment};
+          }
+          return comment;
+        });
+        this.comments.push(commentResponse);
+
         this.activeComment = null;
+        this.isCommentsShow = true;
       }
     )
   }
@@ -52,11 +62,14 @@ constructor(private commentsService: CommentsService,
     )
   }
 
-  deleteComment(commentId: number): void {
+  deleteComment(comment: StudentTaskComment): void {
     if(confirm("Ти справді хочеш видалити цей коментар? ")) {
-      this.commentsService.DeleteComment(commentId)
+      this.commentsService.DeleteComment(comment.studentTaskCommentId)
     .subscribe(() => {
-      this.comments = this.comments.filter(c => c.studentTaskCommentId != commentId);
+      this.comments = this.comments.filter(c => c.studentTaskCommentId != comment.studentTaskCommentId);
+      const parentComment = this.comments.filter(c => c.studentTaskCommentId === comment.commentParentId)[0];
+      const index = this.comments.indexOf(parentComment);
+      this.comments[index] = {...parentComment};
     })
     }
   }
@@ -66,6 +79,11 @@ constructor(private commentsService: CommentsService,
     .subscribe(
       (comments) => {
         this.comments = comments;
+        if(comments.length > this.maxCommentsShown) {
+          this.isCommentsShow = false;
+        } else {
+          this.isCommentsShow = true;
+        }
       }
     )
   }

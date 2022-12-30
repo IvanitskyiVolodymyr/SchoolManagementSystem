@@ -19,7 +19,7 @@ export class CommentCardComponent implements OnInit{
   @Output() setActiveComment = new EventEmitter<ActiveCommentInterface | null>();
   @Output() addComment = new EventEmitter<{ text: string; commentParentId: number | undefined }>();
   @Output() updateComment = new EventEmitter<{ text: string; commentId: number }>();
-  @Output() deleteComment = new EventEmitter<number>();
+  @Output() deleteComment = new EventEmitter<StudentTaskComment>();
 
   activeCommentType = ActiveCommentTypeEnum;
   @Input() activeComment: ActiveCommentInterface| null = null;

@@ -29,7 +29,7 @@ export class TimeAgoPipe implements PipeTransform {
           if (counter === 1) {
               return counter + ' ' + i + ' тому';
           } else {
-            let time = counter;
+            const time = counter;
             if(counter > 10)
               counter = this.getLastTimeDigit(counter);
             switch(i) {
