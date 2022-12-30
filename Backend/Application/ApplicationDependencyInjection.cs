@@ -98,6 +98,7 @@ namespace Application
             services.AddScoped<IJournalService, JournalService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<ICommentService, CommentService>();
         }
     }
 }

@@ -1,0 +1,16 @@
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    .title {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .show-comments {
+        font-weight: 500;
+    }
+    .show-comments:hover {
+        cursor: pointer;
+        color: grey;
+    }
+}

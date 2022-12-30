@@ -28,6 +28,7 @@ import { StoreModule } from '@ngrx/store';
 import { studentFeatureKey, studentReducer } from '../store/reducers/student.reducer';
 import { NotAcceptableComponent } from './components/errors/not-acceptable/not-acceptable.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 const materials = [
   MatButtonModule,
@@ -55,7 +56,8 @@ const materials = [
     TaskTypePipe,
     DateTimeNavBarComponent,
     AddLinkDialogComponent,
-    NotAcceptableComponent
+    NotAcceptableComponent,
+    TimeAgoPipe
   ],
   imports: [
     CommonModule,
@@ -76,7 +78,8 @@ const materials = [
     CustomUkrainianDatePipe,
     DateTimeNavBarComponent,
     AddLinkDialogComponent,
-    NotAcceptableComponent
+    NotAcceptableComponent,
+    TimeAgoPipe
   ],
   providers:[DatePipe]
 })

@@ -9,6 +9,9 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { TaskCardComponent } from './components/task-card/task-card.component';
 import { TaskInfoComponent } from './components/task-info/task-info.component';
 import { JournalComponent } from './components/journal/journal.component';
+import { CommentCardComponent } from './components/comment-card/comment-card.component';
+import { CommentFormComponent } from './components/comment-form/comment-form.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { JournalComponent } from './components/journal/journal.component';
     TasksComponent,
     TaskCardComponent,
     TaskInfoComponent,
-    JournalComponent
+    JournalComponent,
+    CommentCardComponent,
+    CommentFormComponent,
+    CommentsComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ using Common.Exceptions;
 using Common.Dtos.Grades;
 using AutoMapper;
 using Common.Serializer;
+using Common.Dtos.StudentTaskComment;
 
 namespace Application.Services
 {
@@ -16,8 +17,11 @@ namespace Application.Services
         private readonly ITaskRepository _taskRepository;
         private readonly IMapper _mapper;
         private readonly IGradeRepository _gradeRepository;
+     
 
-        public TaskService(ITaskRepository taskRepository, IMapper mapper, IGradeRepository gradeRepository)
+        public TaskService(ITaskRepository taskRepository,
+                           IMapper mapper,
+                           IGradeRepository gradeRepository)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;

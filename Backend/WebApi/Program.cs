@@ -15,6 +15,7 @@ builder.Services.RegisterInfrastructureServices();
 builder.Services.RegisterApplicationServices();
 
 builder.Services.AddScoped<TasksValidators>();
+builder.Services.AddScoped<CommentsValidator>();
 
 //mapper
 builder.Services.ConfigureMapping();

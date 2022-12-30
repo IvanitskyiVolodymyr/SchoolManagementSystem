@@ -48,7 +48,5 @@ namespace Application.Interfaces
 
         //ForTeacher
         Task<int> UpdateStudentTaskGrade(int studentTaskId, int grade);
-        /*Task<int> AddAttachment(int taskId, string url); // IAttachment
-        Task<int> AddComment(); // CommentDto*/
     }
 }
