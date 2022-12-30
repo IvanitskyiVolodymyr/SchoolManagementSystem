@@ -22,7 +22,7 @@
             "
             ></app-comment-form >
         <div class="comment-bottom">
-            <span class="comment-time">5хв тому</span>
+            <span class="comment-time">{{comment.createdAt | timeAgo}}</span>
             <span class="comment-action"
             *ngIf="canReply"
             (click)="
