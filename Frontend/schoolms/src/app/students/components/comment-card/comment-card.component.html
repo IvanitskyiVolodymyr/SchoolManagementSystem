@@ -1,7 +1,8 @@
 <div class="comment-card-container" *ngIf="comment">
     <div class="avatar">
         <div class="image">
-            <img src="../../../../assets/default-avatar.png">
+            <img *ngIf="comment.shortUserInfo.avatarUrl" src="{{comment.shortUserInfo.avatarUrl}}">
+            <img *ngIf="!comment.shortUserInfo.avatarUrl" src="../../../../assets/default-avatar.png">
         </div>
     </div>
     <div class="comment">
