@@ -18,6 +18,7 @@ export class CommentCardComponent implements OnInit{
 
   @Output() setActiveComment = new EventEmitter<ActiveCommentInterface | null>();
   @Output() addComment = new EventEmitter<{ text: string; commentParentId: number | undefined }>();
+  @Output() updateComment = new EventEmitter<{ text: string; commentId: number }>();
 
   activeCommentType = ActiveCommentTypeEnum;
   @Input() activeComment: ActiveCommentInterface| null = null;
@@ -59,6 +60,16 @@ export class CommentCardComponent implements OnInit{
     return (
       this.activeComment.id === this.comment.studentTaskCommentId &&
       this.activeComment.type === this.activeCommentType.replying
+    );
+  }
+
+  public isEditing(): boolean {
+    if (!this.activeComment) {
+      return false;
+    }
+    return (
+      this.activeComment.id === this.comment.studentTaskCommentId &&
+      this.activeComment.type === this.activeCommentType.editing
     );
   }
 

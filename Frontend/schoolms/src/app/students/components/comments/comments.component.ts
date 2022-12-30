@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { ActiveCommentInterface } from 'src/app/shared/models/comments/activeComment.interface';
 import { CreateCommentModel } from 'src/app/shared/models/comments/createCommentModel';
 import { StudentTaskComment } from 'src/app/shared/models/comments/studentTaskComment';
+import { UpdateCommentModel } from 'src/app/shared/models/comments/updateCommentModel';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { userSelector } from 'src/app/store/selectors/auth.selector';
 
@@ -31,6 +32,21 @@ constructor(private commentsService: CommentsService,
     this.commentsService.CreateComment(comment).subscribe(
       (comment) => {
         this.comments = [...this.comments, comment];
+        this.activeComment = null;
+      }
+    )
+  }
+
+  updateComment(text: string, studentTaskCommentId: number | undefined): void {
+    const commentEntity = {comment: text, studentTaskCommentId: studentTaskCommentId} as UpdateCommentModel;
+    this.commentsService.UpdateComment(commentEntity).subscribe(
+      (updatedComment) => {
+        this.comments = this.comments.map((comment) => {
+          if (comment.studentTaskCommentId === studentTaskCommentId) {
+            return updatedComment;
+          }
+          return comment;
+        });
         this.activeComment = null;
       }
     )

@@ -27,9 +27,6 @@
         .author-name {
             font-weight: 500;
         }
-        .comment-body {
-
-        }
         .comment-bottom {
             display: flex;
             flex-direction: row;
@@ -43,9 +40,16 @@
                 align-items: center;
                 padding-left: 5px;
             }
+            .comment-action:hover {
+                cursor: pointer;
+                color: black;
+            }
             .mat-icon {
                 height: 14px;
                 width: 14px;
+            }
+            .mat-icon:hover {
+                color: black;
             }
             .material-icons {
                 font-size: 14px;

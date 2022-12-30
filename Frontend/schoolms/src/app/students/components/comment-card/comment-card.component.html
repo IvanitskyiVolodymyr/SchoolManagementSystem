@@ -9,8 +9,17 @@
             <span>{{comment.shortUserInfo.firstName}} {{comment.shortUserInfo.lastName}}</span>
         </div>
         <div class="comment-body">
-            <span>{{comment.comment}}</span>
+            <span *ngIf="!isEditing()">{{comment.comment}}</span>
         </div>
+        <app-comment-form 
+            *ngIf="isEditing()"
+            submitLabel="Редагувати"
+            [hasCancelButton]="true"
+            [initialText]="comment.comment"
+            (handleSubmit)="
+                updateComment.emit({ text: $event, commentId: comment.studentTaskCommentId })
+            "
+            ></app-comment-form >
         <div class="comment-bottom">
             <span class="comment-time">5хв тому</span>
             <span class="comment-action"
@@ -29,11 +38,9 @@
                         type: activeCommentType.editing
                     })
                     ">
-                <!--<span>Змінити</span>-->
                 <mat-icon>edit</mat-icon>
             </span>
             <span class="comment-action" *ngIf="canDelete">
-                <!--<span>Видалити</span>-->
                 <mat-icon>delete</mat-icon>
             </span>
         </div>
@@ -50,6 +57,7 @@
                 (setActiveComment)="setActiveComment.emit($event)"
                 [activeComment]="activeComment"
                 (addComment)="addComment.emit($event)"
+                (updateComment)="updateComment.emit($event)"
                 [parentId]="comment.studentTaskCommentId"
                 [replies]="[]">
             </app-comment-card>

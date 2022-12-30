@@ -6,6 +6,7 @@
         [replies]="getReplies(comment.studentTaskCommentId)"
         (setActiveComment) = "setActiveComment($event)"
         (addComment)="addComment($event.text, $event.commentParentId)"
+        (updateComment)="updateComment($event.text, $event.commentId)"
         [activeComment] = "activeComment">
     </app-comment-card>
     </span>
