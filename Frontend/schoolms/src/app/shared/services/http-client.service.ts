@@ -23,6 +23,10 @@ export class HttpClientService {
     });
   }
 
+  public get<T>(url: string, httpParams?: any): Observable<T> {
+    return this.http.get<T>(this.buildUrl(url), { params: httpParams });
+  }
+
   public postFullRequest<T>(
     url: string,
     payload: object,
@@ -40,6 +44,16 @@ export class HttpClientService {
     );
   }
 
+  public post<T>(
+    url: string,
+    payload?: object,
+    httpParams?: HttpParams
+  ): Observable<T> {
+      return this.http.post<T>(this.buildUrl(url), payload, {
+          params: httpParams
+      });
+  }
+
   public putFullRequest<T>(
     url: string,
     payload: object,
@@ -51,6 +65,16 @@ export class HttpClientService {
     });
   }
 
+  public put<T>(
+    url: string,
+    payload?: object,
+    httpParams?: HttpParams
+  ): Observable<T> {
+      return this.http.put<T>(this.buildUrl(url), payload, {
+          params: httpParams
+      });
+  }
+
   public deleteFullRequest<T>(
     url: string,
     httpParams?: HttpParams,
@@ -60,6 +84,12 @@ export class HttpClientService {
       headers,
       observe: 'response',
       params: httpParams,
+    });
+  }
+
+  public delete<T>(url: string, httpParams?: HttpParams): Observable<T> {
+    return this.http.delete<T>(this.buildUrl(url), {
+        params: httpParams
     });
   }
 

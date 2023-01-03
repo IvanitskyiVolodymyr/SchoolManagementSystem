@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EntityWithRole } from '../models/Users/entityWithRole';
 import { HttpClientService } from './http-client.service';
 
@@ -15,26 +15,14 @@ export class UserService {
   ) { }
 
   public getEntityIdWithRole(userId: number, roleId: number) : Observable<EntityWithRole> {
-    return this.httpService.getFullRequest<EntityWithRole>(
-      `${this.prefix}/GetEntityIdWithRoleByUserId`,
-       new HttpParams().set('userId', userId).set('roleId',roleId))
-    .pipe(
-      map(
-        (resp) => {
-          return resp.body as EntityWithRole;
-        })
-    );
+    return this.httpService.get<EntityWithRole>(
+      `${this.prefix}/user-with-role`,
+       new HttpParams().set('userId', userId).set('roleId',roleId));
   }
 
   public getClassIdByStudentId(studentId: number) : Observable<number> {
-    return this.httpService.getFullRequest<number>(
-      `${this.prefix}/GetClassIdByStudentId`,
-       new HttpParams().set('studentId', studentId))
-    .pipe(
-      map(
-        (resp) => {
-          return resp.body as number;
-        })
-    );
+    return this.httpService.get<number>(
+      `${this.prefix}/get-class-id`,
+       new HttpParams().set('studentId', studentId));
   }
 }
