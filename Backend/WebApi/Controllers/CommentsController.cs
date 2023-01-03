@@ -2,7 +2,6 @@
 using Common.Dtos.StudentTaskComment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using WebApi.Validators.Tasks;
 
 namespace WebApi.Controllers
@@ -23,20 +22,20 @@ namespace WebApi.Controllers
             _commentsValidators = commentsValidators;
         }
 
-        [HttpGet("get-comments-by-student-task-id")]
+        [HttpGet("student-tasks/{studentTaskId}")]
         public async Task<ActionResult<ResponseStudentTaskCommentDto>> GetCommentsByStudentTaskId(int studentTaskId)
         {
             await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
             return Ok(await _commentService.GetCommentsByStudentTaskId(studentTaskId));
         }
 
-        [HttpPost("create-comment")]
+        [HttpPost]
         public async Task<ActionResult<ResponseStudentTaskCommentDto>> CreateComment([FromBody] CreateStudentTaskCommentDto comment)
         {
             return Ok(await _commentService.CreateComment(comment));
         }
 
-        [HttpPut("update-comment")]
+        [HttpPut]
         public async Task<ActionResult<ResponseStudentTaskCommentDto>> UpdateComment([FromBody] UpdateStudentTaskCommentDto comment)
         {
             await _commentsValidators.CheckAccessByStudentTaskCommentId(comment.StudentTaskCommentId);
@@ -44,7 +43,7 @@ namespace WebApi.Controllers
             return Ok(await _commentService.UpdateComment(comment));
         }
 
-        [HttpDelete("delete-comment")]
+        [HttpDelete("{studentTaskCommentId}")]
         public async Task<ActionResult<int>> DeleteComment(int studentTaskCommentId)
         {
             await _commentsValidators.CheckAccessByStudentTaskCommentId(studentTaskCommentId);
