@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { StudentTaskAttachment } from '../models/attachments/studentTaskAttachment';
 import { ResponseTask } from '../models/tasks/reposponseTask';
 import { ResponseTaskWithGrade } from '../models/tasks/responseTaskWithGrade';
@@ -20,65 +20,26 @@ export class TasksService {
   ) { }
 
   public GetAllHomeworksForStudent(studentId: number, from: Date, to: Date) :Observable<Array<ResponseTask>>{
-    return this.httpService.getFullRequest<Array<ResponseTask>>(`${this.prefix}/GetAllHomeworksForStudent`,
-    new HttpParams().set('studentId', studentId).set('from', from.toDateString()).set('to', to.toDateString()))
-    .pipe(
-      map(
-        (resp) => {
-          return resp.body as Array<ResponseTask>;
-        })
-    )
+    return this.httpService.get<Array<ResponseTask>>(`${this.prefix}/students/${studentId}/home-works`,
+    new HttpParams().set('from', from.toDateString()).set('to', to.toDateString()));
   }
 
   public GetAllTasksWithGradesForStudent(studentId: number, from: Date, to: Date): Observable<Array<ResponseTaskWithGrade>> {
-    return this.httpService.getFullRequest<Array<ResponseTaskWithGrade>>(`${this.prefix}/GetAllTasksWithGradesForStudent`,
+    return this.httpService.get<Array<ResponseTaskWithGrade>>(`${this.prefix}/students/${studentId}/tasks-with-grades`,
     new HttpParams()
-    .set('studentId', studentId)
     .set('from', this.datePipe.transform(from, 'MMM d, y, h:mm:ss a') as string)
-    .set('to', this.datePipe.transform(to, 'MMM d, y, h:mm:ss a') as string))
-      .pipe(
-        map(
-          (resp) => {
-            return resp.body as Array<ResponseTaskWithGrade>;
-          })
-      )
+    .set('to', this.datePipe.transform(to, 'MMM d, y, h:mm:ss a') as string));
   }
 
   public GetTaskWithStatusAndAttachments(studentTaskId: number): Observable<ResponseTaskWithGradeAndAttachments> {
-    return this.httpService.getFullRequest<ResponseTaskWithGradeAndAttachments>(`${this.prefix}/GetTaskWithStatusAndAttachments`,
-    new HttpParams()
-    .set('studentTaskId', studentTaskId))
-      .pipe(
-        map(
-          (resp) => {
-            return resp.body as ResponseTaskWithGradeAndAttachments;
-          })
-      )
+    return this.httpService.get<ResponseTaskWithGradeAndAttachments>(`${this.prefix}/${studentTaskId}/tasks-with-attachments`);
   }
 
   public SubmitStudentTask(attachments: Array<StudentTaskAttachment>,studentTaskId: number): Observable<number> {
-    const params = new HttpParams()
-    .set('studentTaskId', studentTaskId);
-
-    return this.httpService.postFullRequest<number>(`${this.prefix}/SubmitStudentTask`, attachments, undefined, params )
-      .pipe(
-        map(
-          (resp) => {
-            return resp.body as number;
-          })
-      )
+    return this.httpService.post<number>(`${this.prefix}/${studentTaskId}/submit`, attachments );
   }
 
   public CancelSubmitStudentTask(studentTaskId: number): Observable<number> {
-    const params = new HttpParams()
-    .set('studentTaskId', studentTaskId);
-
-    return this.httpService.postFullRequest<number>(`${this.prefix}/CancelSubmitStudentTask`,{}, undefined, params )
-      .pipe(
-        map(
-          (resp) => {
-            return resp.body as number;
-          })
-      )
+    return this.httpService.post<number>(`${this.prefix}/${studentTaskId}/cancel`,{} );
   }
 }

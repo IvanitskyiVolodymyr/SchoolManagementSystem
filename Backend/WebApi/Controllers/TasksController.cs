@@ -21,21 +21,21 @@ namespace WebApi.Controllers
             _tasksValidators = tasksValidators;
         }
 
-        [HttpPost("CreateTaskForStudent")]
+        [HttpPost("student")]
         //Teacher
         public async Task<ActionResult<int>> CreateTaskForStudent([FromBody] InsertTaskDto taskDto, int studentId)
         {
             return Ok(await _taskService.InsertTaskForStudent(taskDto, studentId));
         }
 
-        [HttpPost("CreateTaskForStudentsByScheduleId")]
+        [HttpPost("students")]
         //Teacher
         public async Task<ActionResult<int>> CreateTaskForStudents([FromBody] InsertTaskDto taskDto)
         {
             return Ok(await _taskService.InsertTaskForStudentsByScheduleId(taskDto));
         }
 
-        [HttpPost("EvaluateTask")]
+        [HttpPost("{studentTaskId}/evaluate")]
         //Teacher
         public async Task<ActionResult<int>> EvaluateTask(int studentTaskId, int grade)
         {
@@ -43,7 +43,7 @@ namespace WebApi.Controllers
             return Ok(await _taskService.EvaluateTask(studentTaskId, grade));
         }
 
-        [HttpPut("UpdateStudentTaskGrade")]
+        [HttpPut("student-task")]
         //Teacher
         public async Task<ActionResult<int>> UpdateStudentTaskGrade(int studentTaskId, int grade)
         {
@@ -51,76 +51,76 @@ namespace WebApi.Controllers
             return Ok(await _taskService.UpdateStudentTaskGrade(studentTaskId, grade));
         }
 
-        [HttpPut("UpdateTask")]
+        [HttpPut]
         //Teacher
         public async Task<ActionResult<int>> UpdateTask([FromBody] UpdateTaskDto task)
         {
             return Ok(await _taskService.UpdateTask(task));
         }
 
-        [HttpPost("SubmitStudentTask")]
+        [HttpPost("{studentTaskId}/submit")]
         public async Task<ActionResult<int>> SubmitStudentTask([FromBody] List<StudentTaskAttachmentDto> attachments, int studentTaskId)
         {
             await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
             return Ok(await _taskService.SubmitStudentTask(studentTaskId, attachments));
         }
 
-        [HttpPost("CancelSubmitStudentTask")]
+        [HttpPost("{studentTaskId}/cancel")]
         public async Task<ActionResult<int>> CancelSubmitStudentTask(int studentTaskId)
         {
             await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
             return Ok(await _taskService.CancelSubmitStudentTask(studentTaskId));
         }
 
-        [HttpPut("MarkStudentTaskAsChecked")]
+        [HttpPut("{studentTaskId}/mark-as-checked")]
         //Teacher
         public async Task<ActionResult<int>> MarkStudentTaskAsChecked(int studentTaskId)
         {
             return Ok(await _taskService.MarkStudentTaskAsChecked(studentTaskId));
         }
 
-        [HttpPut("MarkStudentTaskAsNeededToBeRedone")]
+        [HttpPut("{studentTaskId}/mark-as-needed-to-be-redone")]
         //Teacher
         public async Task<ActionResult<int>> MarkStudentTaskAsNeededToBeRedone(int studentTaskId)
         {
             return Ok(await _taskService.MarkStudentTaskAsNeededToBeRedone(studentTaskId));
         }
 
-        [HttpGet("GetAllHomeworksForStudent")]
+        [HttpGet("students/{studentId}/home-works")]
         public async Task<ActionResult<IEnumerable<ResponseTaskDto>>> GetAllHomeworksForStudent(int studentId, DateTime from, DateTime to)
         {
             await _tasksValidators.CheckAccessByStudentId(studentId);
             return Ok(await _taskService.GetAllHomeworksForStudent(studentId, from, to));
         }
 
-        [HttpGet("GetAllTasksForStudentByPeriod")]
+        [HttpGet("students/{studentId}")]
         public async Task<ActionResult<IEnumerable<ResponseTaskDto>>> GetAllTasksForStudentByPeriod(int studentId, DateTime from, DateTime to)
         {
             await _tasksValidators.CheckAccessByStudentId(studentId);
             return Ok(await _taskService.GetAllTasksForStudentByPeriod(studentId, from, to));
         }
 
-        [HttpGet("GetAllTasksWithGradesForStudent")]
+        [HttpGet("students/{studentId}/tasks-with-grades")]
         public async Task<ActionResult<IEnumerable<ResponseTaskWithGradeDto>>> GetAllTasksWithGradesForStudent(int studentId, DateTime from, DateTime to)
         {
             await _tasksValidators.CheckAccessByStudentId(studentId);
             return Ok(await _taskService.GetAllTasksWithGradesForStudent(studentId, from, to)); 
         }
 
-        [HttpGet("GetUncheckedTasksByTeacherIdSubjectIdClassId")]
+        [HttpGet("teachers/{teacherId}")]
         public async Task<ActionResult<IEnumerable<ResponseTeacherTaskDto>>> GetUncheckedTasksByTeacherIdSubjectIdClassId(int teacherId, int subjectId, int classId)
         {
             return Ok(await _taskService.GetUncheckedTasksByTeacherIdSubjectIdClassId(teacherId, subjectId, classId));
         }
 
-        [HttpGet("GetStudentTaskAttachments")]
+        [HttpGet("{studentTaskId}/attachments")]
         public async Task<ActionResult<IEnumerable<StudentTaskAttachmentDto>>> GetStudentTaskAttachments(int studentTaskId)
         {
             await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
             return Ok(await _taskService.GetStudentTaskAttachments(studentTaskId));
         }
 
-        [HttpGet("GetTaskWithStatusAndAttachments")]
+        [HttpGet("{studentTaskId}/tasks-with-attachments")]
         public async Task<ActionResult<ResponseTaskWithGradeAndAttachmentsDto>> GetTaskWithStatusAndAttachments(int studentTaskId)
         {
             await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
