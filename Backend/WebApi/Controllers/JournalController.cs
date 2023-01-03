@@ -17,31 +17,31 @@ namespace WebApi.Controllers
             _journalService = journalService;
         }
 
-        [HttpGet("GetAllGradesWithSubjectsForStudent")]
+        [HttpGet("grades/{studentId}")]
         public async Task<ActionResult<IEnumerable<SubjectGradesDto>>> GetAllGradesWithSubjectsForStudent(int studentId)
         {
             return Ok(await _journalService.GetAllGradesWithSubjectsForStudent(studentId));
         }
 
-        [HttpGet("GetAllFinalGradesByClassSubjectId")]
+        [HttpGet("final-grades/students/{studentId}/class-subjects/{classSubjectId}")]
         public async Task<ActionResult<IEnumerable<ClassSubjectGrade>>> GetAllFinalGradesByClassSubjectId(int studentId, int classSubjectId)
         {
             return Ok(await _journalService.GetAllFinalGradesByClassSubjectId(studentId, classSubjectId));
         }
 
-        [HttpGet("GetAllFinalGradesByClassId")]
+        [HttpGet("final-grades/students/{studentId}/classes/{classId}")]
         public async Task<ActionResult<IEnumerable<ClassSubjectGrade>>> GetAllFinalGradesByClassId(int studentId, int classId)
         {
             return Ok(await _journalService.GetAllFinalGradesByClassId(studentId, classId));
         }
 
-        [HttpPost("InsertClassSubjectGrade")]
+        [HttpPost("grades")]
         public async Task<ActionResult<int>> InsertClassSubjectGrade(InsertClassSubjectGradeDto subjectGradeDto)
         {
             return Ok(await _journalService.InsertClassSubjectGrade(subjectGradeDto));
         }
 
-        [HttpPut("UpdateClassSubjectGrade")]
+        [HttpPut("grades")]
         public async Task<ActionResult<int>> UpdateClassSubjectGrade(InsertClassSubjectGradeDto subjectGradeDto)
         {
             return Ok(await _journalService.UpdateClassSubjectGrade(subjectGradeDto));
