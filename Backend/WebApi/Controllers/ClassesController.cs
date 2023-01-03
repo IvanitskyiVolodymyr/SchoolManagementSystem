@@ -16,25 +16,25 @@ namespace WebApi.Controllers
             _classService = classService;
         }
 
-        [HttpPost("CreateClass")]
+        [HttpPost]
         public async Task<ActionResult<int>> CreateClass([FromBody] InsertClassDto classDto)
         {
             return Ok(await _classService.CreateClass(classDto));
         }
 
-        [HttpPost("CreateClasses")]
+        [HttpPost("classes")]
         public async Task<ActionResult<List<int>>> CreateClasses([FromBody] List<InsertClassDto> classesDto)
         {
             return Ok(await _classService.CreateClasses(classesDto));
         }
 
-        [HttpPost("AddSubjectToCLass")]
+        [HttpPost("add-subject")]
         public async Task<ActionResult<int>> AddSubjectToClass([FromBody] InsertClassSubjectDto classSubjectDto)
         {
             return Ok(await _classService.AddSubjectToClass(classSubjectDto));
         }
 
-        [HttpPost("AddSubjectsToCLass")]
+        [HttpPost("add-subjects")]
         public async Task<ActionResult<List<int>>> AddSubjectsToClass([FromBody] List<InsertClassSubjectDto> classSubjects)
         {
             return Ok(await _classService.AddSubjectsToClass(classSubjects));
