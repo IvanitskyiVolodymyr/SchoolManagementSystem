@@ -1,6 +1,5 @@
-import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CreateCommentModel } from '../models/comments/createCommentModel';
 import { StudentTaskComment } from '../models/comments/studentTaskComment';
 import { UpdateCommentModel } from '../models/comments/updateCommentModel';
@@ -18,48 +17,18 @@ export class CommentsService {
   ) { }
 
   public GetCommentsByStudentTaskId(studentTaskId: number): Observable<Array<StudentTaskComment>> {
-    const params = new HttpParams()
-    .set('studentTaskId', studentTaskId);
-
-    return this.httpService.getFullRequest<Array<StudentTaskComment>>(`${this.prefix}/get-comments-by-student-task-id`, params )
-      .pipe(
-        map(
-          (resp) => {
-            return resp.body as Array<StudentTaskComment>;
-          })
-      )
+    return this.httpService.get<Array<StudentTaskComment>>(`${this.prefix}/student-tasks/${studentTaskId}`);
   }
 
   public CreateComment(comment: CreateCommentModel): Observable<StudentTaskComment> {
-    return this.httpService.postFullRequest<StudentTaskComment>(`${this.prefix}/create-comment`, comment )
-      .pipe(
-        map(
-          (resp) => {
-            return resp.body as StudentTaskComment;
-          })
-      )
+    return this.httpService.post<StudentTaskComment>(`${this.prefix}`, comment);
   }
 
   public UpdateComment(comment: UpdateCommentModel): Observable<StudentTaskComment> {
-    return this.httpService.putFullRequest<StudentTaskComment>(`${this.prefix}/update-comment`, comment )
-      .pipe(
-        map(  
-          (resp) => {
-            return resp.body as StudentTaskComment;
-          })
-      )
+    return this.httpService.put<StudentTaskComment>(`${this.prefix}`, comment);
   }
 
   public DeleteComment(studentTaskCommentId: number): Observable<number> {
-    const params = new HttpParams()
-    .set('studentTaskCommentId', studentTaskCommentId);
-
-    return this.httpService.deleteFullRequest<number>(`${this.prefix}/delete-comment`, params)
-      .pipe(
-        map(  
-          (resp) => {
-            return resp.body as number;
-          })
-      )
+    return this.httpService.delete<number>(`${this.prefix}/${studentTaskCommentId}`);
   }
 }

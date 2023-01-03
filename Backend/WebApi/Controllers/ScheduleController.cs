@@ -2,7 +2,6 @@
 using Common.Dtos.Attendance;
 using Common.Dtos.Schedule;
 using Domain.Core.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -18,56 +17,56 @@ namespace WebApi.Controllers
             _scheduleService = scheduleService;
         }
 
-        [HttpPost("InsertScheduleRange")]
+        [HttpPost("schedules")]
         public async Task<ActionResult> InsertScheduleRange([FromBody] IList<InsertScheduleDto> scheduleRange)
         {
             await _scheduleService.InsertScheduleRange(scheduleRange);
             return Ok();
         }
 
-        [HttpPost("InsertSchedule")]
+        [HttpPost]
         public async Task<ActionResult<int>> InsertSchedule([FromBody] InsertScheduleDto scheduleDto)
         {
             return Ok(await _scheduleService.InsertSchedule(scheduleDto));
         }
 
-        [HttpPut("UpdateSchedule")]
+        [HttpPut]
         public async Task<ActionResult<int>> UpdateSchedule([FromBody] Schedule schedule)
         {
             return Ok(await _scheduleService.UpdateSchedule(schedule));
         }
 
-        [HttpGet("GetScheduleForStudentByPeriod")]
+        [HttpGet("students")]
         public async Task<ActionResult<IEnumerable<ScheduleWithSubject>>> GetScheduleForStudentByPeriod(DateTime startTime, DateTime endTime, int studentId)
         {
             return Ok(await _scheduleService.GetScheduleForStudentByPeriod(startTime, endTime, studentId));
         }
 
-        [HttpGet("GetScheduleForTeacherByPeriod")]
+        [HttpGet("teachers")]
         public async Task<ActionResult<IEnumerable<Schedule>>> GetScheduleForTeacherByPeriod(DateTime startTime, DateTime endTime, int teacherId)
         {
             return Ok(await _scheduleService.GetScheduleForTeacherByPeriod(startTime, endTime, teacherId));
         }
 
-        [HttpPost("InsertAttendances")]
+        [HttpPost("attendances")]
         public async Task<ActionResult<List<int>>> InsertAttendances(IList<InsertAttendanceDto> attendances, int scheduleId)
         {
             return Ok(await _scheduleService.InsertAttendances(attendances, scheduleId));
         }
 
-        [HttpGet("GetScheduleForStudentWithAttendancesByPeriod")]
+        [HttpGet("students/schedules-with-attendances")]
         public async Task<ActionResult<IEnumerable<ScheduleAttendanceDto>>> GetScheduleForStudentWithAttendancesByPeriod(DateTime startDateTime, DateTime endDateTime, int studentId)
         {
             return Ok(await _scheduleService.GetScheduleForStudentWithAttendancesByPeriod(startDateTime, endDateTime, studentId));
         }
 
-        [HttpGet("GetAttendancesForClassSubjectByPeriod")]
+        [HttpGet("attendances")]
         public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendancesForClassSubjectByPeriod(DateTime startDateTime, DateTime endDateTime, int classSubjectId)
         {
             return Ok(await _scheduleService.GetAttendancesForClassSubjectByPeriod(startDateTime, endDateTime, classSubjectId));
         }
 
-        [HttpPut("UpdateAttendance")]
+        [HttpPut("attendances")]
         public async Task<ActionResult<int>> UpdateAttendance(UpdateAttendanceDto attendance)
         {
             return Ok(await _scheduleService.UpdateAttendance(attendance));

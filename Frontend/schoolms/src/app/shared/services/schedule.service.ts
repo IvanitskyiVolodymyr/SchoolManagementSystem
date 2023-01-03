@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ScheduleAttendance } from '../models/schedule/scheduleAttendance';
 import { HttpClientService } from './http-client.service';
 
@@ -15,13 +15,7 @@ export class ScheduleService {
   ) { }
 
   public GetScheduleForStudentWithAttendancesByPeriod(from: Date, to: Date, studentId: number ) : Observable<Array<ScheduleAttendance>> {
-    return this.httpService.getFullRequest<Array<ScheduleAttendance>>(`${this.prefix}/GetScheduleForStudentWithAttendancesByPeriod`,
-    new HttpParams().set('startDateTime', from.toDateString()).set('endDateTime', to.toDateString()).set('studentId', studentId))
-    .pipe(
-      map(
-        (resp) => {
-          return resp.body as Array<ScheduleAttendance>;
-        })
-    );
+    return this.httpService.get<Array<ScheduleAttendance>>(`${this.prefix}/students/schedules-with-attendances`,
+    new HttpParams().set('startDateTime', from.toDateString()).set('endDateTime', to.toDateString()).set('studentId', studentId));
   }
 }

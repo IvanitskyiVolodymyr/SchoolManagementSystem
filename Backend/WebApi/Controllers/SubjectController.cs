@@ -1,9 +1,7 @@
 ﻿using Application.Interfaces;
-using Common.Dtos.Class;
 using Common.Dtos.Subject;
 using Common.Dtos.SubjectTeacher;
 using Domain.Core.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -19,25 +17,25 @@ namespace WebApi.Controllers
             _subjectService = subjectService;
         }
 
-        [HttpPost("CreateSubject")]
+        [HttpPost]
         public async Task<ActionResult<int>> CreateSubject([FromBody] InsertSubjectDto subject)
         {
             return Ok(await _subjectService.CreateSubject(subject));
         }
 
-        [HttpPost("CreateSubjects")]
+        [HttpPost("subjects")]
         public async Task<ActionResult<List<int>>> CreateSubjects([FromBody] List<InsertSubjectDto> subjects)
         {
             return Ok(await _subjectService.CreateSubjects(subjects));
         }
 
-        [HttpPost("AddTeacherToSubject")]
+        [HttpPost("add-teacher")]
         public async Task<ActionResult<int>> AddTeacherToSubject([FromBody] InsertSubjectTeacherDto subjectTeacherDto)
         {
             return Ok(await _subjectService.AddTeacherToSubject(subjectTeacherDto));
         }
 
-        [HttpGet("GetAllSubjects")]
+        [HttpGet]
         public async Task<ActionResult<List<Subject>>> GetAllSubjects()
         {
             return Ok(await _subjectService.GetAllSubjects());
