@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationModel } from 'src/app/shared/models/navigation/navigationModel';
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   isShowing = false;
   openSidenavFlag = false;
+  @Input() navItems!: Array<NavigationModel>;
 
   ngOnInit(){
     this.onResize(undefined);

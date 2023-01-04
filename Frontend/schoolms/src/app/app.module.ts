@@ -15,6 +15,7 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LogInGuard } from './shared/guards/log-in.guard';
 import { metaReducers } from './store/reducers/hydration.reducer';
+import { TeacherGuard } from './shared/guards/teacher.guard';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { metaReducers } from './store/reducers/hydration.reducer';
   providers: [
     AuthGuard,
     LogInGuard,
+    TeacherGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
