@@ -29,6 +29,8 @@ import { studentFeatureKey, studentReducer } from '../store/reducers/student.red
 import { NotAcceptableComponent } from './components/errors/not-acceptable/not-acceptable.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import {RouterModule} from '@angular/router';
 
 const materials = [
   MatButtonModule,
@@ -57,7 +59,8 @@ const materials = [
     DateTimeNavBarComponent,
     AddLinkDialogComponent,
     NotAcceptableComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    NavbarComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +70,7 @@ const materials = [
     ...materials,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     ...materials,
@@ -79,7 +83,8 @@ const materials = [
     DateTimeNavBarComponent,
     AddLinkDialogComponent,
     NotAcceptableComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    NavbarComponent
   ],
   providers:[DatePipe]
 })
