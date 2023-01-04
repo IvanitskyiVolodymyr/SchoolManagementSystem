@@ -1,17 +1,20 @@
 ﻿using Common.Dtos.Auth;
+using Infrastructure.Data.DataAccess;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
 using Web.Tests.Integration.Setup;
+
 
 namespace Web.Tests.Integration.Tests.Base
 {
     public class BaseTestService : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         protected HttpClient Client;
-        private readonly CustomWebApplicationFactory<Program>
-            _factory;
+        private readonly CustomWebApplicationFactory<Program> _factory;
+        protected readonly ISqlDataAccess DataAccess;
 
         public BaseTestService(CustomWebApplicationFactory<Program> factory)
         {
@@ -20,7 +23,12 @@ namespace Web.Tests.Integration.Tests.Base
             {
                 AllowAutoRedirect = false
             });
+            var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.Development.json", optional: false);
+            var config = builder.Build();
+            DataAccess = new SqlDataAccess(config);
+
         }
+
 
         protected StringContent GetStringContent<T>(T payload)
         {

@@ -21,5 +21,22 @@ namespace Web.Tests.Integration.Setup
             };
         }
 
+        public static List<LoginDto> GetParentsLoginData()
+        {
+            return new List<LoginDto>
+            {
+                new LoginDto
+                {
+                    Email = "parent@gmail.com",
+                    Password = "studentP"
+                },
+                new LoginDto
+                {
+                    Email = "parent2@gmail.com",
+                    Password = "studentP"
+                }
+            };
+        }
+
     }
 }
