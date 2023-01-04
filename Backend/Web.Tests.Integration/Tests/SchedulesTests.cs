@@ -1,10 +1,6 @@
 ﻿using Common.Dtos.Schedule;
-using Common.Exceptions.Auth;
 using Microsoft.AspNetCore.WebUtilities;
-using NuGet.Frameworks;
-using System.Collections.Generic;
 using System.Net;
-using System.Web;
 using Web.Tests.Integration.Setup;
 using Web.Tests.Integration.Tests.Base;
 
