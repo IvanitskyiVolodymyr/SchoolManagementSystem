@@ -14,29 +14,31 @@ export class TeacherGuard implements CanActivate {
     private router: Router) { }
   canActivate(
  ):  boolean {
+  let result = false;
   this.store.select(userSelector).subscribe(
     (user) => {
-      debugger
       if(user)
       {
         switch(user.roleId) {
           case Role.Teacher : {
-            return true;
+            result = true;
+            break;
           }
           case Role.Parent : {
             this.router.navigate([`/${AppRoute.Parent}`]);
-            return false;
+            result = false;
+            break;
           }
           case Role.Student : {
             this.router.navigate([`/${AppRoute.Student}`]);
-            return false;
+            result = false;
+            break;
           }
         }
       }
-      return false;
     }
   )
-    return false;
+    return result;
   }
   
 }

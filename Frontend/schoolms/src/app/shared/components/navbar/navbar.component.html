@@ -3,7 +3,8 @@
         <button *ngIf="openSidenavFlag" mat-icon-button class="menu" (click)="sidenavToggle()">
             <mat-icon>menu</mat-icon>
         </button>
-        <span>School MS</span>
+        <span>Єшкола</span>
+        <mat-icon>school</mat-icon>
     </div>
     <div class="center-part" *ngIf="!openSidenavFlag">
         <div class="nav-item" *ngFor="let navItem of navItems" [routerLink]="[navItem.routerLink]" [routerLinkActive]="['is-active']">
