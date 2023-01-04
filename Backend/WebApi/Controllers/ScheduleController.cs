@@ -2,10 +2,12 @@
 using Common.Dtos.Attendance;
 using Common.Dtos.Schedule;
 using Domain.Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ScheduleController : ControllerBase

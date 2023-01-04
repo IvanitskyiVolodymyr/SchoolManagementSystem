@@ -69,6 +69,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<int>> CancelSubmitStudentTask(int studentTaskId)
         {
             await _tasksValidators.CheckAccessByStudentTaskId(studentTaskId);
+            await _tasksValidators.ThrowsNotAcceptableExceptionIfTaskChecked(studentTaskId);
             return Ok(await _taskService.CancelSubmitStudentTask(studentTaskId));
         }
 

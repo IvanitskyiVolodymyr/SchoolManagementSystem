@@ -19,9 +19,9 @@ namespace Services.Tests.Unit.MockRepositories
                 .ReturnsAsync(output);
         }
 
-        public void GetClassIdByUserId(int userId, int output)
+        public void GetClassIdByStudentId(int studentId, int output)
         {
-            Setup(x => x.GetClassIdByUserId(It.Is<int>(i => i == userId)))
+            Setup(x => x.GetClassIdByStudentId(It.Is<int>(i => i == studentId)))
                 .ReturnsAsync(output);
         }
 

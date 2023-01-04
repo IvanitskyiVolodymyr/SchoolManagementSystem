@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Common.Exceptions;
 using Domain.Interfaces.Repositories;
-using FluentValidation;
 using Domain.Core.Entities;
 using ValidationException = Common.Exceptions.ValidationException;
 
@@ -105,6 +104,15 @@ namespace WebApi.Validators.Tasks
             if (grade > 100)
             {
                 throw new ValidationException("Grade can not be above than 100");
+            }
+        }
+
+        public async Task ThrowsNotAcceptableExceptionIfTaskChecked(int studentTaskId)
+        {
+            var studentTask = await _taskRepository.GetStudentTaskById(studentTaskId);
+            if(studentTask?.IsChecked == true)
+            {
+                throw new NotAcceptableException();
             }
         }
     }
