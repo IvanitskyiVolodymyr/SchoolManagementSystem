@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import { AppRoute } from "src/app/AppRoute";
+import { Role } from "src/app/shared/models/role/role";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { TokenService } from "src/app/shared/services/token.service";
 import * as AuthActions from "../actions/auth.actions";
@@ -27,8 +28,21 @@ export class AuthEffects {
       ofType(AuthActions.loginSuccessAction),
       tap((action)=>{
         this.tokenService.saveTokens(action.userAuth.tokens);
-        this.router.navigate([AppRoute.Home]);
-        })
+        switch(action.userAuth.user.roleId) {
+          case Role.Student as number : {
+            this.router.navigate([AppRoute.Student]);
+            break;
+          }
+          case Role.Parent as number : {
+            this.router.navigate([AppRoute.Parent]);
+            break;
+          }
+          case Role.Teacher as number : {
+            this.router.navigate([AppRoute.Teacher]);
+            break;
+          }
+        }
+      })
       ), { dispatch: false }
     );
 
