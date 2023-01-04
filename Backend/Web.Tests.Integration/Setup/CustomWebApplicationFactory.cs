@@ -8,7 +8,7 @@ namespace Web.Tests.Integration.Setup
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment("Development");
+            builder.UseEnvironment("Tests");
         }
     }
 }
