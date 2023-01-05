@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UrlNavigationService } from 'src/app/shared/helpers/url-navigation.service';
-import { ScheduleAttendance } from 'src/app/shared/models/schedule/scheduleAttendance';
-import { ResponseTask } from 'src/app/shared/models/tasks/reposponseTask';
+import { ScheduleCardModel } from 'src/app/shared/models/schedule/scheduleCardModel';
 
 @Component({
   selector: 'app-schedule-card',
@@ -9,8 +8,7 @@ import { ResponseTask } from 'src/app/shared/models/tasks/reposponseTask';
   styleUrls: ['./schedule-card.component.scss']
 })
 export class ScheduleCardComponent {
-  @Input() scheduleAttendance: ScheduleAttendance | undefined;
-  @Input() homework: ResponseTask[] = []; 
+  @Input() schedule: ScheduleCardModel | undefined;
 
   constructor(private urlNavigationService: UrlNavigationService) { }
 

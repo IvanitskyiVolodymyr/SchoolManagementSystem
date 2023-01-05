@@ -1,64 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { DateRange } from 'src/app/shared/models/date/date-range';
-import { ScheduleAttendance } from 'src/app/shared/models/schedule/scheduleAttendance';
+import { Component, Input } from '@angular/core';
+import { ScheduleCardModel } from 'src/app/shared/models/schedule/scheduleCardModel';
 import { ScheduleDay } from 'src/app/shared/models/schedule/scheduleDay';
-import { ResponseTask } from 'src/app/shared/models/tasks/reposponseTask';
-import { ScheduleService } from 'src/app/shared/services/schedule.service';
-import { TasksService } from 'src/app/shared/services/tasks.service';
-import { entityWithRole } from 'src/app/store/selectors/auth.selector';
 
 @Component({
   selector: 'app-schedule-list',
   templateUrl: './schedule-list.component.html',
   styleUrls: ['./schedule-list.component.scss']
 })
-export class ScheduleListComponent implements OnInit {
+export class ScheduleListComponent {
 
-  public schedules: Array<ScheduleAttendance> = [];
-  public homeworks: Array<ResponseTask> = [];
+  @Input() public schedules: Array<ScheduleCardModel> = [];
+
   public scheduleDays: Array<ScheduleDay> = [] as Array<ScheduleDay>;
   
   public startDate: Date = new Date();
-  public finishDate: Date = new Date();
   public isFromWeekBegining = true;
   public daysDiff = 7;
 
-
-  private studentId: number = 1 as number;
-
-  constructor(
-    private scheduleService: ScheduleService,
-    private taskService: TasksService,
-    private store: Store
-  ) {
-      
-  }
-  ngOnInit(): void {
-    this.store.select(entityWithRole).subscribe(
-      result => {
-        this.studentId = result?.entityId as number;
-      }
-    );
+  ngOnChanges() {
+    this.groupScheduleByDays(this.schedules);
   }
 
-  private getSchedulesByDate(startDate: Date, finishDate: Date, studentId: number) {
-    this.scheduleService.GetScheduleForStudentWithAttendancesByPeriod(startDate, finishDate, studentId)
-    .subscribe((result) => {
-        this.groupScheduleByDays(result);
-    });
-
-    this.taskService.GetAllHomeworksForStudent(studentId, startDate, finishDate).subscribe(
-      (result) => {
-        this.homeworks = result;
-      }
-    );
-  }
-
-  private groupScheduleByDays(sa: ScheduleAttendance[]) {
+  private groupScheduleByDays(sa: ScheduleCardModel[]) {
     this.scheduleDays = [];
     this.schedules = sa;
-    const map = new Map<number, Array<ScheduleAttendance>>();
+    const map = new Map<number, Array<ScheduleCardModel>>();
 
     this.schedules.forEach(lesson => {
       const dateDay = new Date(lesson.startTime).getDate();
@@ -79,14 +45,6 @@ export class ScheduleListComponent implements OnInit {
       this.scheduleDays.push(scheduleDay);
     });
     this.scheduleDays = this.scheduleDays.sort((b, a) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  }
-
-  public getHomework(scheduleId: number) {
-    return this.homeworks.filter((element) => element.scheduleId === scheduleId);
-  }
-
-  public onDateRangeChanged(date: DateRange) {
-    this.getSchedulesByDate(date.startDate, date.endDate, this.studentId);
   }
 
 }

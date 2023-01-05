@@ -2,8 +2,7 @@
     title='Щоденник' 
     [daysDiff]="daysDiff" 
     [startDate]="startDate"
-    [isFromWeekBegining] = "isFromWeekBegining"
-    (dateRangeChange)="onDateRangeChanged($event)">
+    [isFromWeekBegining] = "isFromWeekBegining">
 </app-date-time-nav-bar>
 
 <div class="schedule-container">
@@ -12,7 +11,7 @@
             <span>{{day.date | date:'EEEE, d MMMM' | ukrainianDate}}</span>
         </div>
         <div class="day-lessons" *ngFor="let item of day.schedules">
-            <app-schedule-card [scheduleAttendance] = "item" [homework] = "getHomework(item.scheduleId)"></app-schedule-card>
+            <app-schedule-card [schedule] = "item"></app-schedule-card>
         </div>
     </div>
 </div>  

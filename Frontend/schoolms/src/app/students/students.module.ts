@@ -11,6 +11,7 @@ import { JournalComponent } from './components/journal/journal.component';
 import { CommentCardComponent } from './components/comment-card/comment-card.component';
 import { CommentFormComponent } from './components/comment-form/comment-form.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { StudentScheduleBaseComponent } from './components/student-schedule-base/student-schedule-base.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CommentsComponent } from './components/comments/comments.component';
     JournalComponent,
     CommentCardComponent,
     CommentFormComponent,
-    CommentsComponent
+    CommentsComponent,
+    StudentScheduleBaseComponent
   ],
   imports: [
     CommonModule,

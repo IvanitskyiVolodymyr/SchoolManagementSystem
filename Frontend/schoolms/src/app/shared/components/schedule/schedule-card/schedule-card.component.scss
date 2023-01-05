@@ -39,7 +39,8 @@
     }
     .card-title-additional-info {
         width: 350px;
-
+        display: flex;
+        flex-direction: column;
     }
     .attendance {
         width: 40px;
@@ -49,12 +50,8 @@
         font-size: 24px;
         font-weight: 700;
 
-        .attendance-n {
+        .attendance{
             color: red;
-        }
-
-        .attendance-x {
-            color: blue
         }
     }
 }
