@@ -1,12 +1,4 @@
-<div class="card">
-    <div class="time-range">
-        <span>
-            {{schedule?.startTime | date: 'H:mm'}}
-        </span>
-        <span>
-            {{schedule?.endTime | date: 'H:mm'}}
-        </span>
-    </div>
+<div class="card" [ngClass]="getClassForTimeLine()">
     <div class="card-title-main-info"> 
         <span class="subject-title">{{schedule?.title}}</span>
         <span class="subject-place-info" (click)="openSubjectLink(schedule?.place)">[Відкрити посилання]</span>

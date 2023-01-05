@@ -15,4 +15,14 @@ export class ScheduleCardComponent {
   public openSubjectLink(url: string | undefined) {
     this.urlNavigationService.openExternalUrl(url);
   }
+
+  getClassForTimeLine() {
+    const currentDate = new Date();
+    if(new Date(this.schedule!.endTime).getTime() < currentDate.getTime())
+      return 'previous';
+    else if(new Date(this.schedule!.startTime).getTime() > currentDate.getTime())
+      return 'future';
+    else
+      return 'current';
+  }
 }

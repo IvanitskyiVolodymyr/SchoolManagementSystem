@@ -1,18 +1,26 @@
+$light-green: #E4F6D0;
+$light-orange: #FFE6C9;
+$light-grey: #E6E6E6;
+
+.previous {
+    background: $light-green;
+}
+.current {
+    background: $light-orange;
+}
+.future {
+    background: $light-grey;
+}
+
 .card {
     display: flex;
     flex-direction: row;
     width: fit-content;
-    background: #C9E2F1;
     box-shadow: 0px 0px 5px black;
     border-radius: 10px;
     align-items: center;
     padding: 10px;
 
-    .time-range {
-        font-size: 12px;
-        display: flex;
-        flex-direction: column;
-    }
     .card-title-main-info {
         padding-left: 10px;
         padding-right: 10px;
@@ -28,13 +36,12 @@
         }
         .subject-place-info {
             font-size: 14px;
-            background: #F8CFDD;
             padding: 2px;
             text-align: center;
         }
         .subject-place-info:hover {
             cursor: pointer;
-            background: #FFE6C9;
+            color: grey;
         }
     }
     .card-title-additional-info {

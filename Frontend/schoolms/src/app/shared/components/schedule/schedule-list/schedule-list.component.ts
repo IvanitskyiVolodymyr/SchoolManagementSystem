@@ -21,6 +21,16 @@ export class ScheduleListComponent {
     this.groupScheduleByDays(this.schedules);
   }
 
+  public getClassForTimeLine(startTime: Date, endTime: Date) {
+    const currentDate = new Date();
+    if(new Date(endTime).getTime() < currentDate.getTime())
+      return 'is-done';
+    else if(new Date(startTime).getTime() > currentDate.getTime())
+      return '';
+    else
+      return 'current';
+  }
+  
   private groupScheduleByDays(sa: ScheduleCardModel[]) {
     this.scheduleDays = [];
     this.schedules = sa;
