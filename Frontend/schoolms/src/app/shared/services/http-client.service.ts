@@ -23,7 +23,7 @@ export class HttpClientService {
     });
   }
 
-  public get<T>(url: string, httpParams?: any): Observable<T> {
+  public get<T>(url: string, httpParams?: HttpParams): Observable<T> {
     return this.http.get<T>(this.buildUrl(url), { params: httpParams });
   }
 

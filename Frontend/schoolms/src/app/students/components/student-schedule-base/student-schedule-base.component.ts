@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { DateRange } from 'src/app/shared/models/date/date-range';
@@ -15,11 +15,10 @@ import { entityWithRole } from 'src/app/store/selectors/auth.selector';
   templateUrl: './student-schedule-base.component.html',
   styleUrls: ['./student-schedule-base.component.scss']
 })
-export class StudentScheduleBaseComponent implements OnInit{
+export class StudentScheduleBaseComponent implements OnInit, OnDestroy {
 
-  private studentId: number = 1 as number;
+  private studentId: number | undefined;
   public schedules: Array<ScheduleCardModel> = [];
-  public homeworks: Array<ResponseTask> = [];
 
   private subscription!: Subscription;
 
@@ -31,15 +30,14 @@ export class StudentScheduleBaseComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.dateRangeService.dateRangeEvent.subscribe(
-      dateRange => {
-        this.onDateChanged(dateRange);
-      }
-    );
-
     this.store.select(entityWithRole).subscribe(
       result => {
         this.studentId = result?.entityId as number;
+        this.subscription = this.dateRangeService.dateRangeEvent.subscribe(
+          dateRange => {
+            this.onDateChanged(dateRange, this.studentId);
+          }
+        );
       }
     );
   }
@@ -74,12 +72,13 @@ export class StudentScheduleBaseComponent implements OnInit{
   }
   }
 
-  public onDateChanged(date: DateRange) {
-    this.getSchedulesByDate(date.startDate, date.endDate, this.studentId);
+  public onDateChanged(date: DateRange, studentId: number | undefined) {
+    if(studentId)
+      this.getSchedulesByDate(date.startDate, date.endDate, studentId);
   }
 
   private getHomework(tasks: ResponseTask[], scheduleId: number) : Array<string> {
-    let homeworks = tasks.filter(t => t.scheduleId === scheduleId);
+    const homeworks = tasks.filter(t => t.scheduleId === scheduleId);
     return homeworks.map(hw => hw.title);
   }
 

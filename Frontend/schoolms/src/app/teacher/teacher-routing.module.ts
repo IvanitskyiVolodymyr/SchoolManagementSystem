@@ -11,7 +11,12 @@ const teacherRoutes: Routes = [
       {
         path: 'schedule', component: TeacherScheduleBaseComponent
       },
-      { path: 'not-acceptable', component: NotAcceptableComponent }
+      { 
+        path: 'not-acceptable', component: NotAcceptableComponent 
+      },
+      {
+        path: '', redirectTo:'schedule', pathMatch: 'full'
+      }
     ],
   },
 ];

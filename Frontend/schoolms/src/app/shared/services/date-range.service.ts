@@ -6,8 +6,6 @@ import { DateRange } from '../models/date/date-range';
 })
 export class DateRangeService {
 
-  constructor() { }
-
   @Output() dateRangeEvent = new EventEmitter<DateRange>();
 
     changeDateClicked(dateRange: DateRange) {

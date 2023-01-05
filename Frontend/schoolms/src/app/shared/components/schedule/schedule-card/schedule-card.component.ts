@@ -8,7 +8,7 @@ import { ScheduleCardModel } from 'src/app/shared/models/schedule/scheduleCardMo
   styleUrls: ['./schedule-card.component.scss']
 })
 export class ScheduleCardComponent {
-  @Input() schedule: ScheduleCardModel | undefined;
+  @Input() schedule!: ScheduleCardModel;
 
   constructor(private urlNavigationService: UrlNavigationService) { }
 
@@ -18,9 +18,9 @@ export class ScheduleCardComponent {
 
   getClassForTimeLine() {
     const currentDate = new Date();
-    if(new Date(this.schedule!.endTime).getTime() < currentDate.getTime())
+    if(new Date(this.schedule.endTime).getTime() < currentDate.getTime())
       return 'previous';
-    else if(new Date(this.schedule!.startTime).getTime() > currentDate.getTime())
+    else if(new Date(this.schedule.startTime).getTime() > currentDate.getTime())
       return 'future';
     else
       return 'current';

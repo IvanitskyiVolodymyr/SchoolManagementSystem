@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { DateRange } from 'src/app/shared/models/date/date-range';
@@ -13,7 +13,7 @@ import { entityWithRole } from 'src/app/store/selectors/auth.selector';
   templateUrl: './teacher-schedule-base.component.html',
   styleUrls: ['./teacher-schedule-base.component.scss']
 })
-export class TeacherScheduleBaseComponent {
+export class TeacherScheduleBaseComponent implements OnInit, OnDestroy {
 
   private teacherId: number | undefined;
   public schedules: Array<ScheduleCardModel> = [];
@@ -27,15 +27,14 @@ export class TeacherScheduleBaseComponent {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.dateRangeService.dateRangeEvent.subscribe(
-      dateRange => {
-        this.onDateChanged(dateRange);
-      }
-    );
-
     this.store.select(entityWithRole).subscribe(
       result => {
         this.teacherId = result?.entityId as number;
+        this.subscription = this.dateRangeService.dateRangeEvent.subscribe(
+          dateRange => {
+            this.onDateChanged(dateRange, this.teacherId);
+          }
+        );
       }
     );
   }
@@ -65,9 +64,9 @@ export class TeacherScheduleBaseComponent {
       });
   }
 
-  public onDateChanged(date: DateRange) {
-    if(this.teacherId)
-      this.getSchedulesByDate(date.startDate, date.endDate, this.teacherId);
+  public onDateChanged(date: DateRange, teacherId: number | undefined) {
+    if(teacherId)
+      this.getSchedulesByDate(date.startDate, date.endDate, teacherId);
   }
 
   private getClassNumberWithLetter(schedule: ScheduleWithClassSubject): string {

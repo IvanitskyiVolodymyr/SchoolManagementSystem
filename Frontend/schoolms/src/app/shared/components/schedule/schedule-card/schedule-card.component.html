@@ -1,17 +1,17 @@
-<div class="card" [ngClass]="getClassForTimeLine()">
+<div class="card" *ngIf="schedule" [ngClass]="getClassForTimeLine()">
     <div class="card-title-main-info"> 
-        <span class="subject-title">{{schedule?.title}}</span>
-        <span class="subject-place-info" (click)="openSubjectLink(schedule?.place)">[Відкрити посилання]</span>
+        <span class="subject-title">{{schedule.title}}</span>
+        <span class="subject-place-info" (click)="openSubjectLink(schedule.place)">[Відкрити посилання]</span>
     </div>
     <div class="card-title-additional-info">
-        <span *ngIf="schedule?.homeworks">
-            <span *ngFor="let task of schedule?.homeworks">
+        <span *ngIf="schedule.homeworks">
+            <span *ngFor="let task of schedule.homeworks">
                 <span><b>Д/З: </b></span>
                 <span>{{ task }}</span>
             </span>
         </span>
-        <span *ngIf="schedule?.planning">
-            <span *ngFor="let plan of schedule?.planning">
+        <span *ngIf="schedule.planning">
+            <span *ngFor="let plan of schedule.planning">
                 <span><b>Тема: </b></span>
                 <span>{{ plan }}</span>
             </span>
@@ -19,8 +19,8 @@
     </div>
     
     <div class="attendance">
-        <div *ngIf="schedule?.rightPart" class="attendance">
-            <span>{{schedule?.rightPart}}</span>
+        <div *ngIf="schedule.rightPart" class="attendance">
+            <span>{{schedule.rightPart}}</span>
         </div>
     </div>
 </div>

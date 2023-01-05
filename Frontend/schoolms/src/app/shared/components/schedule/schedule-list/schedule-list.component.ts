@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ScheduleCardModel } from 'src/app/shared/models/schedule/scheduleCardModel';
 import { ScheduleDay } from 'src/app/shared/models/schedule/scheduleDay';
 
@@ -7,7 +7,7 @@ import { ScheduleDay } from 'src/app/shared/models/schedule/scheduleDay';
   templateUrl: './schedule-list.component.html',
   styleUrls: ['./schedule-list.component.scss']
 })
-export class ScheduleListComponent {
+export class ScheduleListComponent implements OnChanges{
 
   @Input() public schedules: Array<ScheduleCardModel> = [];
 
