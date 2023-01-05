@@ -1,11 +1,7 @@
 import { AttendanceStatus } from "./attendanceStatus";
+import { Schedule } from "./schedule";
 
-export interface ScheduleAttendance {
-    scheduleId: number;
-    startTime: Date;
-    classSubjectId: number;
+export interface ScheduleAttendance extends Schedule {
     subjectName: string;
-    endTime: Date;
-    place: string;
     status: AttendanceStatus | null;
 }

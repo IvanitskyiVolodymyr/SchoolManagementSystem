@@ -45,9 +45,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("teachers")]
-        public async Task<ActionResult<IEnumerable<Schedule>>> GetScheduleForTeacherByPeriod(DateTime startTime, DateTime endTime, int teacherId)
+        public async Task<ActionResult<IEnumerable<ScheduleWithClassSubjectDto>>> GetScheduleForTeacherByPeriod(DateTime startDateTime, DateTime endDateTime, int teacherId)
         {
-            return Ok(await _scheduleService.GetScheduleForTeacherByPeriod(startTime, endTime, teacherId));
+            return Ok(await _scheduleService.GetScheduleForTeacherByPeriod(startDateTime, endDateTime, teacherId));
         }
 
         [HttpPost("attendances")]

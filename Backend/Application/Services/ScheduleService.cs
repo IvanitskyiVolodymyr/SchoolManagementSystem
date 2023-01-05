@@ -53,7 +53,7 @@ namespace Application.Services
                          }).ToList();
         }
 
-        public async Task<IEnumerable<Schedule>> GetScheduleForTeacherByPeriod(DateTime startTime, DateTime endTime, int teacherId)
+        public async Task<IEnumerable<ScheduleWithClassSubjectDto>> GetScheduleForTeacherByPeriod(DateTime startTime, DateTime endTime, int teacherId)
         {
             return await _scheduleRepository.GetScheduleForTeacherByPeriod(startTime, endTime, teacherId);
         }

@@ -7,7 +7,7 @@ namespace Application.Interfaces
     public interface IScheduleService
     {
         Task<IEnumerable<ScheduleWithSubject>> GetScheduleForStudentByPeriod(DateTime startTime, DateTime endTime, int studentId);
-        Task<IEnumerable<Schedule>> GetScheduleForTeacherByPeriod(DateTime startTime, DateTime endTime, int teacherId);
+        Task<IEnumerable<ScheduleWithClassSubjectDto>> GetScheduleForTeacherByPeriod(DateTime startTime, DateTime endTime, int teacherId);
         Task<IEnumerable<Schedule>> GenerateSchedule(DateTime from, DateTime to, IList<ScheduleGenerationDto> scheduleGenerationDto);
         Task InsertScheduleRange(IList<InsertScheduleDto> scheduleRange);
         Task<int> InsertSchedule(InsertScheduleDto scheduleDto);

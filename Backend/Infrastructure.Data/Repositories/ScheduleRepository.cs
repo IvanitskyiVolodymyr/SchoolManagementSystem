@@ -36,9 +36,9 @@ namespace Infrastructure.Data.Repositories
             });
         }
 
-        public async Task<IEnumerable<Schedule>> GetScheduleForTeacherByPeriod(DateTime startDateTime, DateTime endDateTime, int teacherId)
+        public async Task<IEnumerable<ScheduleWithClassSubjectDto>> GetScheduleForTeacherByPeriod(DateTime startDateTime, DateTime endDateTime, int teacherId)
         {
-            return await _db.LoadData<Schedule, dynamic>("spSchedule_GetForTeacherByPeriod", new
+            return await _db.LoadData<ScheduleWithClassSubjectDto, dynamic>("spSchedule_GetForTeacherByPeriod", new
             {
                 StartDateTime = startDateTime,
                 EndDateTime = endDateTime,
