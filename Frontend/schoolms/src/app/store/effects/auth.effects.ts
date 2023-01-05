@@ -7,6 +7,7 @@ import { Role } from "src/app/shared/models/role/role";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { TokenService } from "src/app/shared/services/token.service";
 import * as AuthActions from "../actions/auth.actions";
+import * as UserActions from "../actions/user.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -28,7 +29,15 @@ export class AuthEffects {
       ofType(AuthActions.loginSuccessAction),
       tap((action)=>{
         this.tokenService.saveTokens(action.userAuth.tokens);
-        switch(action.userAuth.user.roleId) {
+      })
+      ), { dispatch: false }
+    );
+
+    redirectSucces$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(UserActions.getEntityIdWithRole),
+      tap((action)=>{
+        switch(action.entityWithRole.roleId) {
           case Role.Student as number : {
             this.router.navigate([AppRoute.Student]);
             break;

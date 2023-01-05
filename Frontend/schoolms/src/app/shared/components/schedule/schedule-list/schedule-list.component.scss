@@ -6,22 +6,98 @@
     align-items: flex-start;
     justify-content: center;
     
-    .day-schedule {
+    .day-dates {
+        font-size: 18px;
+        padding: 10px 0px;
+    }
+
+    .left-part {
+        position: absolute;
+        height: 100%;
+        left:-110px;
+    }
+    .bold{font-weight:bold;}
+    .time {
+        height: 100%;
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        align-items: center;
-        .day-lessons {
-            display: flex;
-            flex-direction: column;
-            gap:10px 
-        }  
-        .day-dates {
-            span {
-                font-weight: 700;
-                font-size: 18px;
-            }
-            padding-bottom: 10px;
-        }
+        justify-content: center;
+    }
+    .timeline-wrapper {
+        padding-left:100px;
+        min-width: 400px;
+        font-family: 'Helvetica';
+        font-size: 14px;
+    }
+    .step-progress {
+        position: relative;
+        padding-left: 45px;
+        list-style: none;
+    }
+    .step-progress::before {
+        display: inline-block;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 15px;
+        width: 10px;
+        height: 100%;
+        border-left: 2px solid #CCC;
+    }
+    .step-progress-item {
+        position: relative;
+        counter-increment: list;
+    }
+    .step-progress-item:not(:last-child) {
+        padding-bottom: 20px;
+    }
+    .step-progress-item::before {
+        display: inline-block;
+        content: '';
+        position: absolute;
+        left: -30px;
+        height: 100%;
+        width: 10px;
+    }
+    .step-progress-item::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: -39px;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #CCC;
+        border-radius: 50%;
+        background-color: #FFF;
+    }
+    .step-progress-item.is-done::before {
+        border-left: 2px solid green;
+    }
+    .step-progress-item.is-done::after {
+        font-size: 10px;
+        color: #FFF;
+        text-align: center;
+        border: 2px solid green;
+        background-color: green;
+    }
+    
+    .step-progress-item.current::before { 
+        border-left: 2px solid orange;
+    }
+    .step-progress-item.current::after {
+        content: '';
+        padding-top: 1px;
+        width: 19px;
+        height: 19px;
+        left: -40px;
+        font-size: 14px;
+        text-align: center;
+        color: orange;
+        border: 2px solid orange;
+        background-color: white;
+    }
+    .step-progress strong {
+        display: block;
     }
 }

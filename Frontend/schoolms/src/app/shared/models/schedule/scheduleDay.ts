@@ -1,6 +1,6 @@
-import { ScheduleAttendance } from "./scheduleAttendance";
+import { ScheduleCardModel } from "./scheduleCardModel";
 
 export interface ScheduleDay {
-    schedules: Array<ScheduleAttendance>;
+    schedules: Array<ScheduleCardModel>;
     date: Date;
 }

@@ -3,14 +3,8 @@ using Domain.Core.Entities;
 
 namespace Common.Dtos.Schedule
 {
-    public class ScheduleAttendanceDto
+    public class ScheduleAttendanceDto : ScheduleWithSubject
     {
-        public int ScheduleId { get; set; }
-        public DateTime StartTime { get; set; }
-        public int ClassSubjectId { get; set; }
-        public string SubjectName { get; set; }
-        public DateTime EndTime { get; set; }
-        public string Place { get; set; }
         public AttendanceStatus? Status { get; set; }
     }
 }
